@@ -1,0 +1,90 @@
+// Header
+ion-header {
+    height: 6.5vh;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-left: 1.2rem;
+    margin-top: 0.6rem;
+}
+
+.text {
+    font-size: 1.5rem;
+    margin-top: 0.9rem;
+}
+
+// Image
+.card-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.card-image ion-img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+// Title
+.title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.heart-icon {
+    position: absolute;
+    right: 10px;
+    color: red;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+// Subtitle
+.type {
+    margin-top: 5px;
+    font-size: 1em;
+}
+
+.number {
+    margin-top: 5px;
+    font-size: 1.2em;
+    color: #737373;
+}
+
+.number-weight {
+    font-size: 0.7rem;
+    margin-left: 0.2rem;
+}
+
+// Data
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.link{
+    color: #737373;
+    text-decoration: none;
+}
+
+// Skeleton
+.skeleton-image {
+    width: 20rem;
+    height: 20rem;
+}
+
+.text-skeleton {
+    height: 3vh;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+}
+
+.dog-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 25%;
+}

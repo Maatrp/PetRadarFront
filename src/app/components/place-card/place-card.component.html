@@ -1,0 +1,46 @@
+<ion-card
+  class="product-card"
+  *ngIf="showCard && data && !showSkeleton"
+  (click)="handleClickOpenCardPage(data.id)"
+>
+  <div class="product-card">
+    <ion-thumbnail>
+      <ion-img
+        *ngIf="data.placeImages"
+        [src]="data.placeImages[0].src"
+        [alt]="'Image from ' + data.name"
+      ></ion-img>
+      <ion-img
+        *ngIf="!data.placeImages"
+        src="../../../assets/imagenotfound.jpg"
+        [attr.alt]="'Image from ' + data.name"
+      ></ion-img>
+    </ion-thumbnail>
+    <div class="content-container">
+      <div class="title">{{ data.name }}</div>
+      <div class="type">{{ data.type | translateType }}</div>
+      <div class="number" *ngIf="data.averageRating">
+        {{ data.averageRating | starRating }}
+        <span class="number-weight">({{ data.averageRating }})</span>
+      </div>
+    </div>
+    <div *ngIf="isLoggedIn" class="heart-icon">
+      <ion-icon
+        name="heart-outline"
+        color="danger"
+        *ngIf="!data.favorite"
+        (click)="handleClickFavoritePlace($event)"
+      ></ion-icon>
+      <ion-icon
+        name="heart"
+        color="danger"
+        *ngIf="data.favorite"
+        (click)="handleClickFavoritePlace($event)"
+      ></ion-icon>
+    </div>
+  </div>
+</ion-card>
+
+<div *ngIf="showCard && showSkeleton">
+  <app-place-card-skeletor> </app-place-card-skeletor>
+</div>

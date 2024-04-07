@@ -1,0 +1,56 @@
+// Header
+ion-header {
+    height: 6.5vh;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-left: 1.2rem;
+    margin-top: 0.6rem;
+}
+
+.text {
+    font-size: 1.5rem;
+    margin-top: 0.9rem;
+}
+
+// Content
+ion-card{
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    background: url("../../../assets/huella.jpg") repeat center center fixed;
+    opacity: 0.1;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+// Icon and text
+.icons{
+    font-size: 2rem;
+    margin-left: 1.2rem;
+    margin-top: 0.8rem;
+}
+
+.text{
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+
+//Button
+ion-button.close {
+    --background: #ae7e52;
+    color: white;
+    margin-top: 2rem;
+}

@@ -1,0 +1,42 @@
+.spacer {
+    height: 60px;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-top: 0.9rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.search {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.searchbar-input {
+    --padding-start: 0.5rem; 
+    --padding-end: 0.5rem;
+    width: 100%;
+}
+
+.kind-places {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 1.5rem;
+    font-weight: 1rem;
+    font-size: large;
+}
+
+ion-checkbox {
+    color: #737373;
+}
+
+// Buttons
+ion-button.init-session {
+    --background: #ae7e52;
+    color: white;
+}

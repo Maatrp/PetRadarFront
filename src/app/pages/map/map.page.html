@@ -1,0 +1,22 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+
+<ion-content>
+  <div class="spacer"></div>
+
+  <div id="map"></div>
+
+  <ion-fab class="mt-5 me-2" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button
+      class="top-button mt-3"
+      (click)="handleGeolocationButtonClick()"
+    >
+      <ion-icon name="locate-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ion-footer>
+  <app-place-card [canBeClosed]="true"></app-place-card>
+</ion-footer>

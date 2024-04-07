@@ -1,0 +1,69 @@
+// Header
+ion-header {
+    height: 6.5vh;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-left: 1.2rem;
+    margin-top: 0.6rem;
+}
+
+.text {
+    font-size: 1.5rem;
+    margin-top: 0.9rem;
+}
+
+// Content
+ion-card-content {
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    background: url("../../../assets/huella.jpg") repeat center center fixed;
+    opacity: 0.1;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+// Email and Password
+.email {
+    margin-top: 4.5rem;
+    opacity: 0.8;
+}
+
+.password {
+    margin-top: 1.5rem;
+    opacity: 0.8;
+}
+
+.password {
+    position: relative;
+
+    .show-password {
+        -webkit-text-security: disc;
+    }
+}
+
+// Buttons
+ion-button.init-session {
+    --background: #ae7e52;
+    color: white;
+    margin-top: 2rem;
+}
+
+.register-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #76410f;
+}

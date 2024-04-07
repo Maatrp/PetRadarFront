@@ -1,0 +1,38 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+
+<ion-content>
+  <div class="spacer"></div>
+
+  <div class="flex-center">
+    <ion-card>
+      <ion-card-header>
+        <div class="title">Filtros de búsqueda</div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="search">
+          <ion-input
+            type="text"
+            placeholder="Buscar"
+            class="form-control searchbar-input"
+            [(ngModel)]="searchName"
+          ></ion-input>
+        </div>
+        <ion-list class="kind-places" (ionChange)="onSelectionChange()">
+          <ion-label position="floating">Tipo de lugar:</ion-label>
+          <ion-item *ngFor="let option of options;">
+            <ion-checkbox [(ngModel)]="option.selected"
+              >{{ option.name | translateType }}</ion-checkbox
+            >
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-button class="init-session" expand="full" (click)="filterSearch()"
+    >Buscar</ion-button
+  >
+</ion-footer>

@@ -1,0 +1,18 @@
+{
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@ionic/angular/common",
+    "@ionic/angular/standalone"
+  ],
+  "cSpell.words": [
+    "abrir",
+    "actualizar",
+    "botón",
+    "evento",
+    "favorito",
+    "filtros",
+    "lista",
+    "mapa",
+    "Método",
+    "mostrar"
+  ]
+}

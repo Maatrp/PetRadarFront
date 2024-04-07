@@ -1,0 +1,121 @@
+<ion-header>
+  <div class="row">
+    <div class="col-2">
+      <ion-icon
+        class="icon"
+        name="arrow-back-outline"
+        onclick="window.history.back()"
+      ></ion-icon>
+    </div>
+    <div class="col-10">
+      <span class="text">Información</span>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content *ngIf="data && !showSkeleton && !showNoData">
+  <ion-card class="alert alert-light" *ngIf="data">
+    <div class="card-image">
+      <ion-img
+        *ngIf="data.placeImages"
+        [src]="data.placeImages[0].src"
+        [alt]="'Image from ' + data.name"
+      ></ion-img>
+      <ion-img
+        *ngIf="!data.placeImages"
+        src="../../../assets/imagenotfound.jpg"
+        [attr.alt]="'Image from ' + data.name"
+      ></ion-img>
+    </div>
+    <ion-card-header>
+      <div class="row">
+        <div class="col-10">
+          <div class="title">{{ data.name }}</div>
+        </div>
+        <div class="col-2 heart-icon" *ngIf="isLoggedIn">
+          <ion-icon
+            name="heart-outline"
+            color="danger"
+            *ngIf="!data.favorite"
+            (click)="handleClickFavoritePlace()"
+          ></ion-icon>
+          <ion-icon
+            name="heart"
+            color="danger"
+            *ngIf="data.favorite"
+            (click)="handleClickFavoritePlace()"
+          ></ion-icon>
+        </div>
+      </div>
+      <div class="type">{{ data.type | translateType }}</div>
+      <div class="number" *ngIf="data.averageRating">
+        {{ data.averageRating | starRating }}
+        <span class="number-weight">({{data.averageRating }})</span>
+      </div>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="mb-3">
+        <ion-icon name="pin-outline"></ion-icon>
+        <span> {{ data.address }}, {{ data.zip }}, {{ data.town }}</span>
+      </div>
+      <div class="mb-3" *ngIf="data.website">
+        <ion-icon name="globe-outline"></ion-icon>
+        <span
+          ><a class="link" [href]="data.website" target="_blank">
+            {{ data.website }}</a
+          ></span
+        >
+      </div>
+      <div class="mb-3" *ngIf="data.phone">
+        <ion-icon name="call-outline"></ion-icon>
+        <a class="link" [href]="sanitizeTelLink(data.phone)">
+          <span>{{ data.phone }}</span>
+        </a>
+      </div>
+      <div class="mb-3" *ngIf="data.description">
+        <ion-icon name="reorder-four-outline"></ion-icon>
+        <span> {{ data.description }}</span>
+      </div>
+      <div class="tag-container">
+        <div *ngFor="let tag of data.tags">
+          <div class="tag">
+            <ion-chip>{{ tag | translateTag }}</ion-chip>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="showNoData">
+  <ion-card class="alert alert-light">
+    <h1 class="text-center">No hay coincidencias</h1>
+    <div class="dog-image">
+      <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
+    </div>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="showSkeleton">
+  <ion-card class="container mx-auto alert alert-light">
+    <ion-skeleton-text
+      class="skeleton-image col-4 hydrated"
+      animated
+    ></ion-skeleton-text>
+
+    <ion-card-header>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

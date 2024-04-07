@@ -1,0 +1,7 @@
+{
+  "name": "Pet Radar",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
