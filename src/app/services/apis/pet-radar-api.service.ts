@@ -6,6 +6,9 @@ import { PlaceData } from 'src/app/interface/place-data';
 import { UserData } from 'src/app/interface/user-data';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from 'src/app/interface/auth-response';
+import { TypeData } from 'src/app/interface/type-data';
+import { TagsData } from 'src/app/interface/tags-data';
+import { RestrictionsData } from 'src/app/interface/restrictions-data';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +20,10 @@ export class PetRadarApiService {
   private createUserUrl: string = environment.createUserUrl;
   private addFavoriteUrl: string = environment.addFavoriteUrl;
   private removeFavoriteUrl: string = environment.removeFavoriteUrl;
+  private createPlaceUrl: string = environment.createPlaceUrl;
+  private typePlaceUrl: string = environment.typePlaceUrl;
+  private tagsPlaceUrl: string = environment.tagsPlaceUrl;
+  private restrictionsPlaceUrl: string = environment.restrictionsPlaceUrl;
 
   constructor(private _http: HttpClient) { }
 
@@ -93,11 +100,11 @@ export class PetRadarApiService {
   putAddFavorite(token: string, placeId: string, userId: string): Observable<string> {
 
     const headers = new HttpHeaders({
-      "Authorization": 'Bearer ' + token
+      'Authorization': 'Bearer ' + token
     });
 
     return this._http.put(
-      this.addFavoriteUrl + '/' + userId + '/' + placeId, null, { headers: headers, responseType: 'text'}
+      this.addFavoriteUrl + '/' + userId + '/' + placeId, null, { headers: headers, responseType: 'text' }
     );
   }
 
@@ -105,11 +112,43 @@ export class PetRadarApiService {
   deleteRemoveFavorite(token: string, placeId: string, userId: string): Observable<string> {
 
     const headers = new HttpHeaders({
-      "Authorization": 'Bearer ' + token
+      'Authorization': 'Bearer ' + token
     });
 
     return this._http.delete(
       this.removeFavoriteUrl + '/' + userId + '/' + placeId, { headers: headers, responseType: 'text' }
     );
   }
+
+  // Crear espacio
+  postCreatePlace(token: string, email: string, placeData: PlaceData): Observable<string> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    this.createPlaceUrl += '/' + email;
+
+    return this._http.post<string>(this.createPlaceUrl, placeData, { headers: headers, responseType: 'text' as 'json' });
+
+  }
+
+  // Obtiene la lista de tipos de lugar
+  getTypePlace(): Observable<TypeData[]> {
+    return this._http.get<TypeData[]>(this.typePlaceUrl);
+
+  }
+
+  // Obtiene la lista de tags
+  getTagsPlace(): Observable<TagsData[]> {
+    return this._http.get<TagsData[]>(this.tagsPlaceUrl);
+
+  }
+
+  // Obtiene la lista de restricciones de un lugar
+  getRestrictionsPlace(): Observable<RestrictionsData[]> {
+    return this._http.get<RestrictionsData[]>(this.restrictionsPlaceUrl);
+
+  }
+
 }

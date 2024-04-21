@@ -11,14 +11,10 @@ export const environment = {
   createUserUrl: 'http://127.0.0.1:8080/user/create',
   addFavoriteUrl: 'http://127.0.0.1:8080/favorites/add',
   removeFavoriteUrl: 'http://127.0.0.1:8080/favorites/remove',
-
-  // baseUrl: 'https://petradar.click/',
-  // placeListUrl: 'https://petradar.click/places/list',
-  // placeCardUrl: 'https://petradar.click/places/card/',
-  // authUserUrl: 'https://petradar.click/auth/authenticate',
-  // createUserUrl: 'https://petradar.click/user/create',
-  // addFavoriteUrl: 'https://petradar.click/favorites/add',
-  // removeFavoriteUrl: https://petradar.click/favorites/remove',
+  createPlaceUrl: 'http://127.0.0.1:8080/places/create',
+  typePlaceUrl: 'http://127.0.0.1:8080/type/list',
+  tagsPlaceUrl: 'http://127.0.0.1:8080/tags/list',
+  restrictionsPlaceUrl: 'http://127.0.0.1:8080/restrictions/list',
 
   iconUrl: 'assets/icons/',
   defaultLatitude: 37.36247679369061,

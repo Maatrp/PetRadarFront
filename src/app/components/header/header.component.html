@@ -1,5 +1,8 @@
 <div>
   <ion-fab vertical="top" horizontal="center" slot="fixed">
+    <ion-button class="top-button" routerLink="/index">
+      <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+    </ion-button>
     <ion-button
       class="top-button"
       routerLink="/map"
@@ -7,6 +10,7 @@
     >
       <ion-icon slot="icon-only" name="map-outline"></ion-icon>
     </ion-button>
+
     <ion-button
       class="top-button"
       routerLink="/cards-list"
@@ -14,6 +18,7 @@
     >
       <ion-icon slot="icon-only" name="list-outline"></ion-icon>
     </ion-button>
+
     <ion-button
       class="top-button"
       routerLink="/filter"
@@ -21,8 +26,25 @@
     >
       <ion-icon slot="icon-only" name="options-outline"></ion-icon>
     </ion-button>
+
     <ion-button class="top-button" routerLink="/my-account">
       <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button
+      class="top-button"
+      routerLink="/create-place"
+      *ngIf="isShowingCreatePlaceButton() && userCanCreate"
+    >
+      <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button
+      class="top-button"
+      routerLink="/request-place"
+      *ngIf="isShowingUpdateStatusPlaceButton() && updateStatusPlace"
+    >
+      <ion-icon slot="icon-only" name="folder-outline"></ion-icon>
     </ion-button>
   </ion-fab>
 </div>

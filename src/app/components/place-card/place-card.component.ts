@@ -101,6 +101,7 @@ export class PlaceCardComponent implements OnInit, OnChanges {
             placeImages: place.placeImages,
             description: place.description,
             tags: place.tags,
+            restrictions: place.restrictions,
             averageRating: place.averageRating,
             address: place.address,
             zip: place.zip,
