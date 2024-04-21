@@ -1,13 +1,13 @@
 import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { PetRadarApiService } from '../../services/apis/pet-radar-api.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Icon, LatLngExpression, Layer, Map, marker, tileLayer } from 'leaflet';
 import { MarkerData } from 'src/app/interface/marker-data';
 import { FilterData } from 'src/app/interface/filter-data';
 import { environment } from 'src/environments/environment';
 import { GeolocationService } from 'src/app/services/geolocation/geolocation.service';
-import { ToastController } from '@ionic/angular';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-map',
@@ -21,7 +21,7 @@ export class MapPage {
   markerLayers: Layer[] = [];
 
   filterData: FilterData | undefined;
-
+  @ViewChild(HeaderComponent) _headerComponent: HeaderComponent | undefined;
   // Carga los datos
   constructor(
     private _petRadarApiService: PetRadarApiService,
@@ -32,6 +32,9 @@ export class MapPage {
 
   async ionViewWillEnter() {
     try {
+      // Comprobación de permisos para pintar el link
+      await this._headerComponent?.checkPermissions();
+      
       // Carga los datos
       this.filterData = await this._storageService.getFilters();
 

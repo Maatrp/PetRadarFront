@@ -4,11 +4,12 @@ export interface PlaceData {
   id: string;
   name: string;
   type: string;
+  description: string;
   latitude: number;
   longitude: number;
   placeImages?: PlaceImage[];
-  description?: string;
   tags?: string[];
+  restrictions?: string[];
   averageRating?: number;
   address: string;
   zip: string;

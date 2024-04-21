@@ -1,0 +1,233 @@
+<ion-header>
+  <app-header></app-header>
+</ion-header>
+
+<ion-card *ngIf="!hasPermissions" class="alert alert-light">
+  <h1 class="text-center">Para acceder a esta página debes iniciar sesión.</h1>
+  <button routerLink="/login">Clica aquía para logearte</button>
+  <div class="dog-image">
+    <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
+  </div>
+</ion-card>
+
+<ion-content *ngIf="hasPermissions">
+  <div class="flex-center">
+    <form [formGroup]="form">
+      <ion-card-content class="container">
+        <div class="name">
+          <ion-item>
+            <ion-input
+              label="Nombre del lugar"
+              labelPlacement="floating"
+              type="text"
+              formControlName="name"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')"
+          >
+            Nombre del lugar obligatorio
+          </ion-label>
+        </div>
+        <div class="type">
+          <ion-item>
+            <ion-select
+              class="custom-select"
+              label="Tipo del lugar"
+              labelPlacement="floating"
+              formControlName="type"
+              interface="popover"
+            >
+              <ion-select-option *ngFor="let type of typePlaceList"
+                >{{ type }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('type')?.touched && form.get('type')?.hasError('required')"
+          >
+            Nombre del lugar obligatorio
+          </ion-label>
+        </div>
+        <div class="description">
+          <ion-item>
+            <ion-textarea
+              label="Descripción del lugar"
+              labelPlacement="floating"
+              type="text"
+              formControlName="description"
+            ></ion-textarea>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('description')?.touched && form.get('description')?.hasError('required')"
+          >
+            Descripción del lugar obligatoria
+          </ion-label>
+        </div>
+        <div class="latitude">
+          <ion-item>
+            <ion-input
+              label="Latitud del lugar"
+              labelPlacement="floating"
+              type="number"
+              formControlName="latitude"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('latitude')?.touched && form.get('latitude')?.hasError('required')"
+          >
+            Latitud del lugar obligatorio
+          </ion-label>
+        </div>
+        <div class="longitude">
+          <ion-item>
+            <ion-input
+              label="Longitud del lugar"
+              labelPlacement="floating"
+              type="number"
+              formControlName="longitude"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('longitude')?.touched && form.get('longitude')?.hasError('required')"
+          >
+            Longitud del lugar obligatorio
+          </ion-label>
+        </div>
+        <div class="tags">
+          <ion-item>
+            <ion-label>Tags</ion-label>
+            <ul class="interes-elem">
+              <li *ngFor="let tag of tagsPlaceList">
+                <input
+                  type="checkbox"
+                  id="{{ tag }}"
+                  name="tagsPlaceList"
+                  [value]="tag"
+                />
+                <label for="{{ tag }}">{{ tag }}</label>
+              </li>
+            </ul>
+          </ion-item>
+        </div>
+        <div class="restrictions">
+          <ion-item>
+            <ion-label>Restriciones</ion-label>
+            <ul class="interes-elem">
+              <li *ngFor="let restriction of restrictionsPlaceList">
+                <input
+                  type="checkbox"
+                  id="{{ restriction }}"
+                  name="restrictionsPlaceList"
+                  [value]="restriction"
+                />
+                <label for="{{ restriction }}">{{ restriction }}</label>
+              </li>
+            </ul>
+          </ion-item>
+        </div>
+        <div class="address">
+          <ion-item>
+            <ion-input
+              label="Dirección"
+              labelPlacement="floating"
+              type="text"
+              formControlName="address"
+              placeholder="Calle Santo Domingo de Guzman, S/N "
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('address')?.touched && form.get('address')?.hasError('required')"
+          >
+            Dirección obligatoria
+          </ion-label>
+        </div>
+        <div class="zip">
+          <ion-item>
+            <ion-input
+              label="Código postal"
+              labelPlacement="floating"
+              type="number"
+              formControlName="zip"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('zip')?.touched && form.get('zip')?.hasError('required')"
+          >
+            Código postal obligatorio
+          </ion-label>
+        </div>
+        <div class="town">
+          <ion-item>
+            <ion-input
+              label="Ciudad"
+              labelPlacement="floating"
+              type="text"
+              formControlName="town"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('town')?.touched && form.get('town')?.hasError('required')"
+          >
+            Ciudad obligatoria
+          </ion-label>
+        </div>
+        <div class="website">
+          <ion-item>
+            <ion-input
+              label="Sitio web"
+              labelPlacement="floating"
+              type="text"
+              formControlName="website"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('website')?.touched && form.get('website')?.hasError('invalidWebsite')"
+          >
+            Sitio web inválido
+          </ion-label>
+        </div>
+        <div class="phone">
+          <ion-item>
+            <ion-input
+              label="Teléfono"
+              labelPlacement="floating"
+              placeholder="+34955622674"
+              type="text"
+              formControlName="phone"
+            ></ion-input>
+          </ion-item>
+          <ion-label
+            *ngIf="form.get('phone')?.touched && form.get('phone')?.hasError('invalidPhone')"
+          >
+            Teléfono inválido
+          </ion-label>
+        </div>
+        <div class="images">
+          <ion-item>
+            <ion-label>Imagenes</ion-label>
+            <ion-input
+              labelPlacement="floating"
+              type="file"
+              multiple
+              (onChange)="onFileSelected($event)"
+              accept="image/*"
+            ></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button
+          class="Crear"
+          size="block"
+          [disabled]="!form.valid"
+          (click)="accept()"
+          >Crear lugar</ion-button
+        >
+
+        <ion-button class="cancel" size="block" onclick="window.history.back()"
+          >Cancelar</ion-button
+        >
+      </ion-card-content>
+    </form>
+  </div>
+</ion-content>

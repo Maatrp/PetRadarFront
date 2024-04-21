@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'map',
+    redirectTo: 'index',
     pathMatch: 'full',
   },
   {
@@ -50,6 +50,27 @@ const routes: Routes = [
         (m) => m.MyAccountPageModule
       ),
   },
+  {
+    path: 'create-place',
+    loadChildren: () => import('./pages/create-place/create-place.module').then( m => m.CreatePlacePageModule)
+  },
+  {
+    path: 'index',
+    loadChildren: () => import('./pages/index/index.module').then( m => m.IndexPageModule)
+  },  {
+    path: 'request-place',
+    loadChildren: () => import('./pages/request-place/request-place.module').then( m => m.RequestPlacePageModule)
+  },
+  {
+    path: 'favorite-list',
+    loadChildren: () => import('./pages/favorite-list/favorite-list.module').then( m => m.FavoriteListPageModule)
+  },
+  {
+    path: 'my-data',
+    loadChildren: () => import('./pages/my-data/my-data.module').then( m => m.MyDataPageModule)
+  },
+
+
 ];
 @NgModule({
   imports: [

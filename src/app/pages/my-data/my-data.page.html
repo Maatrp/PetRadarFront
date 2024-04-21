@@ -1,0 +1,46 @@
+<ion-header>
+  <div class="row">
+    <div class="col-2">
+      <ion-icon
+        class="icon"
+        name="arrow-back-outline"
+        onclick="window.history.back()"
+      ></ion-icon>
+    </div>
+    <div class="col-10">
+      <span class="text">Datos de usuario</span>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content *ngIf="isLoggedIn">
+  <ion-card class="container">
+    <div class="row mt-3">
+      <div class="icons col-1">
+        <ion-icon name="happy-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>{{ userName }}</span>
+        <ion-button><ion-icon name="create-place"></ion-icon></ion-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="text-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>{{ name }}</span>
+        <ion-button><ion-icon name="create-outline"></ion-icon></ion-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>{{ email }}</span>
+        <ion-button><ion-icon name="create-outline"></ion-icon></ion-button>
+      </div>
+    </div>
+  </ion-card>
+</ion-content>

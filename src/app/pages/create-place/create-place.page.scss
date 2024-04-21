@@ -1,0 +1,97 @@
+.container {
+    position: relative;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    opacity: 0.1;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.name {
+    margin-top: 3.5rem;
+    opacity: 0.8;
+}
+
+.type,
+.description,
+.latitude,
+.longitude,
+.tags,
+.restrictions,
+.address,
+.zip,
+.town,
+.website,
+.phone,
+.images {
+    margin-top: 1.3rem;
+    opacity: 0.8;
+}
+
+// Inputs Tags y restricciones
+ul.interes-elem {
+    list-style: none;
+    padding: 10px;
+}
+
+ul.interes-elem li {
+    display: inline;
+}
+
+ul.interes-elem li label {
+    display: inline-block;
+    background-color: #b69373;
+    border: 2px solid #b69373;
+    color: white;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    cursor: pointer;
+    padding: 8px 12px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .2s;
+}
+
+ul.interes-elem li input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+ul.interes-elem li input[type="checkbox"]:checked+label {
+    border: 2px solid #b69373;
+    background-color: white;
+    color: #b69373;
+    transition: all .2s;
+}
+
+ul.interes-elem li input[type="checkbox"]:checked+label::before {
+    content: "-";
+}
+
+ul.interes-elem li input[type="checkbox"]+label::before {
+    display: inline-block;
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    content: "+";
+    transition: transform .3s ease-in-out;
+}
+
+ul.interes-elem li input[type="checkbox"]:checked+label::before {
+    transform: rotate(-360deg);
+}
+
+ul.interes-elem li input[type="checkbox"]:focus+label {
+    border: 2px solid #b69373;
+}

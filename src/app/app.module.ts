@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { CommunicationService } from './services/communication/communication.service';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   ],
   providers: [
     CommunicationService,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { PermissionEnum } from '../enum/permission-enum';
+import { PermissionData } from './permission-data';
 import { PlaceData } from './place-data';
 
 export interface UserData {
@@ -8,7 +8,7 @@ export interface UserData {
     email: string;
     password: string;
     rol: string;
-    permission: PermissionEnum[];
+    permission: PermissionData;
     isEmailVerified: boolean;
     isEnabled: boolean;
     isCredentialsEnabled: boolean;

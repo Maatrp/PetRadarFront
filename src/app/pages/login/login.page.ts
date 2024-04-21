@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginPageForm } from './login.page.form';
-import { UserData } from 'src/app/interface/user-data';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { AuthResponse } from 'src/app/interface/auth-response';
