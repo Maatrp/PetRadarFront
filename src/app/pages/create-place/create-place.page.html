@@ -1,14 +1,14 @@
-<ion-header>
-  <app-header></app-header>
-</ion-header>
-
 <ion-card *ngIf="!hasPermissions" class="alert alert-light">
   <h1 class="text-center">Para acceder a esta página debes iniciar sesión.</h1>
-  <button routerLink="/login">Clica aquía para logearte</button>
+  <button routerLink="/login">Clica aquí para logearte</button>
   <div class="dog-image">
     <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
   </div>
 </ion-card>
+
+<ion-header *ngIf="hasPermissions">
+  <app-header></app-header>
+</ion-header>
 
 <ion-content *ngIf="hasPermissions">
   <div class="flex-center">
@@ -38,9 +38,12 @@
               formControlName="type"
               interface="popover"
             >
-              <ion-select-option *ngFor="let type of typePlaceList"
-                >{{ type }}</ion-select-option
+              <ion-select-option
+                *ngFor="let type of typePlaceList"
+                [value]="type"
               >
+                {{ type | translateType }}
+              </ion-select-option>
             </ion-select>
           </ion-item>
           <ion-label
@@ -104,8 +107,9 @@
                   id="{{ tag }}"
                   name="tagsPlaceList"
                   [value]="tag"
+                  (change)="addOrRemoveTag(tag)"
                 />
-                <label for="{{ tag }}">{{ tag }}</label>
+                <label for="{{ tag }}">{{ tag | translateTag }}</label>
               </li>
             </ul>
           </ion-item>
@@ -120,8 +124,11 @@
                   id="{{ restriction }}"
                   name="restrictionsPlaceList"
                   [value]="restriction"
+                  (change)="addOrRemoveRestrictions(restriction)"
                 />
-                <label for="{{ restriction }}">{{ restriction }}</label>
+                <label for="{{ restriction }}"
+                  >{{ restriction | translateRestrictions }}</label
+                >
               </li>
             </ul>
           </ion-item>

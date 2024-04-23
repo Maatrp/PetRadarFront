@@ -1,22 +1,33 @@
-<ion-header>
-  <div class="row">
-    <div class="col-2">
-      <ion-icon
-        class="icon"
-        name="arrow-back-outline"
-        onclick="window.history.back()"
-      ></ion-icon>
-    </div>
-    <div class="col-10">
-      <span class="text">Lista de favoritos</span>
-    </div>
+<ion-card *ngIf="!hasPermissions" class="alert alert-light">
+  <h1 class="text-center">No tienes permisos para acceder a esta página.</h1>
+  <button routerLink="/index">Clica aquí para ir a inicio</button>
+  <div class="dog-image">
+    <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
   </div>
+</ion-card>
+
+<ion-header *ngIf="hasPermissions">
+  <app-header></app-header>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">favorite-list</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="hasPermissions">
+  <div class="spacer"></div>
+
+  <div *ngFor="let item of totalData" >
+    <app-place-card
+      [placeId]="item.id"
+      [showCard]="true"
+      [canBeClosed]="false"
+    ></app-place-card>
+  </div>
+
+  <div *ngIf="showNoMatches">
+    <app-place-card-skeletor></app-place-card-skeletor>
+    <br />
+    <app-place-card-skeletor></app-place-card-skeletor>
+    <br />
+    <app-place-card-skeletor></app-place-card-skeletor>
+    <br />
+    <app-place-card-skeletor></app-place-card-skeletor>
+  </div>
 </ion-content>

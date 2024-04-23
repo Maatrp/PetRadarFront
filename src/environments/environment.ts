@@ -11,6 +11,7 @@ export const environment = {
   createUserUrl: 'http://127.0.0.1:8080/user/create',
   addFavoriteUrl: 'http://127.0.0.1:8080/favorites/add',
   removeFavoriteUrl: 'http://127.0.0.1:8080/favorites/remove',
+  listFavoriteUrl: 'http://127.0.0.1:8080/favorites/list',
   createPlaceUrl: 'http://127.0.0.1:8080/places/create',
   typePlaceUrl: 'http://127.0.0.1:8080/type/list',
   tagsPlaceUrl: 'http://127.0.0.1:8080/tags/list',

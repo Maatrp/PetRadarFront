@@ -20,6 +20,7 @@ export class PetRadarApiService {
   private createUserUrl: string = environment.createUserUrl;
   private addFavoriteUrl: string = environment.addFavoriteUrl;
   private removeFavoriteUrl: string = environment.removeFavoriteUrl;
+  private listFavoriteUrl: string = environment.listFavoriteUrl;
   private createPlaceUrl: string = environment.createPlaceUrl;
   private typePlaceUrl: string = environment.typePlaceUrl;
   private tagsPlaceUrl: string = environment.tagsPlaceUrl;
@@ -54,7 +55,11 @@ export class PetRadarApiService {
       url = this.placeListUrl + '?';
     }
 
-    return this._http.post<MarkerData[]>(url, req, { headers: headers });
+    return this._http.post<MarkerData[]>(
+      url,
+      req,
+      { headers: headers }
+    );
   }
 
   // Obtiene un marcador por su id
@@ -77,7 +82,10 @@ export class PetRadarApiService {
       url = this.placeCardUrl + placeId + '?';
     }
 
-    return this._http.get<PlaceData>(url, { headers: headers });
+    return this._http.get<PlaceData>(
+      url,
+      { headers: headers }
+    );
   }
 
   // Crea un usuario
@@ -87,13 +95,20 @@ export class PetRadarApiService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.post<string>(this.createUserUrl, UserData, { headers: headers });
+    return this._http.post<string>(
+      this.createUserUrl,
+      UserData,
+      { headers: headers }
+    );
   }
 
   // Obtiene un usuario
   postAuthUser(userName: string, password: string): Observable<AuthResponse> {
 
-    return this._http.post<AuthResponse>(this.authUserUrl, { userName, password });
+    return this._http.post<AuthResponse>(
+      this.authUserUrl,
+      { userName, password }
+    );
   }
 
   // Añade a favorito
@@ -104,7 +119,9 @@ export class PetRadarApiService {
     });
 
     return this._http.put(
-      this.addFavoriteUrl + '/' + userId + '/' + placeId, null, { headers: headers, responseType: 'text' }
+      this.addFavoriteUrl + '/' + userId + '/' + placeId,
+      null,
+      { headers: headers, responseType: 'text' }
     );
   }
 
@@ -116,21 +133,35 @@ export class PetRadarApiService {
     });
 
     return this._http.delete(
-      this.removeFavoriteUrl + '/' + userId + '/' + placeId, { headers: headers, responseType: 'text' }
+      this.removeFavoriteUrl + '/' + userId + '/' + placeId,
+      { headers: headers, responseType: 'text' }
     );
   }
 
-  // Crear espacio
-  postCreatePlace(token: string, email: string, placeData: PlaceData): Observable<string> {
+  // Obtiene la lista de favoritos
+  getFavoriteList(token: string, userId: string): Observable<MarkerData[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     });
 
-    this.createPlaceUrl += '/' + email;
+    return this._http.get<MarkerData[]>(
+      this.listFavoriteUrl + '/' + userId,
+      { headers: headers }
+    );
+  }
 
-    return this._http.post<string>(this.createPlaceUrl, placeData, { headers: headers, responseType: 'text' as 'json' });
+  // Crear espacio
+  postCreatePlace(token: string, idUser: string, placeData: PlaceData): Observable<string> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
 
+    return this._http.post<string>(
+      this.createPlaceUrl + '/' + idUser, placeData,
+      { headers: headers, responseType: 'text' as 'json' }
+    );
   }
 
   // Obtiene la lista de tipos de lugar
