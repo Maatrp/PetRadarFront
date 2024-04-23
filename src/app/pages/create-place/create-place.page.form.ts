@@ -7,14 +7,17 @@ export class CreatePlacePageForm {
         return this._formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
             type: ['', [Validators.required]],
+            description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
             latitude: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
             longitude: ['', [Validators.required, Validators.min(-180), Validators.max(180)]],
-            description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+            tags: this._formBuilder.array([]),
+            restrictions: this._formBuilder.array([]),
             address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
             zip: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
             town: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
             website: ['', [this.websiteValidator]],
             phone: ['', [this.phoneNumberValidator]],
+            images: ['']
         });
     }
 

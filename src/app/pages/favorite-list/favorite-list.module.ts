@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { FavoriteListPageRoutingModule } from './favorite-list-routing.module';
 
 import { FavoriteListPage } from './favorite-list.page';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { PipesModule } from "../../pipes/pipes.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FavoriteListPageRoutingModule
-  ],
-  declarations: [FavoriteListPage]
+    declarations: [FavoriteListPage],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FavoriteListPageRoutingModule,
+        ComponentsModule,
+        PipesModule
+    ]
 })
 export class FavoriteListPageModule {}

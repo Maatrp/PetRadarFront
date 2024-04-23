@@ -4,6 +4,7 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: 'translateTag',
 })
 export class TranslateTagPipe implements PipeTransform {
+
   transform(tag: string): string {
     // Traducción de tags
     switch (tag) {

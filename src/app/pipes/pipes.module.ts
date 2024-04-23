@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from './filter/filter.pipe';
 import { TranslateTypePipe } from './translate-type/translate-type.pipe';
 import { StarRatingPipe } from './stars/stars.pipe';
-import { TranslateTagPipe } from './translate-tag.pipe/tranlate-tag.pipe';
+import { TranslateTagPipe } from './translate-tag/tranlate-tag.pipe';
+import { TranslateRestrictionsPipe } from './translate-restrictions/translate-restrictions.pipe';
 
 
 
@@ -12,7 +13,8 @@ import { TranslateTagPipe } from './translate-tag.pipe/tranlate-tag.pipe';
     FilterPipe,
     TranslateTypePipe,
     StarRatingPipe,
-    TranslateTagPipe
+    TranslateTagPipe,
+    TranslateRestrictionsPipe
   ],
   imports: [
     CommonModule
@@ -21,7 +23,8 @@ import { TranslateTagPipe } from './translate-tag.pipe/tranlate-tag.pipe';
     FilterPipe,
     TranslateTypePipe,
     StarRatingPipe,
-    TranslateTagPipe
+    TranslateTagPipe,
+    TranslateRestrictionsPipe
   ]
 })
 export class PipesModule { }

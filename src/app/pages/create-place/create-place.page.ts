@@ -24,6 +24,9 @@ export class CreatePlacePage {
   selectedFiles: File[] = [];
   hasPermissions: boolean = false;
 
+  selectedTags: string[] = [];
+  selectedRestrictions: string[] = [];
+
   constructor(
     private _authService: AuthService,
     private _storageService: StorageService,
@@ -93,11 +96,36 @@ export class CreatePlacePage {
       });
   }
 
+  addOrRemoveTag(element: string) {
+    const index = this.selectedTags.indexOf(element);
+    if (index !== -1) {
+      // Si el string ya existe, lo eliminamos
+      this.selectedTags.splice(index, 1);
+    } else {
+      // Si el string no existe, lo agregamos
+      this.selectedTags.push(element);
+    }
+  }
+  
+  addOrRemoveRestrictions(element: string) {
+    const index = this.selectedRestrictions.indexOf(element);
+    if (index !== -1) {
+      // Si el string ya existe, lo eliminamos
+      this.selectedRestrictions.splice(index, 1);
+    } else {
+      // Si el string no existe, lo agregamos
+      this.selectedRestrictions.push(element);
+    }
+  }
+
   // Crea el lugar
   private async createPlace(placeData: PlaceData) {
 
-    this._petRadarApiService.postCreatePlace(
-      await this._storageService.getToken(), (await this._storageService.getUserData()).email, placeData)
+    const token = await this._storageService.getToken();
+    const userId = (await this._storageService.getUserData()).id;
+    placeData.tags = this.selectedTags;
+    placeData.restrictions = this.selectedRestrictions;
+    this._petRadarApiService.postCreatePlace(token, userId, placeData)
       .subscribe(
         () => {
           console.log('Creado con éxito');

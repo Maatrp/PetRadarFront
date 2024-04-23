@@ -8,6 +8,7 @@ import { CreatePlacePageRoutingModule } from './create-place-routing.module';
 
 import { CreatePlacePage } from './create-place.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { PipesModule } from "../../pipes/pipes.module";
 
 @NgModule({
     declarations: [CreatePlacePage],
@@ -18,6 +19,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
         CreatePlacePageRoutingModule,
         ReactiveFormsModule,
         ComponentsModule,
+        PipesModule
     ]
 })
 export class CreatePlacePageModule {}
