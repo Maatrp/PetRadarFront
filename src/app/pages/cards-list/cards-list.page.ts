@@ -13,10 +13,10 @@ export class CardsListPage {
   totalData: MarkerData[] = [];
   data: MarkerData[] = [];
   filterData: FilterData | undefined;
-  numPage = 0;
-  pageSize = 5;
-  noMoreData = false;
-  isTypeEmpty = false;
+  numPage: number = 0;
+  pageSize: number = 5;
+  noMoreData: boolean = false;
+  isTypeEmpty: boolean = false;
   showNoMatches: boolean = true;
 
   constructor(

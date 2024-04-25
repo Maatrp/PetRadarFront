@@ -26,8 +26,8 @@ export class PlaceCardComponent implements OnInit, OnChanges {
   @Input() canBeClosed: boolean = false;
   @Output() dataChange = new EventEmitter<PlaceData>();
   data!: PlaceData;
-  showSkeleton = false;
-  public isLoggedIn: boolean = false;
+  showSkeleton: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor(
     private _el: ElementRef,

@@ -9,7 +9,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   styleUrls: ['./my-account.page.scss'],
 })
 export class MyAccountPage implements OnInit {
-  public isLoggedIn: boolean = false;
+  isLoggedIn: boolean = false;
   
 
   constructor(

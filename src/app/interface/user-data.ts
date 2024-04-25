@@ -3,7 +3,7 @@ import { PlaceData } from './place-data';
 
 export interface UserData {
     id: string;
-    userName: string;
+    username: string;
     name: string;
     email: string;
     password: string;

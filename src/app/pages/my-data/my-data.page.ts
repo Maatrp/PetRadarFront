@@ -9,7 +9,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class MyDataPage implements OnInit {
   public isLoggedIn: boolean = false;
-  public userName: string = '';
+  public username: string = '';
   public email: string = '';
   public name: string = '';
   public password: string = '';
@@ -32,13 +32,12 @@ export class MyDataPage implements OnInit {
     const userData = await this._storageService.getUserData();
 
     if (userData) {
-      this.userName = userData.userName;
+      this.username = userData.username;
       this.email = userData.email;
       this.name = userData.name;
       this.password = userData.password;
     }
   }
 
-  
 
 }

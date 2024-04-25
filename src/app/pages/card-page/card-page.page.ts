@@ -14,7 +14,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 export class CardPagePage implements OnInit, OnChanges {
   data!: PlaceData;
   placeId: string = '';
-  showSkeleton = false;
+  showSkeleton: boolean = false;
   showNoData: boolean = false;
   public isLoggedIn: boolean = false;
 
