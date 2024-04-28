@@ -25,6 +25,8 @@ export class PetRadarApiService {
   private typePlaceUrl: string = environment.typePlaceUrl;
   private tagsPlaceUrl: string = environment.tagsPlaceUrl;
   private restrictionsPlaceUrl: string = environment.restrictionsPlaceUrl;
+  private modifyUserUrl: string = environment.modifyUserUrl;
+  private deleteUserUrl: string = environment.deleteUserUrl;
 
   constructor(private _http: HttpClient) { }
 
@@ -180,6 +182,37 @@ export class PetRadarApiService {
   getRestrictionsPlace(): Observable<RestrictionsData[]> {
     return this._http.get<RestrictionsData[]>(this.restrictionsPlaceUrl);
 
+  }
+
+  // Actualización de los datos del usuario
+  putModifyUser(token: string, UserData: UserData): Observable<string> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.put<string>(
+      this.modifyUserUrl,
+      {
+        userName: UserData.username,
+        password: UserData.password,
+        email: UserData.email,
+        name: UserData.name
+      },
+      { headers: headers, responseType: 'text' as 'json' }
+    );
+  }
+
+  deleteUser(token: string, userName: string,): Observable<string> {
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.delete(
+      this.deleteUserUrl+'/'+userName,
+      { headers: headers, responseType: 'text' }
+    );
   }
 
 }

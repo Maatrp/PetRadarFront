@@ -10,6 +10,8 @@ export const environment = {
   placeCardUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/card/',
   authUserUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/auth/authenticate',
   createUserUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/user/create',
+  modifyUserUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/user/modify',
+  deleteUserUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/user/delete',
   addFavoriteUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/favorites/add',
   removeFavoriteUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/favorites/remove',
   listFavoriteUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/favorites/list',

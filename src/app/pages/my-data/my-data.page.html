@@ -14,7 +14,10 @@
 </ion-header>
 
 <ion-content *ngIf="isLoggedIn">
-  <ion-card class="container">
+  <ion-card class="container" *ngIf="!updateData">
+    <ion-button (click)="updateUserData()"
+      ><ion-icon name="create-outline"></ion-icon
+    ></ion-button>
     <div class="row">
       <div class="icons col-1">
         <ion-icon name="happy-outline"></ion-icon>
@@ -29,7 +32,6 @@
       </div>
       <div class="text col-10">
         <span>{{ name }}</span>
-        <ion-button><ion-icon name="create-outline"></ion-icon></ion-button>
       </div>
     </div>
     <div class="row">
@@ -38,7 +40,6 @@
       </div>
       <div class="text col-10">
         <span>{{ email }}</span>
-        <ion-button><ion-icon name="create-outline"></ion-icon></ion-button>
       </div>
     </div>
     <div class="row">
@@ -47,11 +48,52 @@
       </div>
       <div class="text col-10">
         <span>*************</span>
-        <ion-button><ion-icon name="create-outline"></ion-icon></ion-button>
       </div>
     </div>
     <div class="row">
-      <ion-button>Eliminar cuenta</ion-button>
-    </div>  
+      <ion-button  (click)="handleClickDeleteUser()">Eliminar cuenta</ion-button>
+    </div>
+  </ion-card>
+  <ion-card class="container" *ngIf="updateData">
+    <h1 class="text-center">Actualiza los datos que quieres cambiar</h1>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="text-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <ion-input [(ngModel)]=" name" value="{{name}}"></ion-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <ion-input
+          type="text"
+          [(ngModel)]=" email"
+          value="{{email}}"
+        ></ion-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="key-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <ion-input
+          type="password"
+          [(ngModel)]=" password"
+          value="{{password}}"
+          (click)="clearData()"
+        ></ion-input>
+      </div>
+    </div>
+    <div class="row">
+      <ion-button (click)="handleClickUpdateUserData()"
+        >Actualizar cuenta</ion-button
+      >
+      <ion-button (click)="updateUserData()">Cancelar</ion-button>
+    </div>
   </ion-card>
 </ion-content>
