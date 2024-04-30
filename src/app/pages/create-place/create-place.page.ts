@@ -120,11 +120,11 @@ export class CreatePlacePage {
 
   // Crea el lugar
   private async createPlace(placeData: PlaceData) {
-
     const token = await this._storageService.getToken();
     const userId = (await this._storageService.getUserData()).id;
     placeData.tags = this.selectedTags;
     placeData.restrictions = this.selectedRestrictions;
+    
     this._petRadarApiService.postCreatePlace(token, userId, placeData)
       .subscribe(
         () => {

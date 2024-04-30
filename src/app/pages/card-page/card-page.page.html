@@ -15,6 +15,10 @@
 
 <ion-content *ngIf="data && !showSkeleton && !showNoData">
   <ion-card class="alert alert-light" *ngIf="data">
+    <div class="buttons" *ngIf="showUpdateStatusButton">
+      <ion-button (click)="accept()">Aceptar</ion-button>
+      <ion-button (click)="decline()">Declinar</ion-button>
+    </div>
     <div class="card-image">
       <ion-img
         *ngIf="data.placeImages"

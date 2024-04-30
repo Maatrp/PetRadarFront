@@ -9,6 +9,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Location } from '@angular/common';
 import { PlaceData } from 'src/app/interface/place-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { CommunicationService } from 'src/app/services/communication/communication.service';
@@ -28,18 +29,25 @@ export class PlaceCardComponent implements OnInit, OnChanges {
   data!: PlaceData;
   showSkeleton: boolean = false;
   isLoggedIn: boolean = false;
+  selected: boolean = false;
+  currentUrl: string = '';
+  isRequestPlaceUrl: boolean = false;
 
   constructor(
     private _el: ElementRef,
     private _communicationService: CommunicationService,
     private _petRadarApiService: PetRadarApiService,
     private _router: Router,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _location: Location,
   ) { }
 
   async ngOnInit() {
     // Comprobamos si el usuario esta logeado
     this.isLoggedIn = await this._storageService.getIsLoggedIn();
+
+    // Comprobamos la url actual
+    this.getCurrentUrl();
 
     // Inicializar la card
     if (this.placeId) {
@@ -143,12 +151,15 @@ export class PlaceCardComponent implements OnInit, OnChanges {
   async handleClickFavoritePlace(event: Event) {
     event.stopPropagation(); // Evitar la propagación a handleClickOpenCardPage
 
+    // Obtenemos el token
+    const token = await this._storageService.getToken();
+
     // Obtenemos el id del usuario si esta logeado
     const userId = (await this._storageService.getUserData()).id;
 
     // Anadimos o eliminamos el favorito
     if (!this.data.favorite) {
-      this._petRadarApiService.putAddFavorite(await this._storageService.getToken(), this.data.id, userId).subscribe({
+      this._petRadarApiService.putAddFavorite(token, this.data.id, userId).subscribe({
         next: () => {
           this.data.favorite = true;
           this._communicationService.emitUpdatedFavorites();
@@ -159,7 +170,7 @@ export class PlaceCardComponent implements OnInit, OnChanges {
       });
     } else {
       this._petRadarApiService
-        .deleteRemoveFavorite(await this._storageService.getToken(), this.data.id, userId)
+        .deleteRemoveFavorite(token, this.data.id, userId)
         .subscribe({
           next: () => {
             this.data.favorite = false;
@@ -172,4 +183,20 @@ export class PlaceCardComponent implements OnInit, OnChanges {
     }
   }
 
+  async handleClickSelectedPlace(event: Event) {
+    event.stopPropagation(); 
+
+    this.selected = !this.selected;
+
+    this._communicationService.emitSelectedList(this.data.id);
+  }
+
+  private getCurrentUrl() {
+    this.currentUrl = this._location.path();
+    if (this.currentUrl === '/request-place') {
+      this.isRequestPlaceUrl = true;
+    } else {
+      this.isRequestPlaceUrl = false;
+    }
+  }
 }

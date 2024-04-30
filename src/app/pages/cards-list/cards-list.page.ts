@@ -22,7 +22,7 @@ export class CardsListPage {
   constructor(
     private _petRadarApiService: PetRadarApiService,
     private _storageService: StorageService
-  ) {}
+  ) { }
 
   async ionViewWillEnter() {
     // Carga los datos del storage
@@ -35,7 +35,9 @@ export class CardsListPage {
 
   // Carga los datos
   async fillData() {
-    return this._petRadarApiService.postMarkers(await this._storageService.getToken()).subscribe({
+    const token = await this._storageService.getToken();
+    
+    return this._petRadarApiService.postMarkers(token).subscribe({
       next: (value) => {
         this.totalData = value;
         this.showNoMatches = false;

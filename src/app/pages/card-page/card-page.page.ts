@@ -1,8 +1,11 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { PlaceData } from 'src/app/interface/place-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -16,22 +19,37 @@ export class CardPagePage implements OnInit, OnChanges {
   placeId: string = '';
   showSkeleton: boolean = false;
   showNoData: boolean = false;
-  public isLoggedIn: boolean = false;
+  hasPermissions: boolean = false;
+  isLoggedIn: boolean = false;
+  showUpdateStatusButton: boolean = false;
+
 
   constructor(
     private _petRadarApiService: PetRadarApiService,
-    private _route: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _communicationService: CommunicationService,
     private _storageService: StorageService,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private _authService: AuthService,
+    private _router: Router
   ) { }
 
   async ngOnInit() {
     // Comprobamos si el usuario esta logeado
     this.isLoggedIn = await this._storageService.getIsLoggedIn();
 
+    // Obtenemos los permisos del usuario si esta logeado
+    this.hasPermissions = await this._authService.checkPermission(PermissionEnum.UPDATE_STATUS_PLACE);
+
+    // Si tiene permisos de administrador puede ver los botónes para aceptar o declinar la publicación
+    if (this.hasPermissions && this._communicationService.url === '/request-place') {
+      this.showUpdateStatusButton = true;
+    } else {
+      this.showUpdateStatusButton = false;
+    }
+
     // Obtención de plaiceId de la url
-    this._route.params.subscribe((params) => {
+    this._activatedRoute.params.subscribe((params) => {
       this.placeId = params['id'];
     });
 
@@ -136,4 +154,41 @@ export class CardPagePage implements OnInit, OnChanges {
     const telLink = 'tel:' + phone;
     return this._sanitizer.bypassSecurityTrustUrl(telLink);
   }
+
+  async accept() {
+    const token = await this._storageService.getToken();
+
+    return this._petRadarApiService.putUpdateStatusPlace(token, this.placeId, 'AC')
+      .subscribe({
+        error: (err) => {
+          if (err.status === 200) {
+            console.log('Publicación aceptada');
+            this._router.navigate(['/request-place']);
+          } else {
+            console.log('Error al aceptar la publicación', err);
+            this._router.navigate(['/request-place']);
+          }
+        },
+      });
+
+  }
+
+  async decline() {
+    const token = await this._storageService.getToken();
+
+    return this._petRadarApiService.putUpdateStatusPlace(token, this.placeId, 'DC')
+      .subscribe({
+        error: (err) => {
+          if (err.status === 200) {
+            console.log('Publicación declinada');
+            this._router.navigate(['/request-place']);
+          } else {
+            console.log('Error al declinar la publicación', err);
+            this._router.navigate(['/request-place']);
+          }
+        },
+      });
+  }
+
+
 }

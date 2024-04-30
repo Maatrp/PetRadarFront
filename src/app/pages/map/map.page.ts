@@ -28,13 +28,13 @@ export class MapPage {
     private _communicationService: CommunicationService,
     private _storageService: StorageService,
     private _geolocationService: GeolocationService
-  ) {}
+  ) { }
 
   async ionViewWillEnter() {
     try {
       // Comprobación de permisos para pintar el link
       await this._headerComponent?.checkPermissions();
-      
+
       // Carga los datos
       this.filterData = await this._storageService.getFilters();
 
@@ -62,7 +62,7 @@ export class MapPage {
 
       // Ajustar tamaño del mapa
       this.map.invalidateSize();
-      
+
     } catch (error) {
       console.log('Incidencia en la asignación de marcadores');
     }
@@ -86,12 +86,13 @@ export class MapPage {
     //Devuelve el id del usuario si esta logeado
     const userData = (await this._storageService.getUserData());
     let userId = '';
-    if(userData){
+    if (userData) {
       userId = userData.id;
     }
 
+    const token = await this._storageService.getToken();
     // Carga los marcadores y favoritos del usuario si esta logeado
-    this._petRadarApiService.postMarkers(await this._storageService.getToken(),userId).subscribe({
+    this._petRadarApiService.postMarkers(token, userId).subscribe({
       next: (value) => {
         value.forEach((element: MarkerData) => {
           if (!this.shouldFilterElement(element)) {

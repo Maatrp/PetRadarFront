@@ -8,10 +8,10 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   styleUrls: ['./filter.page.scss'],
 })
 export class FilterPage {
-  public selectedTypes: string[] = [];
-  public searchName: string = '';
-  public viewMode: string = '';
-  public options: PlaceTypeOption[] = [
+  selectedTypes: string[] = [];
+  searchName: string = '';
+  viewMode: string = '';
+  options: PlaceTypeOption[] = [
     { name: 'MALL', selected: false },
     { name: 'PARK', selected: false },
     { name: 'RESTAURANT', selected: false },
