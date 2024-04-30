@@ -33,6 +33,9 @@ export class RequestPlacePage {
       //Carga los datos del storage
       await this._storageService.setViewMode('/cards-list');
 
+      // Carga la lista vacía
+      this.selectedList = this._communicationService.emptySelectedList();
+
       // Carga los datos
       this.fillData();
     }

@@ -45,6 +45,12 @@ export class CommunicationService {
     }
   }
 
+  // Vacía la lista de espacios seleccionados
+  emptySelectedList(): string[] {
+    this.selectedList = [];
+    return this.selectedList;
+  }
+
   // Devuelve la lista de espacios seleccionados
   getSelectedList(): string[] {
     return this.selectedList;

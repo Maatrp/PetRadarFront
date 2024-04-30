@@ -19,10 +19,9 @@ export class MapPage {
   data: MarkerData[] = [];
   map: Map | undefined;
   markerLayers: Layer[] = [];
-
   filterData: FilterData | undefined;
   @ViewChild(HeaderComponent) _headerComponent: HeaderComponent | undefined;
-  // Carga los datos
+  
   constructor(
     private _petRadarApiService: PetRadarApiService,
     private _communicationService: CommunicationService,

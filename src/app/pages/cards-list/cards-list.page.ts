@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FilterData } from 'src/app/interface/filter-data';
 import { MarkerData } from 'src/app/interface/marker-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
@@ -18,13 +19,17 @@ export class CardsListPage {
   noMoreData: boolean = false;
   isTypeEmpty: boolean = false;
   showNoMatches: boolean = true;
-
+  @ViewChild(HeaderComponent) _headerComponent: HeaderComponent | undefined;
+  
   constructor(
     private _petRadarApiService: PetRadarApiService,
     private _storageService: StorageService
   ) { }
 
   async ionViewWillEnter() {
+    // Comprobación de permisos para pintar el link
+    await this._headerComponent?.checkPermissions();
+
     // Carga los datos del storage
     this.filterData = await this._storageService.getFilters();
     await this._storageService.setViewMode('/cards-list');

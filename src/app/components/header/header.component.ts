@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -38,12 +38,10 @@ export class HeaderComponent {
 
   isShowingCreatePlaceButton(): boolean {
     return this._router.url !== '/create-place';
-
   }
 
   isShowingUpdateStatusPlaceButton(): boolean {
     return this._router.url !== '/request-place';
-
   }
 
   private async checkCreatePlacePermission() {
