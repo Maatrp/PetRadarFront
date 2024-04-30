@@ -27,12 +27,15 @@ export class PetRadarApiService {
   private restrictionsPlaceUrl: string = environment.restrictionsPlaceUrl;
   private modifyUserUrl: string = environment.modifyUserUrl;
   private deleteUserUrl: string = environment.deleteUserUrl;
+  private pendingPlacesUrl: string = environment.pendingPlacesUrl;
+  private updateStatusPlaceUrl: string = environment.updateStatusPlaceUrl;
+  private updateAllStatusPlaceUrl: string = environment.updateAllStatusPlaceUrl;
 
   constructor(private _http: HttpClient) { }
 
 
   // Obtiene todos los marcadores
-  public postMarkers(token: string, userId?: string): Observable<MarkerData[]> {
+  postMarkers(token: string, userId?: string): Observable<MarkerData[]> {
 
     const req = {
       latitude: environment.defaultLatitude,
@@ -203,6 +206,7 @@ export class PetRadarApiService {
     );
   }
 
+  // Eliminar usuario
   deleteUser(token: string, userName: string,): Observable<string> {
 
     const headers = new HttpHeaders({
@@ -210,9 +214,53 @@ export class PetRadarApiService {
     });
 
     return this._http.delete(
-      this.deleteUserUrl+'/'+userName,
+      this.deleteUserUrl + '/' + userName,
       { headers: headers, responseType: 'text' }
     );
+  }
+
+  // Listado de lugares pendientes
+  getPendingPlaces(token: string, userId: string): Observable<MarkerData[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.get<MarkerData[]>(
+      this.pendingPlacesUrl + '/' + userId,
+      { headers: headers }
+    );
+  }
+
+  // Aceptar o declinar un lugar creado
+  putUpdateStatusPlace(token: string, placeId: string, status: string): Observable<string> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.put<string>(
+      this.updateStatusPlaceUrl + '/' + placeId + '/' + status,
+      {},
+      { headers: headers }
+    );
+  }
+
+  // Aceptar o declinar a la vez multiples lugares creados
+  putUpdateAllStatusPlaces(token: string, placeIdList: string[], status: string): Observable<string> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    const body = JSON.stringify(placeIdList);
+
+    return this._http.put<string>(
+      this.updateAllStatusPlaceUrl + '/' + status,
+      body,
+      { headers: headers, responseType: 'text' as 'json' }
+    );
+
   }
 
 }

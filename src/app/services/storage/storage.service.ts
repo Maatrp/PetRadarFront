@@ -13,7 +13,7 @@ export class StorageService {
   }
 
   // Configuración de filtros
-  public async setFilters(searchName: string, selectedTypes: string[]) {
+  async setFilters(searchName: string, selectedTypes: string[]) {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -22,7 +22,7 @@ export class StorageService {
   }
 
   // Obtiene los filtros
-  public async getFilters(): Promise<FilterData> {
+  async getFilters(): Promise<FilterData> {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -35,7 +35,7 @@ export class StorageService {
   }
 
   // Configuración de la vista
-  public async setViewMode(mode: string) {
+  async setViewMode(mode: string) {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -43,7 +43,7 @@ export class StorageService {
   }
 
   // Obtiene la vista
-  public async getViewMode(): Promise<string> {
+  async getViewMode(): Promise<string> {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -51,7 +51,7 @@ export class StorageService {
   }
 
   // Configuración del mapa
-  public async setMapCenter(latitude: number, longitude: number) {
+  async setMapCenter(latitude: number, longitude: number) {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -60,7 +60,7 @@ export class StorageService {
   }
 
   // Obtiene el mapa
-  public async getMapCenter(): Promise<number[]> {
+  async getMapCenter(): Promise<number[]> {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -76,7 +76,7 @@ export class StorageService {
   }
 
   // Configuración del si eta logueado
-  public async setIsLoggedIn(value: boolean) {
+  async setIsLoggedIn(value: boolean) {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -84,7 +84,7 @@ export class StorageService {
   }
 
   // Obtiene estado del logueo
-  public async getIsLoggedIn(): Promise<boolean> {
+  async getIsLoggedIn(): Promise<boolean> {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -92,7 +92,7 @@ export class StorageService {
   }
 
   // Configuración del token
-  public async setToken(token: string) {
+  async setToken(token: string) {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -100,7 +100,7 @@ export class StorageService {
   }
 
   // Obtiene el token
-  public async getToken(): Promise<string> {
+  async getToken(): Promise<string> {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
@@ -108,19 +108,19 @@ export class StorageService {
   }
 
   // Configuración de los datos del usuario
-  public async setUserData(userData: UserData) {
+  async setUserData(userData: UserData) {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }
     await this._storage?.set('userData', userData);
   }
 
-  public async destroyUserData() {
+  async destroyUserData() {
     await this._storage?.remove('userData');
   }
 
   // Obtiene los datos del usuario
-  public async getUserData(): Promise<UserData> {
+  async getUserData(): Promise<UserData> {
     if (!this.storage) {
       this.storage = await this._storage.create();
     }

@@ -8,8 +8,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  public userCanCreate: boolean = false;
-  public updateStatusPlace: boolean = false;
+  userCanCreate: boolean = false;
+  updateStatusPlace: boolean = false;
 
   constructor(
     private _router: Router,
@@ -49,8 +49,6 @@ export class HeaderComponent {
   private async checkCreatePlacePermission() {
     this.userCanCreate = await this._authService.checkPermission(PermissionEnum.CREATE_PLACE);
   }
-
-
 
   private async checkUpdateStatusPlacePermission() {
     this.updateStatusPlace = await this._authService.checkPermission(PermissionEnum.UPDATE_STATUS_PLACE);

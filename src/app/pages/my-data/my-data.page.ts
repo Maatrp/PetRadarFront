@@ -11,14 +11,14 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   styleUrls: ['./my-data.page.scss'],
 })
 export class MyDataPage {
-  public isLoggedIn: boolean = false;
-  public username: string = '';
-  public email: string = '';
-  public name: string = '';
-  public password: string = '';
-  public hasPermissions: boolean = false;
-  public updateData: boolean = false;
-  public showPassword: boolean = false;
+  isLoggedIn: boolean = false;
+  username: string = '';
+  email: string = '';
+  name: string = '';
+  password: string = '';
+  hasPermissions: boolean = false;
+  updateData: boolean = false;
+  showPassword: boolean = false;
 
 
   constructor(
@@ -93,7 +93,7 @@ export class MyDataPage {
   }
 
 
-async handleClickDeleteUser() {
+  async handleClickDeleteUser() {
     const token = await this._storageService.getToken();
     const userName = (await this._storageService.getUserData()).username;
 

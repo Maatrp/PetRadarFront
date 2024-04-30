@@ -1,4 +1,3 @@
-
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -19,6 +18,9 @@ export const environment = {
   typePlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/type/list',
   tagsPlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/tags/list',
   restrictionsPlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/restrictions/list',
+  pendingPlacesUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/pending-places/',
+  updateStatusPlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/update-status',
+  updateAllStatusPlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/update-all-status',
 
   iconUrl: 'assets/icons/',
   defaultLatitude: 37.36247679369061,

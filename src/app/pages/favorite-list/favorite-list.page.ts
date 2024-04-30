@@ -35,14 +35,14 @@ export class FavoriteListPage {
   }
 
   private async fillData() {
-    this._petRadarApiService.getFavoriteList(
-      await this._storageService.getToken(), (await this._storageService.getUserData()).id)
+    const token = await this._storageService.getToken();
+    const userId = (await this._storageService.getUserData()).id;
+
+    this._petRadarApiService.getFavoriteList(token, userId)
       .subscribe({
         next: (value) => {
           this.totalData = value;
-          console.log(this.totalData);
           this.showNoMatches = false;
-          console.log(this.showNoMatches);
         },
         error: () => {
           this.showNoMatches = false;

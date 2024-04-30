@@ -1,7 +1,40 @@
-<ion-header>
+<ion-card *ngIf="!hasPermissions" class="alert alert-light">
+  <h1 class="text-center">No tienes permisos para acceder a esta página.</h1>
+  <button routerLink="/index">Clica aquí para ir a inicio</button>
+  <div class="dog-image">
+    <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
+  </div>
+</ion-card>
+
+
+<ion-header *ngIf="hasPermissions">
   <app-header></app-header>
 </ion-header>
 
-<ion-content>
-<span>Lista de creaciones pendientes de aceptación o declinación</span>
+<ion-content *ngIf="hasPermissions">
+  <div class="spacer"></div>
+  <div *ngFor="let item of totalData" >
+    <app-place-card
+      [placeId]="item.id"
+      [showCard]="true"
+      [canBeClosed]="false"
+    ></app-place-card>
+  </div>
+  
+  <ion-button *ngIf="isNotEmptySelectedList()" (click)="accept()">Aceptar</ion-button>
+  <ion-button *ngIf="isNotEmptySelectedList()" (click)="decline()">Declinar</ion-button>
+  
+  <div *ngIf="totalData.length === 0" class="image">
+    <ion-img src="../../../assets/not-pending.jpg" alt="Not pendig places image"></ion-img>
+  </div>  
+
+  <div *ngIf="showNoMatches">
+    <app-place-card-skeletor></app-place-card-skeletor>
+    <br />
+    <app-place-card-skeletor></app-place-card-skeletor>
+    <br />
+    <app-place-card-skeletor></app-place-card-skeletor>
+    <br />
+    <app-place-card-skeletor></app-place-card-skeletor>
+  </div>
 </ion-content>
