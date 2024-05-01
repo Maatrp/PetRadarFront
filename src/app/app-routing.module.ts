@@ -37,6 +37,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'card-page/:id/:updateStatus',
+    loadChildren: () =>
+      import('./pages/card-page/card-page.module').then(
+        (m) => m.CardPagePageModule
+      ),
+  },
+  {
     path: 'register',
     loadChildren: () =>
       import('./pages/register/register.module').then(
@@ -57,7 +64,8 @@ const routes: Routes = [
   {
     path: 'index',
     loadChildren: () => import('./pages/index/index.module').then( m => m.IndexPageModule)
-  },  {
+  },
+  {
     path: 'request-place',
     loadChildren: () => import('./pages/request-place/request-place.module').then( m => m.RequestPlacePageModule)
   },
