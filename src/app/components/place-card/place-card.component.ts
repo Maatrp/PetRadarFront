@@ -144,7 +144,7 @@ export class PlaceCardComponent implements OnInit, OnChanges {
 
   // Método para abrir la card
   handleClickOpenCardPage(placeId: string) {
-    this._router.navigate(['/card-page', placeId], { replaceUrl: false });
+    this._router.navigate(['/card-page', placeId, this.isRequestPlaceUrl], { replaceUrl: false });
   }
 
   // Método para gestionar a favoritos

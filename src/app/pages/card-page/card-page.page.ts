@@ -1,7 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { PlaceData } from 'src/app/interface/place-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
@@ -23,7 +22,6 @@ export class CardPagePage implements OnInit, OnChanges {
   isLoggedIn: boolean = false;
   showUpdateStatusButton: boolean = false;
 
-
   constructor(
     private _petRadarApiService: PetRadarApiService,
     private _activatedRoute: ActivatedRoute,
@@ -41,16 +39,12 @@ export class CardPagePage implements OnInit, OnChanges {
     // Obtenemos los permisos del usuario si esta logeado
     this.hasPermissions = await this._authService.checkPermission(PermissionEnum.UPDATE_STATUS_PLACE);
 
-    // Si tiene permisos de administrador puede ver los botónes para aceptar o declinar la publicación
-    if (this.hasPermissions && this._communicationService.url === '/request-place') {
-      this.showUpdateStatusButton = true;
-    } else {
-      this.showUpdateStatusButton = false;
-    }
-
     // Obtención de plaiceId de la url
     this._activatedRoute.params.subscribe((params) => {
       this.placeId = params['id'];
+
+      // Si tiene permisos de administrador puede ver los botónes para aceptar o declinar la publicación
+      this.showUpdateStatusButton = params['updateStatus'] === 'true' && this.hasPermissions;
     });
 
     // Inicializar la card
