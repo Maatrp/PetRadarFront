@@ -200,8 +200,6 @@ export class CardPagePage implements OnInit, OnChanges {
       });
   }
 
-
-
   async openCloseCreateValuation() {
     this.showCreateCommit = !this.showCreateCommit;
 
@@ -210,10 +208,22 @@ export class CardPagePage implements OnInit, OnChanges {
     }
   }
 
+
+  handleRadioChange(event: Event) {
+    if (event instanceof CustomEvent) {
+      const selectedValue = event.detail.value;
+      const logElement = document.getElementById('log');
+      if (logElement) {
+        logElement.textContent = selectedValue;
+      }
+    }
+  }
+
   async acceptCreateValuation() {
     try {
       if (this.form.valid) {
         await this.createValuation(this.form.value);
+        location.reload();
       }
     } catch (error) {
       console.log('Incidencia en la creación de usuario');

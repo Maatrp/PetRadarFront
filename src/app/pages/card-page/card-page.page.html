@@ -104,22 +104,24 @@
         <span>Añadiendo valoración a {{ data.name }}</span>
       </div>
       <div class="flex-center">
-        <form [formGroup]="form">
+        <form [formGroup]="form" (ngSubmit)="acceptCreateValuation()">
           <ion-card-content class="container">
             <div class="averageRating">
-              <ion-item>
-                <ion-label>Puntuación:</ion-label>
-                <ion-radio-group formControlName="averageRating">
-                  <ion-item *ngFor="let rating of [1, 2, 3, 4, 5]">
-                    <ion-radio [value]="rating"
-                      >{{rating | starRating}}</ion-radio
-                    >
-                  </ion-item>
-                </ion-radio-group>
-              </ion-item>
-              <ion-label
-                *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')"
-              >
+              <div class="valoration-fieldset">
+                <div class="valoration-fieldset">
+                  <fieldset class="valoration-fieldset" formControlName="averageRating">
+                    <span class="star-cb-group">
+                      <input type="radio" id="rating-5" name="rating" formControlName="averageRating" [value]="5" (ionChange)="handleRadioChange($event)"/><label for="rating-5">5</label>
+                      <input type="radio" id="rating-4" name="rating" formControlName="averageRating" [value]="4" (ionChange)="handleRadioChange($event)"/><label for="rating-4">4</label>
+                      <input type="radio" id="rating-3" name="rating" formControlName="averageRating" [value]="3" (ionChange)="handleRadioChange($event)"/><label for="rating-3">3</label>
+                      <input type="radio" id="rating-2" name="rating" formControlName="averageRating" [value]="2" (ionChange)="handleRadioChange($event)"/><label for="rating-2">2</label>
+                      <input type="radio" id="rating-1" name="rating" formControlName="averageRating" [value]="1" (ionChange)="handleRadioChange($event)"/><label for="rating-1">1</label>
+                      <input type="radio" id="rating-0" name="rating" formControlName="averageRating" [value]="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                    </span>
+                  </fieldset>
+                </div>
+              </div>
+              <ion-label *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')">
                 Obligatorio poner puntuación.
               </ion-label>
             </div>
@@ -128,25 +130,14 @@
                 <ion-label>Mensaje:</ion-label>
                 <ion-textarea formControlName="commentMessage"></ion-textarea>
               </ion-item>
-              <ion-label
-                *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')"
-              >
+              <ion-label *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')">
                 Mensaje obligatorio.
               </ion-label>
             </div>
-            <ion-button
-              class="valuation-button"
-              size="block"
-              [disabled]="!form.valid"
-              (click)="acceptCreateValuation()"
-            >
+            <ion-button class="valuation-button" size="block" type="submit" [disabled]="!form.valid">
               Enviar
             </ion-button>
-            <ion-button
-              class="valuation-button"
-              size="block"
-              (click)="openCloseCreateValuation()"
-            >
+            <ion-button class="valuation-button" size="block" (click)="openCloseCreateValuation()">
               Cancelar
             </ion-button>
           </ion-card-content>
