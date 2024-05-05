@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
@@ -7,6 +8,8 @@ import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service'
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { CardPageForm } from './card-page.form';
+import { ValuationsData } from 'src/app/interface/valuations-data';
 
 @Component({
   selector: 'app-card-page',
@@ -15,12 +18,17 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class CardPagePage implements OnInit, OnChanges {
   data!: PlaceData;
+  form!: FormGroup;
   placeId: string = '';
   showSkeleton: boolean = false;
   showNoData: boolean = false;
-  hasPermissions: boolean = false;
   isLoggedIn: boolean = false;
   showUpdateStatusButton: boolean = false;
+  hasUpdateStatusPermissions: boolean = false;
+  hasValuationsPlacePermissions: boolean = false;
+  hasValuationsListNotEmpty: boolean = false;
+  showButtonCreateCommit: boolean = false;
+  showCreateCommit: boolean = false;
 
   constructor(
     private _petRadarApiService: PetRadarApiService,
@@ -29,7 +37,8 @@ export class CardPagePage implements OnInit, OnChanges {
     private _storageService: StorageService,
     private _sanitizer: DomSanitizer,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _formBuilder: FormBuilder,
   ) { }
 
   async ngOnInit() {
@@ -37,20 +46,25 @@ export class CardPagePage implements OnInit, OnChanges {
     this.isLoggedIn = await this._storageService.getIsLoggedIn();
 
     // Obtenemos los permisos del usuario si esta logeado
-    this.hasPermissions = await this._authService.checkPermission(PermissionEnum.UPDATE_STATUS_PLACE);
+    this.hasUpdateStatusPermissions = await this._authService.checkPermission(PermissionEnum.UPDATE_STATUS_PLACE);
+    // Carga el permiso de valoraciones
+    this.hasValuationsPlacePermissions = await this._authService.checkPermission(PermissionEnum.VALUATION_PLACE);
 
     // Obtención de plaiceId de la url
     this._activatedRoute.params.subscribe((params) => {
       this.placeId = params['id'];
 
       // Si tiene permisos de administrador puede ver los botónes para aceptar o declinar la publicación
-      this.showUpdateStatusButton = params['updateStatus'] === 'true' && this.hasPermissions;
+      this.showUpdateStatusButton = params['updateStatus'] === 'true' && this.hasUpdateStatusPermissions;
     });
 
     // Inicializar la card
     if (this.placeId) {
       await this.fillData(this.placeId);
+
+      this.showButtonCreateCommit = await this.showButtonCreateValoration();
     }
+
   }
 
   // Método para actualizar favorito de la card
@@ -73,6 +87,7 @@ export class CardPagePage implements OnInit, OnChanges {
   // Método para rellenar los datos de la card
   async fillData(placeId: string) {
     this.showSkeleton = true;
+    const token = await this._storageService.getToken();
 
     // Obtenemos el id del usuario si esta logeado
     const userData = (await this._storageService.getUserData());
@@ -82,7 +97,7 @@ export class CardPagePage implements OnInit, OnChanges {
     }
 
     // Obtenemos los datos de la card
-    this._petRadarApiService.getPlaceById(await this._storageService.getToken(), placeId, userId).subscribe({
+    this._petRadarApiService.getPlaceById(token, placeId, userId).subscribe({
       next: async (place: PlaceData) => {
         if (place) {
           this.data = {
@@ -112,6 +127,7 @@ export class CardPagePage implements OnInit, OnChanges {
         this.showNoData = true;
       },
     });
+
   }
 
   // Método para actualizar favorito de la card
@@ -184,5 +200,62 @@ export class CardPagePage implements OnInit, OnChanges {
       });
   }
 
+
+
+  async openCloseCreateValuation() {
+    this.showCreateCommit = !this.showCreateCommit;
+
+    if (this.showCreateCommit) {
+      this.form = new CardPageForm(this._formBuilder).createForm();
+    }
+  }
+
+  async acceptCreateValuation() {
+    try {
+      if (this.form.valid) {
+        await this.createValuation(this.form.value);
+      }
+    } catch (error) {
+      console.log('Incidencia en la creación de usuario');
+    }
+  }
+
+  private async showButtonCreateValoration() {
+    try {
+      const token = await this._storageService.getToken();
+      const userId = (await this._storageService.getUserData()).id;
+
+      const isAlreadyValuated = await this._petRadarApiService.getIsAlreadyValuated(token, userId, this.placeId).toPromise();
+
+      return !!isAlreadyValuated; // Convertir a booleano
+
+    } catch (error) {
+      console.log('No se ha podido valorar el espacio', error);
+      return false;
+    }
+  }
+
+
+  private async createValuation(valuationsData: ValuationsData) {
+    const token = await this._storageService.getToken();
+    valuationsData.placeId = this.placeId;
+    valuationsData.userId = (await this._storageService.getUserData()).id;
+    valuationsData.userName = (await this._storageService.getUserData()).username;
+
+    this._petRadarApiService.postCreateValuation(token, valuationsData).subscribe({
+      next: () => {
+        console.log('Valoración creada');
+        this.showCreateCommit = false;
+      }, error: (error) => {
+        if (error.status === 409) {
+          console.log('Ya has valorado este lugar');
+        } else {
+          console.log('No se ha podido valorar el espacio');
+        }
+        this.showCreateCommit = false;
+      },
+    })
+
+  }
 
 }

@@ -9,6 +9,7 @@ import { AuthResponse } from 'src/app/interface/auth-response';
 import { TypeData } from 'src/app/interface/type-data';
 import { TagsData } from 'src/app/interface/tags-data';
 import { RestrictionsData } from 'src/app/interface/restrictions-data';
+import { ValuationsData } from 'src/app/interface/valuations-data';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,9 @@ export class PetRadarApiService {
   private pendingPlacesUrl: string = environment.pendingPlacesUrl;
   private updateStatusPlaceUrl: string = environment.updateStatusPlaceUrl;
   private updateAllStatusPlaceUrl: string = environment.updateAllStatusPlaceUrl;
+  private valuationsListUrl: string = environment.valuationsListUrl;
+  private createValuationsUrl: string = environment.createValuationsUrl;
+  private alreadyValuatedUrl: string = environment.alreadyValuatedUrl;
 
   constructor(private _http: HttpClient) { }
 
@@ -94,7 +98,7 @@ export class PetRadarApiService {
   }
 
   // Crea un usuario
-  postCreateUser(UserData: UserData): Observable<string> {
+  postCreateUser(userData: UserData): Observable<string> {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -102,7 +106,7 @@ export class PetRadarApiService {
 
     return this._http.post<string>(
       this.createUserUrl,
-      UserData,
+      userData,
       { headers: headers }
     );
   }
@@ -164,7 +168,8 @@ export class PetRadarApiService {
     });
 
     return this._http.post<string>(
-      this.createPlaceUrl + '/' + idUser, placeData,
+      this.createPlaceUrl + '/' + idUser,
+      placeData,
       { headers: headers, responseType: 'text' as 'json' }
     );
   }
@@ -263,4 +268,44 @@ export class PetRadarApiService {
 
   }
 
+  // Obtener las valoraciones de un lugar
+  getValuationsPlace(token: string, placeId: string): Observable<ValuationsData[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.get<ValuationsData[]>(
+      this.valuationsListUrl + '/' + placeId,
+      { headers: headers }
+    );
+  }
+
+  // Crear valoración
+  postCreateValuation(token: string, valuation: ValuationsData): Observable<string> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.post<string>(
+      this.createValuationsUrl,
+      valuation,
+      { headers: headers, responseType: 'text' as 'json' }
+    );
+  }
+
+  // Usuario a valorado ese lugar
+  getIsAlreadyValuated(token: string, userId: string, placeId: string): Observable<boolean> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this._http.get<boolean>(
+      this.alreadyValuatedUrl + '/' + userId + '/' + placeId,
+      { headers: headers }
+    );
+  }
+  
 }

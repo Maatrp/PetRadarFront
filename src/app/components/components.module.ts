@@ -7,12 +7,14 @@ import { LoginPageRoutingModule } from '../pages/login/login-routing.module';
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from '../pipes/pipes.module';
 import { PlaceCardSkeletorComponent } from './place-card-skeletor/place-card-skeletor.component';
+import { ValuationsComponent } from './valuations/valuations.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     PlaceCardComponent,
-    PlaceCardSkeletorComponent
+    PlaceCardSkeletorComponent,
+    ValuationsComponent,
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { PlaceCardSkeletorComponent } from './place-card-skeletor/place-card-ske
   ], exports: [
     HeaderComponent,
     PlaceCardComponent,
-    PlaceCardSkeletorComponent
+    PlaceCardSkeletorComponent,
+    ValuationsComponent,
     ]
 })
 export class ComponentsModule { }

@@ -1,0 +1,10 @@
+<ion-card class="valuations-list">
+  <div class="content-container" *ngFor="let valuation of valuationsList">
+    <div class="userName">{{ valuation.userName }}</div>
+    <div class="rating" *ngIf="valuation.averageRating">
+      {{ valuation.averageRating | starRating }}
+      <span class="number-weight">({{ valuation.averageRating }})</span>
+    </div>
+    <div class="comment">{{ valuation.commentMessage }}</div>
+  </div>
+</ion-card>
