@@ -88,6 +88,74 @@
           </div>
         </div>
       </div>
+      <div>
+        <ion-button
+          *ngIf="!showButtonCreateCommit"
+          class="commit-button"
+          (click)="openCloseCreateValuation()"
+        >
+          <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="showCreateCommit">
+      <div>
+        <span>Añadiendo valoración a {{ data.name }}</span>
+      </div>
+      <div class="flex-center">
+        <form [formGroup]="form">
+          <ion-card-content class="container">
+            <div class="averageRating">
+              <ion-item>
+                <ion-label>Puntuación:</ion-label>
+                <ion-radio-group formControlName="averageRating">
+                  <ion-item *ngFor="let rating of [1, 2, 3, 4, 5]">
+                    <ion-radio [value]="rating"
+                      >{{rating | starRating}}</ion-radio
+                    >
+                  </ion-item>
+                </ion-radio-group>
+              </ion-item>
+              <ion-label
+                *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')"
+              >
+                Obligatorio poner puntuación.
+              </ion-label>
+            </div>
+            <div class="commentMessage">
+              <ion-item>
+                <ion-label>Mensaje:</ion-label>
+                <ion-textarea formControlName="commentMessage"></ion-textarea>
+              </ion-item>
+              <ion-label
+                *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')"
+              >
+                Mensaje obligatorio.
+              </ion-label>
+            </div>
+            <ion-button
+              class="valuation-button"
+              size="block"
+              [disabled]="!form.valid"
+              (click)="acceptCreateValuation()"
+            >
+              Enviar
+            </ion-button>
+            <ion-button
+              class="valuation-button"
+              size="block"
+              (click)="openCloseCreateValuation()"
+            >
+              Cancelar
+            </ion-button>
+          </ion-card-content>
+        </form>
+      </div>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="hasValuationsPlacePermissions">
+      <app-valuations [placeId]="placeId"></app-valuations>
     </ion-card-content>
   </ion-card>
 </ion-content>

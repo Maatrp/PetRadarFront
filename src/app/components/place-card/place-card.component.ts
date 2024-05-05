@@ -95,9 +95,10 @@ export class PlaceCardComponent implements OnInit, OnChanges {
       userId = UserData.id;
     }
 
+    const token = await this._storageService.getToken();
 
     // Obtenemos los datos de la card
-    this._petRadarApiService.getPlaceById(await this._storageService.getToken(), placeId, userId).subscribe({
+    this._petRadarApiService.getPlaceById(token, placeId, userId).subscribe({
       next: async (place: PlaceData) => {
         if (place) {
           this.data = {

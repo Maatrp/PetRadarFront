@@ -42,6 +42,7 @@ export class LoginPage implements OnInit {
           await this._storageService.setToken(value.jwt);
           await this._storageService.setUserData(value.user);
           await this._router.navigate(['/map']);
+          console.log('Login correcto');
         }
         else{
           console.log('Nombre de usuario o contraseña incorrecta');
