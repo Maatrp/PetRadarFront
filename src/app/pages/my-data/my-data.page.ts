@@ -20,7 +20,6 @@ export class MyDataPage {
   updateData: boolean = false;
   showPassword: boolean = false;
 
-
   constructor(
     private _authService: AuthService,
     private _storageService: StorageService,
@@ -63,33 +62,35 @@ export class MyDataPage {
   }
 
   async handleClickUpdateUserData() {
-    const token = await this._storageService.getToken();
-    const userData = await this._storageService.getUserData();
+    if (!this.disableUpdateData()) {
+      const token = await this._storageService.getToken();
+      const userData = await this._storageService.getUserData();
 
-    if (userData.name !== this.name) {
-      userData.name = this.name;
+      if (userData.name !== this.name) {
+        userData.name = this.name;
+      }
+
+      if (userData.email !== this.email) {
+        userData.email = this.email;
+      }
+
+      if (userData.password !== this.password) {
+        userData.password = await this._encryptService.encryptPassword(this.password);
+
+      }
+
+      this._petRadarApiService.putModifyUser(token, userData)
+        .subscribe(
+          () => {
+            console.log('Modificado con éxito');
+          },
+          (error) => {
+            console.error('Error:', error);
+          }
+        );
+
+      this.updateUserData();
     }
-
-    if (userData.email !== this.email) {
-      userData.email = this.email;
-    }
-
-    if (userData.password !== this.password) {
-      userData.password = await this._encryptService.encryptPassword(this.password);
-
-    }
-
-    this._petRadarApiService.putModifyUser(token, userData)
-      .subscribe(
-        () => {
-          console.log('Modificado con éxito');
-        },
-        (error) => {
-          console.error('Error:', error);
-        }
-      );
-
-    this.updateUserData();
   }
 
 
@@ -110,8 +111,28 @@ export class MyDataPage {
     this.logout();
   }
 
+  disableUpdateData(): boolean {
+    let disabledbutton = false;
+
+    if (this.name === '' || this.email === '' || this.password === '') {
+      console.log('No puede quedar ningun campo vacio');
+      disabledbutton = true;
+    } else if (this.checkEmail(this.email)) {
+      console.log('Email invalido');
+      disabledbutton = true;
+    }
+
+    return disabledbutton;
+  }
+
   private async logout() {
     await this._authService.logout();
+  }
+
+  private checkEmail(email: string) {
+    const EMAIL_REGEXP = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    return EMAIL_REGEXP.test(email) ? null : { email: true };
   }
 
 }
