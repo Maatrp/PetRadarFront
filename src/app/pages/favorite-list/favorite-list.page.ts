@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
@@ -23,6 +24,7 @@ export class FavoriteListPage {
     private _authService: AuthService,
     private _storageService: StorageService,
     private _petRadarApiService: PetRadarApiService,
+    private _toastController: ToastController,
   ) { }
 
   async ionViewWillEnter() {
@@ -42,7 +44,7 @@ export class FavoriteListPage {
     const content = this.content.nativeElement;
 
     if (!content) {
-      console.error('Elemento #content no encontrado.');
+      this.presentToast('Contenido no encontrado.');
       return;
     }
 
@@ -77,28 +79,37 @@ export class FavoriteListPage {
       });
       imgPromises.push(promise);
     });
-  
+
     // Esperar a que todas las imágenes se carguen
     try {
       await Promise.all(imgPromises);
     } catch (error) {
-      console.error('Error al cargar imágenes:', error);
+      this.presentToast('Error al cargar imágenes:');
       return;
     }
-  
+
     // Una vez que todas las imágenes están cargadas, capturar el contenido como PDF
     html2canvas(content).then(canvas => {
       const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-      const contentDataURL = canvas.toDataURL('image/jpeg'); 
+
+      const contentDataURL = canvas.toDataURL('image/jpeg');
       const pdf = new jsPDF('p', 'mm', 'a4');
-  
+
       pdf.addImage(contentDataURL, 'JPEG', 0, 0, imgWidth, imgHeight);
       pdf.save('documento.pdf');
     }).catch(error => {
-      console.error('Error al generar PDF:', error);
+      this.presentToast('Error al generar PDF');
     });
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 
 }

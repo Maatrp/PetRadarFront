@@ -10,6 +10,7 @@ import { CommunicationService } from 'src/app/services/communication/communicati
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { CardPageForm } from './card-page.form';
 import { ValuationsData } from 'src/app/interface/valuations-data';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-card-page',
@@ -39,6 +40,7 @@ export class CardPagePage implements OnInit, OnChanges {
     private _authService: AuthService,
     private _router: Router,
     private _formBuilder: FormBuilder,
+    private _toastController: ToastController,
   ) { }
 
   async ngOnInit() {
@@ -121,8 +123,8 @@ export class CardPagePage implements OnInit, OnChanges {
         }
         this.showSkeleton = false;
       },
-      error: () => {
-        console.log('Error al obtener los datos');
+      error:  () => {
+         this.presentToast('Error al obtener los datos');
         this.showSkeleton = false;
         this.showNoData = true;
       },
@@ -140,8 +142,8 @@ export class CardPagePage implements OnInit, OnChanges {
           this.data.favorite = true;
           this._communicationService.emitUpdatedFavorites();
         },
-        error: () => {
-          console.log('Error al añadir a favoritos');
+        error:  () => {
+           this.presentToast('Error al añadir a favoritos');
         },
       });
     } else {
@@ -152,8 +154,8 @@ export class CardPagePage implements OnInit, OnChanges {
             this.data.favorite = false;
             this._communicationService.emitUpdatedFavorites();
           },
-          error: () => {
-            console.log('Error al eliminar el favoritos');
+          error:  () => {
+             this.presentToast('Error al eliminar el favoritos');
           },
         });
     }
@@ -170,12 +172,12 @@ export class CardPagePage implements OnInit, OnChanges {
 
     return this._petRadarApiService.putUpdateStatusPlace(token, this.placeId, 'AC')
       .subscribe({
-        error: (err) => {
+        error:   (err) => {
           if (err.status === 200) {
-            console.log('Publicación aceptada');
+            this.presentToast('Publicación aceptada');
             this._router.navigate(['/request-place']);
           } else {
-            console.log('Error al aceptar la publicación', err);
+             this.presentToast('Error al aceptar la publicación');
             this._router.navigate(['/request-place']);
           }
         },
@@ -190,10 +192,10 @@ export class CardPagePage implements OnInit, OnChanges {
       .subscribe({
         error: (err) => {
           if (err.status === 200) {
-            console.log('Publicación declinada');
+            this.presentToast('Publicación declinada');
             this._router.navigate(['/request-place']);
           } else {
-            console.log('Error al declinar la publicación', err);
+            this.presentToast('Error al declinar la publicación');
             this._router.navigate(['/request-place']);
           }
         },
@@ -226,7 +228,7 @@ export class CardPagePage implements OnInit, OnChanges {
         location.reload();
       }
     } catch (error) {
-      console.log('Incidencia en la creación de usuario');
+      this.presentToast('Incidencia en la creación de usuario');
     }
   }
 
@@ -240,7 +242,7 @@ export class CardPagePage implements OnInit, OnChanges {
       return !!isAlreadyValuated; // Convertir a booleano
 
     } catch (error) {
-      console.log('No se ha podido valorar el espacio', error);
+      this.presentToast('No se ha podido valorar el espacio');
       return false;
     }
   }
@@ -254,18 +256,27 @@ export class CardPagePage implements OnInit, OnChanges {
 
     this._petRadarApiService.postCreateValuation(token, valuationsData).subscribe({
       next: () => {
-        console.log('Valoración creada');
+        this.presentToast('Valoración creada');
         this.showCreateCommit = false;
       }, error: (error) => {
         if (error.status === 409) {
-          console.log('Ya has valorado este lugar');
+          this.presentToast('Ya has valorado este lugar');
         } else {
-          console.log('No se ha podido valorar el espacio');
+          this.presentToast('No se ha podido valorar el espacio');
         }
         this.showCreateCommit = false;
       },
     })
 
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 
 }

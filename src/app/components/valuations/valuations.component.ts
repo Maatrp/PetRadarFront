@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { ValuationsData } from 'src/app/interface/valuations-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
-import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
@@ -16,9 +16,9 @@ export class ValuationsComponent implements OnInit {
 
 
   constructor(
-    private _communicationService: CommunicationService,
     private _petRadarApiService: PetRadarApiService,
     private _storageService: StorageService,
+    private _toastController: ToastController,
   ) { }
 
   async ngOnInit() {
@@ -34,7 +34,7 @@ export class ValuationsComponent implements OnInit {
 
     // Obtenemos los datos del comentario
     this._petRadarApiService.getValuationsPlace(token, placeId).subscribe({
-      next: async (valuations: ValuationsData[]) => {
+      next: (valuations: ValuationsData[]) => {
         if (valuations.length > 0) {
           for (const valuation of valuations) {
             this.valuation = {
@@ -45,15 +45,23 @@ export class ValuationsComponent implements OnInit {
               averageRating: valuation.averageRating,
               commentMessage: valuation.commentMessage
             };
-            console.log(this.valuation);
             this.valuationsList.push(this.valuation);
           }
         }
 
-      }, error: (error) => {
-        console.log('Error al cargar los comentarios', error);
+      }, error: () => {
+        this.presentToast('Error al cargar los comentarios');
       }
     });
   }
 
+  // Muestra un toast
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
+  }
 }

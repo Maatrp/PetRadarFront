@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -24,7 +25,8 @@ export class MyDataPage {
     private _authService: AuthService,
     private _storageService: StorageService,
     private _petRadarApiService: PetRadarApiService,
-    private _encryptService: EncryptService
+    private _encryptService: EncryptService,
+    private _toastController: ToastController,
   ) { }
 
   async ionViewWillEnter() {
@@ -82,10 +84,10 @@ export class MyDataPage {
       this._petRadarApiService.putModifyUser(token, userData)
         .subscribe(
           () => {
-            console.log('Modificado con éxito');
+            this.presentToast('Modificado con éxito');
           },
           (error) => {
-            console.error('Error:', error);
+            this.presentToast('Error al modificar los datos');
           }
         );
 
@@ -101,10 +103,10 @@ export class MyDataPage {
     this._petRadarApiService.deleteUser(token, userName)
       .subscribe(
         () => {
-          console.log('Usuario eliminado con éxito');
+          this.presentToast('Usuario eliminado con éxito');
         },
         (error) => {
-          console.error('Error:', error);
+          this.presentToast('Error al eliminar el usuario');
         }
       );
 
@@ -115,10 +117,10 @@ export class MyDataPage {
     let disabledbutton = false;
 
     if (this.name === '' || this.email === '' || this.password === '') {
-      console.log('No puede quedar ningun campo vacio');
+      this.presentToast('No puede quedar ningun campo vacio');
       disabledbutton = true;
     } else if (this.checkEmail(this.email)) {
-      console.log('Email invalido');
+      this.presentToast('Email invalido');
       disabledbutton = true;
     }
 
@@ -135,4 +137,12 @@ export class MyDataPage {
     return EMAIL_REGEXP.test(email) ? null : { email: true };
   }
 
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
+  }
 }

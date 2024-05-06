@@ -5,6 +5,7 @@ import { LoginPageForm } from './login.page.form';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { AuthResponse } from 'src/app/interface/auth-response';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,9 @@ export class LoginPage implements OnInit {
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _storageService: StorageService,
-    private _petRadarApiService: PetRadarApiService
-  ) {}
+    private _petRadarApiService: PetRadarApiService,
+    private _toastController: ToastController,
+  ) { }
 
   async ngOnInit() {
     this.form = new LoginPageForm(this._formBuilder).createForm();
@@ -34,23 +36,27 @@ export class LoginPage implements OnInit {
 
   // Busca al usuario
   async authUser(userName: string, password: string) {
-    
+
     return this._petRadarApiService.postAuthUser(userName, password).subscribe({
       next: async (value: AuthResponse) => {
-        if(value.jwt != null){
+        if (value.jwt != null) {
           await this._storageService.setIsLoggedIn(true);
           await this._storageService.setToken(value.jwt);
           await this._storageService.setUserData(value.user);
           await this._router.navigate(['/map']);
-          console.log('Login correcto');
+          this.presentToast('Sesión iniciada');
         }
-        else{
-          console.log('Nombre de usuario o contraseña incorrecta');
+        else {
+          this.presentToast('Nombre de usuario o contraseña incorrecta');
         }
 
       },
-      error: () => {
-        console.log('Nombre de usuario o contraseña incorrecta');
+      error: (err) => {
+        if (err.status === 401) {
+          this.presentToast('No puede loguearse sin haber verificado su email');
+        } else {
+          this.presentToast('Nombre de usuario o contraseña incorrecta');
+        }
       },
     });
   }
@@ -60,6 +66,13 @@ export class LoginPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
+  }
 
 }

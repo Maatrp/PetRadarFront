@@ -15,6 +15,7 @@ import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service'
 import { CommunicationService } from 'src/app/services/communication/communication.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-place-card',
@@ -40,6 +41,7 @@ export class PlaceCardComponent implements OnInit, OnChanges {
     private _router: Router,
     private _storageService: StorageService,
     private _location: Location,
+    private _toastController: ToastController,
   ) { }
 
   async ngOnInit() {
@@ -165,8 +167,8 @@ export class PlaceCardComponent implements OnInit, OnChanges {
           this.data.favorite = true;
           this._communicationService.emitUpdatedFavorites();
         },
-        error: (error) => {
-          console.log('Error al añadir a favoritos', error);
+        error: () => {
+          this.presentToast('Error al añadir a favoritos');
         },
       });
     } else {
@@ -178,14 +180,14 @@ export class PlaceCardComponent implements OnInit, OnChanges {
             this._communicationService.emitUpdatedFavorites();
           },
           error: () => {
-            console.log('Error al eliminar el favoritos');
+            this.presentToast('Error al eliminar de favoritos');
           },
         });
     }
   }
 
   async handleClickSelectedPlace(event: Event) {
-    event.stopPropagation(); 
+    event.stopPropagation();
 
     this.selected = !this.selected;
 
@@ -199,5 +201,15 @@ export class PlaceCardComponent implements OnInit, OnChanges {
     } else {
       this.isRequestPlaceUrl = false;
     }
+  }
+
+  // Muestra un toast
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 }

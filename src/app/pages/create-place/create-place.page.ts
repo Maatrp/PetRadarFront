@@ -10,6 +10,7 @@ import { PlaceData } from 'src/app/interface/place-data';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-place',
@@ -32,7 +33,8 @@ export class CreatePlacePage {
     private _storageService: StorageService,
     private _formBuilder: FormBuilder,
     private _petRadarApiService: PetRadarApiService,
-    private _router: Router
+    private _router: Router,
+    private _toastController: ToastController,
   ) { }
 
   async ionViewWillEnter() {
@@ -65,7 +67,7 @@ export class CreatePlacePage {
         this._router.navigate(['/map']);
       }
     } catch (error) {
-      console.log('Incidencia en la creación de lugar', error);
+      this.presentToast('Incidencia en la creación de lugar');
     }
   }
 
@@ -106,7 +108,7 @@ export class CreatePlacePage {
       this.selectedTags.push(element);
     }
   }
-  
+
   addOrRemoveRestrictions(element: string) {
     const index = this.selectedRestrictions.indexOf(element);
     if (index !== -1) {
@@ -124,17 +126,26 @@ export class CreatePlacePage {
     const userId = (await this._storageService.getUserData()).id;
     placeData.tags = this.selectedTags;
     placeData.restrictions = this.selectedRestrictions;
-    
+
     this._petRadarApiService.postCreatePlace(token, userId, placeData)
       .subscribe(
         () => {
-          console.log('Creado con éxito');
+          this.presentToast('Creado con éxito');
           this._router.navigate(['/map']);
         },
-        (error) => {
-          console.error('Error:', error);
+        () => {
+          this.presentToast('Error al crear el lugar');
         }
       );
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 
 }

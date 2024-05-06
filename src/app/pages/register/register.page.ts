@@ -5,6 +5,7 @@ import { UserData } from 'src/app/interface/user-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { RegisterPageForm } from './register.page.form';
 import { EncryptService } from 'src/app/services/encrypt/encrypt.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterPage implements OnInit {
     private _router: Router,
     private _formBuilder: FormBuilder,
     private _petRadarApiService: PetRadarApiService,
-    private _encryptService: EncryptService
+    private _encryptService: EncryptService,
+    private _toastController: ToastController,
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class RegisterPage implements OnInit {
         await this.createUser(this.form.value);
       }
     } catch (error) {
-      console.log('Incidencia en la creación de usuario');
+      this.presentToast('Incidencia en la creación de usuario');
     }
   }
 
@@ -56,17 +58,26 @@ export class RegisterPage implements OnInit {
     this._petRadarApiService.postCreateUser(userCreated).subscribe({
       error: (err) => {
         if (err.status === 201) {
-          console.log('Usuario creado con éxito');
+          this.presentToast('Usuario creado con éxito');
           this._router.navigate(['/login']);
         } else if (err.status === 409) {
-          console.log('El usuario ya existe en la base de datos');
+          this.presentToast('El usuario ya existe en la base de datos');
           this._router.navigate(['/map']);
         } else {
-          console.log('No se ha podido crear el usuario');
+          this.presentToast('No se ha podido crear el usuario');
           this._router.navigate(['/map']);
         }
       },
     });
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 
 }
