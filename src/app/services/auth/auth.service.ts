@@ -3,6 +3,7 @@ import { StorageService } from '../storage/storage.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthService {
     constructor(
         private _storageService: StorageService,
         private _router: Router,
+        private _toastController: ToastController,
     ) { }
 
 
@@ -28,10 +30,10 @@ export class AuthService {
 
     async handleError(error: HttpErrorResponse) {
         if (error.status === 403) {
+            this.presentToast('La sesión ha caducado');
 
             this.logout();
         }
-        return 'La sesión ha caducado: ' + error.message;
     }
 
     async checkPermission(permission: PermissionEnum) {
@@ -45,10 +47,20 @@ export class AuthService {
             return userPermissions;
 
         } catch (error) {
-            console.log(error);
+            this.presentToast('No dispone de los permisos necesarios');
 
             return false;
 
         }
     }
+
+    private async presentToast(message: string) {
+        const toast = await this._toastController.create({
+            message: message,
+            position: 'middle',
+            duration: 3000,
+        });
+        toast.present();
+    }
+
 }

@@ -13,6 +13,11 @@
 <ion-content *ngIf="hasPermissions">
   <div class="spacer"></div>
 
+  <div *ngIf="totalData.length <= 0">
+    <div class="cat-image">
+      <ion-img src="../../../assets/favoritelistempty.png" alt="Cat image saying favorite list empty"></ion-img>
+    </div>
+  </div>
   <div *ngIf="totalData.length > 0">
     <ion-button (click)="generatePDF()">Generar PDF</ion-button>
   </div>

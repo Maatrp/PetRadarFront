@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { PlaceTypeOption } from 'src/app/interface/place-type-option';
 import { StorageService } from 'src/app/services/storage/storage.service';
 @Component({
@@ -25,14 +26,15 @@ export class FilterPage {
 
   constructor(
     private _storageService: StorageService,
-    private _router: Router
+    private _router: Router,
+    private _toastController: ToastController,
   ) {}
 
   async ionViewWillEnter() {
     try {
       await this.initFilters();
     } catch (error) {
-      console.log('Incidencia en la asignación de marcadores');
+      this.presentToast('Incidencia en la asignación de marcadores');
       
     }
   }
@@ -70,6 +72,15 @@ export class FilterPage {
         }
       });
     }
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 
 }

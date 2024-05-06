@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { MarkerData } from 'src/app/interface/marker-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
@@ -23,7 +23,7 @@ export class RequestPlacePage {
     private _storageService: StorageService,
     private _petRadarApiService: PetRadarApiService,
     private _communicationService: CommunicationService,
-    private _router: Router
+    private _toastController: ToastController,
   ) { }
 
   async ionViewWillEnter() {
@@ -69,11 +69,11 @@ export class RequestPlacePage {
     return this._petRadarApiService.putUpdateAllStatusPlaces(token, this.selectedList, 'AC')
       .subscribe({
         next: () => {
-          console.log('Publicación aceptada');
+          this.presentToast('Publicación aceptada');
           location.reload();
         },
         error: (err) => {
-          console.log('Error al aceptar la publicación', err);
+          this.presentToast('Error al aceptar la publicación');
 
         },
       });
@@ -86,13 +86,22 @@ export class RequestPlacePage {
     return this._petRadarApiService.putUpdateAllStatusPlaces(token, this.selectedList, 'DC')
       .subscribe({
         next: () => {
-          console.log('Publicación declinada');
+          this.presentToast('Publicación declinada');
           location.reload();
         },
         error: (err) => {
-          console.log('Error al declinar la publicación', err);
+          this.presentToast('Error al declinar la publicación');
 
         },
       });
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 }

@@ -8,6 +8,7 @@ import { FilterData } from 'src/app/interface/filter-data';
 import { environment } from 'src/environments/environment';
 import { GeolocationService } from 'src/app/services/geolocation/geolocation.service';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-map',
@@ -26,7 +27,8 @@ export class MapPage {
     private _petRadarApiService: PetRadarApiService,
     private _communicationService: CommunicationService,
     private _storageService: StorageService,
-    private _geolocationService: GeolocationService
+    private _geolocationService: GeolocationService,
+    private _toastController: ToastController,
   ) { }
 
   async ionViewWillEnter() {
@@ -63,14 +65,14 @@ export class MapPage {
       this.map.invalidateSize();
 
     } catch (error) {
-      console.log('Incidencia en la asignación de marcadores');
+       this.presentToast('Incidencia en la asignación de marcadores');
     }
   }
 
   // Carga los marcadores
   async fillMarkers() {
     if (!this.map) {
-      console.log('Incidencia al cargar el mapa. Intentalo de nuevo.');
+       this.presentToast('Incidencia al cargar el mapa. Intentalo de nuevo.');
       return;
     }
     const map = this.map as Map;
@@ -112,13 +114,13 @@ export class MapPage {
           }
         });
       },
-      complete: () => {
+      complete:  () => {
         if (this.markerLayers.length === previousMarkerCount) {
-          console.log('No hay coincidencias.');
+          this.presentToast('No hay coincidencias.');
         }
       },
       error: () => {
-        console.log('Incidencia al cargar los marcadores');
+         this.presentToast('Incidencia al cargar los marcadores');
       },
     });
   }
@@ -133,7 +135,7 @@ export class MapPage {
     this._geolocationService
       .retrieveCurrentPosition()
       .catch((error) => {
-        console.log('Incidencia al actualizar la posición');
+        this.presentToast('Incidencia al actualizar la posición');
       });
 
     this.ionViewWillEnter();
@@ -178,5 +180,14 @@ export class MapPage {
       iconAnchor: [16, 32],
       popupAnchor: [0, -32],
     });
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      position: 'middle',
+      duration: 3000,
+    });
+    toast.present();
   }
 }
