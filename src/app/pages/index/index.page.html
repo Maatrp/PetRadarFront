@@ -1,13 +1,22 @@
-<ion-fab vertical="top" horizontal="center" slot="fixed">
-  <ion-button class="top-button" routerLink="/map">
+<ion-fab vertical="top" horizontal="end" slot="fixed" class="me-5 mt-2">
+  <ion-button class="top-button" routerLink="/map" class="me-2">
     <ion-icon slot="icon-only" name="map-outline"></ion-icon>
   </ion-button>
 
-  <ion-button class="top-button" routerLink="/cards-list">
+  <ion-button class="top-button" routerLink="/cards-list" class="me-2">
     <ion-icon slot="icon-only" name="list-outline"></ion-icon>
   </ion-button>
 
-  <ion-button class="top-button" routerLink="/my-account">
+  <ion-button class="top-button" routerLink="/my-account" class="me-4">
     <ion-icon slot="icon-only" name="person-outline"></ion-icon>
   </ion-button>
 </ion-fab>
+
+<ion-content>
+  <ion-img class="logo" src="../../../assets/huella.png" alt="Logo de PetRadar">
+  </ion-img>
+  
+  <span class="text-1">PET RADAR</span>
+
+  <span class="text-2">Disfruta con tu mascota</span>
+</ion-content>

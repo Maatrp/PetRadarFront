@@ -1,0 +1,35 @@
+ion-content{
+    --background: url("../../../assets/dog.png") no-repeat center center / cover;
+}
+
+.logo{
+    width: 5%;
+    z-index: 10;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+}
+
+.text-1{
+    z-index: 10;
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: bold;
+    top: 18%;
+    left: 8%;
+    color: #76410f;
+    text-shadow: 2px 2px 3px #000000;
+    transform: translate(-50%, -50%);
+}
+
+.text-2{
+    z-index: 10;
+    position: absolute;
+    font-size: 3.0rem;
+    font-weight: bold;
+    top: 50%;
+    left: 60%;
+    color: #76410f;
+    text-shadow: 2px 2px 3px #000000;
+    transform: translate(-50%, -50%);
+}
