@@ -1,5 +1,59 @@
-.top-button{
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .button-container {
+    justify-content: center;
+  }
+
+  .top-button {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+  }
+
 }
 
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+  .mobile-view {
+    display: none;
+  }
+
+  .button-container {
+    margin-right: 3.5em;
+    justify-content: flex-end;
+  }
+
+  .top-button {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+}
+
+/* Estilos generales */
+.button-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.top-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  border-radius: 32px !important;
+  min-height: 2.1rem;
+  background-color: white;
+}
+
+.icon {
+  margin-right: 0.5em;
+}
+
+.button-text {
+  font-size: 1rem;
+}
