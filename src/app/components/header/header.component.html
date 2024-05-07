@@ -1,50 +1,109 @@
-<div>
-  <ion-fab vertical="top" horizontal="center" slot="fixed">
-    <ion-button class="top-button" routerLink="/index">
+<div class="mobile-view">
+  <ion-fab vertical="top" class="button-container" horizontal="center" slot="fixed">
+    <button class="top-button" routerLink="/index">
       <ion-icon slot="icon-only" name="home-outline"></ion-icon>
-    </ion-button>
-    <ion-button
+    </button>
+    <button
       class="top-button"
       routerLink="/map"
       *ngIf="isShowingMapButton()"
     >
       <ion-icon slot="icon-only" name="map-outline"></ion-icon>
-    </ion-button>
+    </button>
 
-    <ion-button
+    <button
       class="top-button"
       routerLink="/cards-list"
       *ngIf="isShowingCardsListButton()"
     >
       <ion-icon slot="icon-only" name="list-outline"></ion-icon>
-    </ion-button>
+    </button>
 
-    <ion-button
+    <button
       class="top-button"
       routerLink="/filter"
       *ngIf="isShowingFilterButton()"
     >
       <ion-icon slot="icon-only" name="options-outline"></ion-icon>
-    </ion-button>
+    </button>
 
-    <ion-button class="top-button" routerLink="/my-account">
+    <button class="top-button" routerLink="/my-account">
       <ion-icon slot="icon-only" name="person-outline"></ion-icon>
-    </ion-button>
+    </button>
 
-    <ion-button
+    <button
       class="top-button"
       routerLink="/create-place"
       *ngIf="isShowingCreatePlaceButton() && userCanCreate"
     >
       <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-    </ion-button>
+    </button>
 
-    <ion-button
+    <button
       class="top-button"
       routerLink="/request-place"
       *ngIf="isShowingUpdateStatusPlaceButton() && updateStatusPlace"
     >
       <ion-icon slot="icon-only" name="folder-outline"></ion-icon>
-    </ion-button>
+    </button>
+  </ion-fab>
+</div>
+
+<div class="desktop-view">
+  <ion-fab class="button-container" vertical="top" horizontal="center" slot="fixed">
+    <button
+      class="top-button"
+      routerLink="/index"
+      *ngIf="isShowingIndexButton()"
+    >
+      <ion-icon class="icon" slot="start" name="home-outline"></ion-icon>
+      <span class="button-text">Inicio</span>
+    </button>
+
+    <button class="top-button" routerLink="/map" *ngIf="isShowingMapButton()">
+      <ion-icon class="icon" slot="start" name="map-outline"></ion-icon>
+      <span class="button-text">Mapa</span>
+    </button>
+
+    <button
+      class="top-button"
+      routerLink="/cards-list"
+      *ngIf="isShowingCardsListButton()"
+    >
+      <ion-icon class="icon" slot="start" name="list-outline"></ion-icon>
+      <span class="button-text">Lista lugares</span>
+    </button>
+
+    <button
+      class="top-button"
+      routerLink="/filter"
+      *ngIf="isShowingFilterButton()"
+    >
+      <ion-icon class="icon" slot="start" name="options-outline"></ion-icon>
+      <span class="button-text">Filtros</span>
+    </button>
+
+    <button class="top-button" routerLink="/my-account">
+      <ion-icon class="icon" slot="start" name="person-outline"></ion-icon>
+      <span class="button-text">Mi cuenta</span>
+    </button>
+
+    <button
+      class="top-button"
+      routerLink="/create-place"
+      *ngIf="isShowingCreatePlaceButton() && userCanCreate"
+    >
+      <ion-icon class="icon" slot="start" name="add-circle-outline"></ion-icon>
+      <span class="button-text">Crear lugar</span>
+    </button>
+
+    <button
+      class="top-button"
+      routerLink="/request-place"
+      *ngIf="isShowingUpdateStatusPlaceButton() && updateStatusPlace"
+    >
+      <ion-icon class="icon" slot="start" name="folder-outline"></ion-icon>
+      <span class="button-text">Peticiones</span>
+    </button>
   </ion-fab>
 </div>

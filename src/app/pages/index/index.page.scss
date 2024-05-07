@@ -1,28 +1,80 @@
-ion-content{
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .content-container {
+        width: 80vw;
+        margin-left: 43%;
+        margin-top: 30%;
+    }
+
+    .text1 {
+        font-size: 1rem;
+    }
+
+    .text2 {
+        font-size: 2.5rem;
+        text-align: center;
+        padding-right: 19%;
+        margin-top: 5%;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+    .content-container {
+        margin-left: 2%;
+    }
+
+    .text1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Estilos generales */
+ion-content {
     --background: url("../../../assets/dog.png") no-repeat center center / cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
 
-.logo{
-    width: 5%;
-    z-index: 10;
-    position: absolute;
-    left: 5%;
-    top: 5%;
+// Logo y texto Pet Radar 
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 15vw;
+    height: 25vh;
 }
 
-.text-1{
-    z-index: 10;
-    position: absolute;
+.logo-container img {
+    width: 85%;
+    max-width: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+}
+
+.logo {
+    width: 100%;
+    max-width: 100%;
+}
+
+.text1 {
     font-size: 1.5rem;
     font-weight: bold;
-    top: 18%;
-    left: 8%;
     color: #76410f;
     text-shadow: 2px 2px 3px #000000;
-    transform: translate(-50%, -50%);
 }
 
-.text-2{
+// Texto 2
+.text2 {
     z-index: 10;
     position: absolute;
     font-size: 3.0rem;

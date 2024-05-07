@@ -21,6 +21,11 @@ export class HeaderComponent {
     await this.checkUpdateStatusPlacePermission();
   }
 
+  // Método para mostrar el botón del index
+  isShowingIndexButton(): boolean {
+    return this._router.url !== '/index';
+  }
+
   // Método para mostrar el botón del mapa
   isShowingMapButton(): boolean {
     return this._router.url !== '/map';
