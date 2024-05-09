@@ -1,11 +1,56 @@
-// Skeleton
-.skeleton-image {
-    width: 6rem;
-    height: 6rem;
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .desktop-view {
+        display: none;
+    }
+
+    .skeleton-image {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .text-skeleton {
+        height: 3vh;
+        margin-top: 1vh;
+        margin-bottom: 2vh;
+    }
 }
 
-.text-skeleton {
-    height: 3vh;
-    margin-top: 1vh;
-    margin-bottom: 2vh;
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+    .mobile-view {
+        display: none;
+    }
+
+    .desktop-view {
+        max-width: 305px;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+        margin-top: 0rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-card {
+        width: 100%;
+        max-width: 305px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .skeleton-image {
+        width: 14rem;
+        height: 14rem;
+        border-radius: 5px;
+        margin:  1rem 1.60rem;
+    }
+
+    .text-skeleton {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
 }

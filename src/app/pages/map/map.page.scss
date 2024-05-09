@@ -1,10 +1,14 @@
-ion-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}  
+.header {
+    padding: 1.75rem 0rem;
+}
 
 #map {
     height: 100%;
     width: 100vw;
+}
+
+ion-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

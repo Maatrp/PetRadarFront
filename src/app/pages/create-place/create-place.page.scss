@@ -1,3 +1,7 @@
+.header {
+    padding: 1.75rem 0rem;
+}
+
 .container {
     position: relative;
 }
@@ -13,11 +17,7 @@
     left: 0;
 }
 
-.name {
-    margin-top: 3.5rem;
-    opacity: 0.8;
-}
-
+.name,
 .type,
 .description,
 .latitude,

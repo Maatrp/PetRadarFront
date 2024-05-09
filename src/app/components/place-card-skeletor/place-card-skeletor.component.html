@@ -1,17 +1,35 @@
-<ion-card class="alert alert-light">
-  <div class="container mx-auto place-card">
-    <div class="row">
-      <div class="col-4">
+<div class="mobile-view">
+  <ion-card class="alert alert-light">
+    <div class="container mx-auto place-card">
+      <div class="row">
+        <div class="col-4">
+          <ion-skeleton-text
+            class="skeleton-image col-4 hydrated"
+            animated
+          ></ion-skeleton-text>
+        </div>
+        <div class="col-8">
+          <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+          <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+          <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+</div>
+
+<div class="desktop-view">
+  <ion-card class="product-card alert alert-light">
+      <div class="image">
         <ion-skeleton-text
-          class="skeleton-image col-4 hydrated"
+          class="skeleton-image hydrated"
           animated
         ></ion-skeleton-text>
       </div>
-      <div class="col-8">
+      <div class="text">
         <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
         <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
         <ion-skeleton-text class="text-skeleton" animated></ion-skeleton-text>
       </div>
-    </div>
-  </div>
-</ion-card>
+  </ion-card>
+</div>

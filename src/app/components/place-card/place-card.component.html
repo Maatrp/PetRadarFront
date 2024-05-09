@@ -1,10 +1,73 @@
-<ion-card
-  class="product-card"
-  *ngIf="showCard && data && !showSkeleton"
-  (click)="handleClickOpenCardPage(data.id)"
->
-  <div class="product-card">
-    <ion-thumbnail>
+<div class="mobile-view">
+  <ion-card
+    class="product-card"
+    *ngIf="showCard && data && !showSkeleton"
+    (click)="handleClickOpenCardPage(data.id)"
+  >
+    <div class="product-card">
+      <ion-thumbnail>
+        <ion-img
+          *ngIf="data.placeImages"
+          [src]="data.placeImages[0].src"
+          [alt]="'Image from ' + data.name"
+        ></ion-img>
+        <ion-img
+          *ngIf="!data.placeImages"
+          src="../../../assets/imagenotfound.jpg"
+          [attr.alt]="'Image from ' + data.name"
+        ></ion-img>
+      </ion-thumbnail>
+      <div class="content-container">
+        <div class="title">{{ data.name }}</div>
+        <div class="type">{{ data.type | translateType }}</div>
+        <div class="number" *ngIf="data.averageRating">
+          {{ data.averageRating | starRating }}
+          <span class="number-weight">({{ data.averageRating }})</span>
+        </div>
+      </div>
+      <div *ngIf="isRequestPlaceUrl" class="check-icon">
+        <ion-icon
+          name="square-outline"
+          color="black"
+          *ngIf="!selected"
+          (click)="handleClickSelectedPlace($event)"
+        ></ion-icon>
+        <ion-icon
+          name="checkbox-outline"
+          color="black"
+          *ngIf="selected"
+          (click)="handleClickSelectedPlace($event)"
+        ></ion-icon>
+      </div>
+      <div *ngIf="isLoggedIn" class="heart-icon">
+        <ion-icon
+          name="heart-outline"
+          color="danger"
+          *ngIf="!data.favorite"
+          (click)="handleClickFavoritePlace($event)"
+        ></ion-icon>
+        <ion-icon
+          name="heart"
+          color="danger"
+          *ngIf="data.favorite"
+          (click)="handleClickFavoritePlace($event)"
+        ></ion-icon>
+      </div>
+    </div>
+  </ion-card>
+
+  <div *ngIf="showCard && showSkeleton">
+    <app-place-card-skeletor> </app-place-card-skeletor>
+  </div>
+</div>
+
+<div class="desktop-view">
+  <ion-card
+    class="product-card"
+    *ngIf="showCard && data && !showSkeleton"
+    (click)="handleClickOpenCardPage(data.id)"
+  >
+    <ion-thumbnail class="container mx-auto">
       <ion-img
         *ngIf="data.placeImages"
         [src]="data.placeImages[0].src"
@@ -16,45 +79,49 @@
         [attr.alt]="'Image from ' + data.name"
       ></ion-img>
     </ion-thumbnail>
-    <div class="content-container">
-      <div class="title">{{ data.name }}</div>
-      <div class="type">{{ data.type | translateType }}</div>
-      <div class="number" *ngIf="data.averageRating">
-        {{ data.averageRating | starRating }}
-        <span class="number-weight">({{ data.averageRating }})</span>
+    <div class="information-container">
+      <div class="content-container">
+        <div class="title">{{ data.name }}</div>
+        <div class="type">{{ data.type | translateType }}</div>
+        <div class="number" *ngIf="data.averageRating">
+          {{ data.averageRating | starRating }}
+          <span class="number-weight">({{ data.averageRating }})</span>
+        </div>
+      </div>
+      <div class="icons-container">
+        <div *ngIf="isRequestPlaceUrl" class="check-icon">
+          <ion-icon
+            name="square-outline"
+            color="black"
+            *ngIf="!selected"
+            (click)="handleClickSelectedPlace($event)"
+          ></ion-icon>
+          <ion-icon
+            name="checkbox-outline"
+            color="black"
+            *ngIf="selected"
+            (click)="handleClickSelectedPlace($event)"
+          ></ion-icon>
+        </div>
+        <div *ngIf="isLoggedIn" class="heart-icon">
+          <ion-icon
+            name="heart-outline"
+            color="danger"
+            *ngIf="!data.favorite"
+            (click)="handleClickFavoritePlace($event)"
+          ></ion-icon>
+          <ion-icon
+            name="heart"
+            color="danger"
+            *ngIf="data.favorite"
+            (click)="handleClickFavoritePlace($event)"
+          ></ion-icon>
+        </div>
       </div>
     </div>
-    <div *ngIf="isRequestPlaceUrl" class="check-icon">
-      <ion-icon
-        name="square-outline"
-        color="black"
-        *ngIf="!selected"
-        (click)="handleClickSelectedPlace($event)"
-      ></ion-icon>
-      <ion-icon
-        name="checkbox-outline"
-        color="black"
-        *ngIf="selected"
-        (click)="handleClickSelectedPlace($event)"
-      ></ion-icon>
-    </div>
-    <div *ngIf="isLoggedIn" class="heart-icon">
-      <ion-icon
-        name="heart-outline"
-        color="danger"
-        *ngIf="!data.favorite"
-        (click)="handleClickFavoritePlace($event)"
-      ></ion-icon>
-      <ion-icon
-        name="heart"
-        color="danger"
-        *ngIf="data.favorite"
-        (click)="handleClickFavoritePlace($event)"
-      ></ion-icon>
-    </div>
-  </div>
-</ion-card>
+  </ion-card>
 
-<div *ngIf="showCard && showSkeleton">
-  <app-place-card-skeletor> </app-place-card-skeletor>
+  <div *ngIf="showCard && showSkeleton">
+    <app-place-card-skeletor> </app-place-card-skeletor>
+  </div>
 </div>

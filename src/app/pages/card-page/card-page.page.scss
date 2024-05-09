@@ -1,18 +1,7 @@
 // Header
-ion-header {
-    height: 6.5vh;
-}
-
-.icon {
-    font-size: 1.5rem;
-    margin-left: 1.2rem;
-    margin-top: 0.6rem;
-}
-
-.text {
-    font-size: 1.5rem;
-    margin-top: 0.9rem;
-}
+.header {
+    padding: 1.75rem 0rem;
+  }
 
 // Image
 .card-image {
@@ -65,7 +54,7 @@ ion-header {
     padding: 10px;
 }
 
-.link{
+.link {
     color: #737373;
     text-decoration: none;
 }
@@ -105,11 +94,11 @@ ion-header {
     font-size: 1rem;
 }
 
-.star-cb-group > input {
+.star-cb-group>input {
     display: none;
 }
 
-.star-cb-group > input + label {
+.star-cb-group>input+label {
     /* only enough room for the star */
     display: inline-block;
     overflow: hidden;
@@ -119,7 +108,7 @@ ion-header {
     cursor: pointer;
 }
 
-.star-cb-group > input + label:before {
+.star-cb-group>input+label:before {
     display: inline-block;
     text-indent: -9999px;
     content: "☆";
@@ -127,31 +116,34 @@ ion-header {
     font-size: 30px;
 }
 
-.star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+.star-cb-group>input:checked~label:before,
+.star-cb-group>input+label:hover~label:before,
+.star-cb-group>input+label:hover:before {
     content: "★";
     color: #ae7e52;
     text-shadow: 0 0 1px #333;
     font-size: 30px;
 }
 
-.star-cb-group > .star-cb-clear + label {
+.star-cb-group>.star-cb-clear+label {
     text-indent: -9999px;
     width: 0.5em;
     margin-left: -0.5em;
 }
 
-.star-cb-group > .star-cb-clear + label:before {
+.star-cb-group>.star-cb-clear+label:before {
     width: 0.5em;
 }
 
-.star-cb-group:hover > input + label:before {
+.star-cb-group:hover>input+label:before {
     content: "☆";
     color: #888;
     text-shadow: none;
     font-size: 30px;
 }
 
-.star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+.star-cb-group:hover>input+label:hover~label:before,
+.star-cb-group:hover>input+label:hover:before {
     content: "★";
     color: #ae7e52;
     text-shadow: 0 0 1px #333;

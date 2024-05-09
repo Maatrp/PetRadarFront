@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MyDataPageRoutingModule } from './my-data-routing.module';
 
 import { MyDataPage } from './my-data.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MyDataPageRoutingModule
+    MyDataPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [MyDataPage]
 })

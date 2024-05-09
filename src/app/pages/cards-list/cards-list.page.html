@@ -1,17 +1,21 @@
 <ion-header>
-  <app-header></app-header>
+  <div class="header">
+    <app-header></app-header>
+  </div>
 </ion-header>
 
 <ion-content>
-  <div class="spacer"></div>
-
-  <div *ngFor="let item of totalData | filter:filterData">
-    <app-place-card
-      [placeId]="item.id"
-      [showCard]="true"
-      [canBeClosed]="false"
-    ></app-place-card>
+  <div class="place-card-wrapper container mx-auto">
+    <ng-container *ngFor="let item of totalData | filter:filterData">
+      <app-place-card
+        [placeId]="item.id"
+        [showCard]="true"
+        [canBeClosed]="false"
+        class="place-card container mx-auto"
+      ></app-place-card>
+    </ng-container>
   </div>
+
   <div *ngIf="!showNoMatches && (totalData | filter:filterData).length === 0">
     <ion-card class="alert alert-light">
       <h1 class="text-center">No hay coincidencias</h1>
@@ -21,14 +25,25 @@
     </ion-card>
   </div>
 
-  <div *ngIf="showNoMatches">
-    <app-place-card-skeletor></app-place-card-skeletor>
-    <br />
-    <app-place-card-skeletor></app-place-card-skeletor>
-    <br />
-    <app-place-card-skeletor></app-place-card-skeletor>
-    <br />
-    <app-place-card-skeletor></app-place-card-skeletor>
+  <div class="place-card-wrapper container mx-auto" *ngIf="showNoMatches">
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
   </div>
 </ion-content>
 
