@@ -1,3 +1,41 @@
-.spacer {
-  height: 60px;
+.header {
+  padding: 1.75rem 0rem;
+}
+
+.pdf-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.button {
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  border-radius: 32px !important;
+  min-height: 2.1rem;
+  background-color: #ae7e52;
+  color: white;
+}
+
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+  .place-card-wrapper {
+    display: grid;
+    justify-content: space-around;
+    align-content: center;
+    grid-template-columns: 32% 32% 32%;
+  }
+
+  .place-card {
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+  }
 }

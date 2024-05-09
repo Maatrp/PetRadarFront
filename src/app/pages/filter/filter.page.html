@@ -1,10 +1,10 @@
 <ion-header>
-  <app-header></app-header>
+  <div class="header">
+    <app-header></app-header>
+  </div>
 </ion-header>
 
 <ion-content>
-  <div class="spacer"></div>
-
   <div class="flex-center">
     <ion-card>
       <ion-card-header>
@@ -28,11 +28,9 @@
           </ion-item>
         </ion-list>
       </ion-card-content>
+      <ion-button class="init-session" expand="full" (click)="filterSearch()"
+        >Buscar</ion-button
+      >
     </ion-card>
   </div>
 </ion-content>
-<ion-footer>
-  <ion-button class="init-session" expand="full" (click)="filterSearch()"
-    >Buscar</ion-button
-  >
-</ion-footer>

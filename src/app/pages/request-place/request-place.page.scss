@@ -1,3 +1,19 @@
-.spacer {
-    height: 60px;
+.header {
+  padding: 1.75rem 0rem;
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+  .place-card-wrapper {
+    display: grid;
+    justify-content: space-around;
+    align-content: center;
+    grid-template-columns: 32% 32% 32%;
   }
+
+  .place-card {
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+  }
+}

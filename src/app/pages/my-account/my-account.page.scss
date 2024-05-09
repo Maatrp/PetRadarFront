@@ -1,21 +1,10 @@
 // Header
-ion-header {
-    height: 6.5vh;
-}
-
-.icon {
-    font-size: 1.5rem;
-    margin-left: 1.2rem;
-    margin-top: 0.6rem;
-}
-
-.text {
-    font-size: 1.5rem;
-    margin-top: 0.9rem;
+.header {
+    padding: 1.75rem 0rem;
 }
 
 // Content
-ion-card{
+ion-card {
     height: 100vh;
 }
 
@@ -36,13 +25,13 @@ ion-card{
 }
 
 // Icon and text
-.icons{
+.icons {
     font-size: 2rem;
     margin-left: 1.2rem;
     margin-top: 0.8rem;
 }
 
-.text{
+.text {
     font-size: 1.5rem;
     margin-left: 0.5rem;
 }
