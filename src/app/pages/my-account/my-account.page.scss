@@ -3,43 +3,95 @@
     padding: 1.75rem 0rem;
 }
 
-// Content
-ion-card {
-    height: 100vh;
+ion-content {
+    height: 9vh;
 }
 
 .container {
-    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: start;
 }
 
-.container::before {
-    content: "";
-    position: absolute;
-    background: url("../../../assets/huella.jpg") repeat center center fixed;
-    opacity: 0.1;
-    z-index: -1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+.edit-delete-button {
+    justify-self: end;
+    margin: 1rem;
+}
+.icons{
+    padding-top: 0.2rem;
 }
 
-// Icon and text
-.icons {
-    font-size: 2rem;
-    margin-left: 1.2rem;
-    margin-top: 0.8rem;
+/*Buttons*/
+// Icon ad text
+.icon-edit {
+    font-size: 1.2rem;
+    color: rgb(90, 126, 146);
+    padding-right: 0.2rem;
 }
 
-.text {
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
+.text-button {
+    font-size: 1rem;
+    color: grey;
 }
 
-
-//Button
-ion-button.close {
+.close,
+.update-button {
     --background: #ae7e52;
     color: white;
     margin-top: 2rem;
+    font-size: 1rem;
+}
+
+.cancel-button {
+    --background: white;
+    color: #ae7e52;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .container {
+        width: 80%;
+        margin-top: 200px;
+    }
+
+    .text-center {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .icons {
+        font-size: 1.2rem;
+    }
+
+    .text {
+        font-size: 1.2rem;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+    .container {
+        width: 60%;
+        margin-top: 135px;
+    }
+
+    .text-center {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .icons {
+        font-size: 1.5rem;
+    }
+
+    .text {
+        font-size: 1.5rem;
+    }
+
+    .row {
+        margin: 0rem 1rem;
+    }
 }

@@ -22,8 +22,24 @@
   font-weight: bold;
 }
 
+/* Estilos para pantallas medianas */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .place-card-wrapper {
+    display: grid;
+    justify-content: space-around;
+    align-content: center; 
+    grid-template-columns: 49% 49%;
+  }
+
+  .place-card {
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+  }
+}
+
 /* Estilos para pantallas grandes */
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .place-card-wrapper {
     display: grid;
     justify-content: space-around;

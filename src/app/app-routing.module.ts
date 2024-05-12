@@ -73,10 +73,6 @@ const routes: Routes = [
     path: 'favorite-list',
     loadChildren: () => import('./pages/favorite-list/favorite-list.module').then( m => m.FavoriteListPageModule)
   },
-  {
-    path: 'my-data',
-    loadChildren: () => import('./pages/my-data/my-data.module').then( m => m.MyDataPageModule)
-  },
 
 
 ];

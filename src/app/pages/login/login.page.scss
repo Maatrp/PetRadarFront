@@ -5,7 +5,11 @@
 
 // Content
 ion-card-content {
-    height: 100vh;
+    height: 87vh;
+}
+
+.width {
+    margin: 1.2% auto 0 auto;
 }
 
 .container {
@@ -33,9 +37,6 @@ ion-card-content {
 .password {
     margin-top: 1.5rem;
     opacity: 0.8;
-}
-
-.password {
     position: relative;
 
     .show-password {
@@ -55,4 +56,12 @@ ion-button.init-session {
     text-align: center;
     padding: 10px;
     color: #76410f;
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+
+    .width {
+        width: 50%;
+    }
 }

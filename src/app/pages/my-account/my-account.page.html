@@ -5,18 +5,100 @@
 </ion-header>
 
 <ion-content *ngIf="isLoggedIn">
-  <ion-button class="top-button" routerLink="/favorite-list">
-    <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-  </ion-button>
-  <ion-button class="top-button" routerLink="/my-data">
-    <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
-  </ion-button>
-  <ion-button class="close" size="block" (click)="logout()"
-      >Cerrar sesión</ion-button
-    >
+  <!-- Muestra de datos -->
+  <ion-card class="container mx-auto" *ngIf="!updateData">
+    <div class="edit-delete-button">
+      <ion-button (click)="updateUserData()">
+        <div>
+          <ion-icon class="icon-edit" name="create-outline"></ion-icon>
+        </div>
+        <div><span class="text-button">Editar</span></div>
+      </ion-button>
+    </div>
+
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="happy-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>{{ username }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="text-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>{{ name }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>{{ email }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="key-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <span>*************</span>
+      </div>
+    </div>
+    <div class="row">
+      <ion-button class="close" (click)="logout()">Cerrar sesión</ion-button>
+    </div>
+  </ion-card>
+
+  <!-- Editar datos -->
+  <ion-card class="container" *ngIf="updateData">
+    <div class="edit-delete-button">
+      <ion-button (click)="handleClickDeleteUser()">Eliminar cuenta</ion-button>
+    </div>
+    <div>
+      <h1 class="text-center">Actualiza los datos que quieres cambiar</h1>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="text-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <ion-input [(ngModel)]=" name" value="{{name}}"></ion-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <ion-input
+          type="text"
+          [(ngModel)]=" email"
+          value="{{email}}"
+        ></ion-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icons col-1">
+        <ion-icon name="key-outline"></ion-icon>
+      </div>
+      <div class="text col-10">
+        <ion-input
+          type="password"
+          [(ngModel)]=" password"
+          value="{{password}}"
+          (click)="clearData()"
+        ></ion-input>
+      </div>
+    </div>
+    <div class="row">
+      <ion-button class="update-button" (click)="handleClickUpdateUserData()"
+        >Actualizar cuenta</ion-button
+      >
+      <ion-button class="cancel-button" (click)="updateUserData()">Cancelar</ion-button>
+    </div>
+  </ion-card>
 </ion-content>
-
-
-
-
-
