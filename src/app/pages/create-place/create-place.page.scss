@@ -17,6 +17,12 @@
     left: 0;
 }
 
+.title {
+    font-size: 2em;
+    text-align: center;
+    color: grey;
+}
+
 .name,
 .type,
 .description,
@@ -30,7 +36,6 @@
 .website,
 .phone,
 .images {
-    margin-top: 1.3rem;
     opacity: 0.8;
 }
 
@@ -94,4 +99,34 @@ ul.interes-elem li input[type="checkbox"]:checked+label::before {
 
 ul.interes-elem li input[type="checkbox"]:focus+label {
     border: 2px solid #b69373;
+}
+
+// Buttons
+
+ion-button.create {
+    --background: #ae7e52;
+    color: white;
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+ion-button.cancel {
+    --background: white;
+    color: #ae7e52;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+
+    .type,
+    .town,
+    .longitude,
+    .images,
+    .tags,
+    .restrictions {
+        padding-right: 1.8rem;
+    }
 }

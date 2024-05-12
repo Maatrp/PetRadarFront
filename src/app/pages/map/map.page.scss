@@ -7,8 +7,21 @@
     width: 100vw;
 }
 
-ion-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    ion-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+    ion-footer {
+        position: fixed;
+        bottom: 0;
+        width: 365px;
+    }
 }

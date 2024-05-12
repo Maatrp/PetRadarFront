@@ -24,8 +24,6 @@ export class TranslateTagPipe implements PipeTransform {
         return 'Terraza';
       case 'PETFRIENDLY':
         return 'Aceptan animales';
-      case 'DOGPARK':
-        return 'Parque de perros';
       default:
         return tag;
     }

@@ -7,121 +7,126 @@
 <ion-content>
   <div class="flex-center">
     <form [formGroup]="form">
-      <ion-card-content class="container">
-        <div class="userName">
-          <ion-item>
-            <ion-input
-              label="Nombre usuario"
-              labelPlacement="floating"
-              type="text"
-              formControlName="userName"
-            ></ion-input>
-          </ion-item>
-          <ion-label
-            *ngIf="form.get('userName')?.touched && form.get('userName')?.hasError('required')"
-          >
-            Nombre del usuario obligatorio
-          </ion-label>
-        </div>
-        <div class="name">
-          <ion-item>
-            <ion-input
-              label="Nombre y apellidos"
-              labelPlacement="floating"
-              type="text"
-              formControlName="name"
-            ></ion-input>
-          </ion-item>
-          <ion-label
-            *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')"
-          >
-            Nombre del usuario obligatorio
-          </ion-label>
-        </div>
-        <div class="email">
-          <ion-item>
-            <ion-input
-              label="Email"
-              labelPlacement="floating"
-              placeholder="email@email.com"
-              formControlName="email"
-            ></ion-input>
-          </ion-item>
-          <ion-label
-            *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')"
-          >
-            Email obligatorio
-          </ion-label>
-          <ion-label
-            *ngIf="form.get('email')?.touched && form.get('email')?.hasError('emailValidator') || form.get('email')?.hasError('email')"
-          >
-            Email inválido
-          </ion-label>
-        </div>
-        <div class="password">
-          <ion-item>
-            <ion-label position="floating">Contraseña</ion-label>
-            <ion-input
-              type="text"
-              formControlName="password"
-              [class.show-password]="!showPassword"
-            ></ion-input>
-            <ion-icon
-              class="mt-3"
-              name="{{ showPassword ? 'eye' : 'eye-off' }}"
-              slot="end"
-              (click)="togglePasswordVisibility()"
-            ></ion-icon>
-          </ion-item>
-          <ion-label
-            *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')"
-          >
-            Contraseña obligatoria
-          </ion-label>
-          <ion-label
-            *ngIf="form.get('password')?.touched && form.get('password')?.hasError('minlength')"
-          >
-            La contraseña debe tener al menos 6 caracteres
-          </ion-label>
-          <ion-label
-            *ngIf="form.get('password')?.touched && form.get('password')?.hasError('maxlength')"
-          >
-            La contraseña máximo 10 caracteres
-          </ion-label>
-        </div>
-        <div class="confirmPassword">
-          <ion-item>
-            <ion-label position="floating">Repetir contraseña</ion-label>
-            <ion-input
-              type="text"
-              formControlName="confirmPassword"
-              [class.show-password]="!showConfirmPassword"
-            ></ion-input>
-            <ion-icon
-              class="mt-3"
-              name="{{ showConfirmPassword ? 'eye' : 'eye-off' }}"
-              slot="end"
-              (click)="toggleConfirmPasswordVisibility()"
-            ></ion-icon>
-          </ion-item>
-          <ion-label
-            *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.hasError('passwordMismatch')"
-          >
-            Las contraseñas no coinciden
-          </ion-label>
-        </div>
+      <div class="width">
+        <ion-card-content class="container">
+          <div class="userName">
+            <ion-item>
+              <ion-input
+                label="Nombre usuario"
+                labelPlacement="floating"
+                type="text"
+                formControlName="userName"
+              ></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="form.get('userName')?.touched && form.get('userName')?.hasError('required')"
+            >
+              Nombre del usuario obligatorio
+            </ion-label>
+          </div>
+          <div class="name">
+            <ion-item>
+              <ion-input
+                label="Nombre y apellidos"
+                labelPlacement="floating"
+                type="text"
+                formControlName="name"
+              ></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')"
+            >
+              Nombre del usuario obligatorio
+            </ion-label>
+          </div>
+          <div class="email">
+            <ion-item>
+              <ion-input
+                label="Email"
+                labelPlacement="floating"
+                placeholder="email@email.com"
+                formControlName="email"
+              ></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')"
+            >
+              Email obligatorio
+            </ion-label>
+            <ion-label
+              *ngIf="form.get('email')?.touched && form.get('email')?.hasError('emailValidator') || form.get('email')?.hasError('email')"
+            >
+              Email inválido
+            </ion-label>
+          </div>
+          <div class="password">
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input
+                type="text"
+                formControlName="password"
+                [class.show-password]="!showPassword"
+              ></ion-input>
+              <ion-icon
+                class="mt-3"
+                name="{{ showPassword ? 'eye' : 'eye-off' }}"
+                slot="end"
+                (click)="togglePasswordVisibility()"
+              ></ion-icon>
+            </ion-item>
+            <ion-label
+              *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')"
+            >
+              Contraseña obligatoria
+            </ion-label>
+            <ion-label
+              *ngIf="form.get('password')?.touched && form.get('password')?.hasError('minlength')"
+            >
+              La contraseña debe tener al menos 6 caracteres
+            </ion-label>
+            <ion-label
+              *ngIf="form.get('password')?.touched && form.get('password')?.hasError('maxlength')"
+            >
+              La contraseña máximo 10 caracteres
+            </ion-label>
+          </div>
+          <div class="confirmPassword">
+            <ion-item>
+              <ion-label position="floating">Repetir contraseña</ion-label>
+              <ion-input
+                type="text"
+                formControlName="confirmPassword"
+                [class.show-password]="!showConfirmPassword"
+              ></ion-input>
+              <ion-icon
+                class="mt-3"
+                name="{{ showConfirmPassword ? 'eye' : 'eye-off' }}"
+                slot="end"
+                (click)="toggleConfirmPasswordVisibility()"
+              ></ion-icon>
+            </ion-item>
+            <ion-label
+              *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.hasError('passwordMismatch')"
+            >
+              Las contraseñas no coinciden
+            </ion-label>
+          </div>
 
-        <ion-button
-          class="register"
-          size="block"
-          [disabled]="!form.valid"
-          (click)="accept()"
-          >Registrarse</ion-button
-        >
-        <ion-button class="cancel" size="block" onclick="window.history.back()"
-          >Cancelar</ion-button
-        >
-      </ion-card-content>
+          <ion-button
+            class="register"
+            size="block"
+            [disabled]="!form.valid"
+            (click)="accept()"
+            >Registrarse</ion-button
+          >
+          <ion-button
+            class="cancel"
+            size="block"
+            onclick="window.history.back()"
+            >Cancelar</ion-button
+          >
+        </ion-card-content>
+      </div>
     </form>
   </div>
 </ion-content>
