@@ -170,7 +170,7 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="description col-12 col-md-8">
+            <div class="description col-12 col-md-7">
               <ion-item>
                 <ion-textarea
                   label="Descripción del lugar"
@@ -185,11 +185,10 @@
                 Descripción del lugar obligatoria
               </ion-label>
             </div>
-            <div class="images col-12 col-md-4">
+            <div class="images col-12 col-md-5">
               <ion-item class="mt-4">
-                <ion-label>Imagenes</ion-label>
                 <ion-input
-                  labelPlacement="floating"
+                  label="Imagenes"z
                   type="file"
                   multiple
                   (onChange)="onFileSelected($event)"
