@@ -94,7 +94,9 @@
           </div>
         </div>
       </div>
-      <div class="commit-button-container">
+      <hr class="divider" />
+
+      <div class="commit-button-container mt-3 mb-0">
         <ion-button
           *ngIf="!showButtonCreateCommit"
           class="commit-button"
@@ -102,116 +104,128 @@
         >
           <ion-icon name="chatbox-ellipses-outline"></ion-icon>
         </ion-button>
-      </div>
-    </ion-card-content>
 
-    <ion-card-content *ngIf="showCreateCommit">
-      <div>
-        <span>Añadiendo valoración a {{ data.name }}</span>
-      </div>
-      <div class="flex-center">
-        <form [formGroup]="form" (ngSubmit)="acceptCreateValuation()">
-          <ion-card-content class="container">
-            <div class="averageRating">
-              <div class="valoration-fieldset">
-                <div class="valoration-fieldset">
-                  <fieldset
-                    class="valoration-fieldset"
-                    formControlName="averageRating"
-                  >
-                    <span class="star-cb-group">
-                      <input
-                        type="radio"
-                        id="rating-5"
-                        name="rating"
-                        formControlName="averageRating"
-                        [value]="5"
-                        (ionChange)="handleRadioChange($event)"
-                      /><label for="rating-5">5</label>
-                      <input
-                        type="radio"
-                        id="rating-4"
-                        name="rating"
-                        formControlName="averageRating"
-                        [value]="4"
-                        (ionChange)="handleRadioChange($event)"
-                      /><label for="rating-4">4</label>
-                      <input
-                        type="radio"
-                        id="rating-3"
-                        name="rating"
-                        formControlName="averageRating"
-                        [value]="3"
-                        (ionChange)="handleRadioChange($event)"
-                      /><label for="rating-3">3</label>
-                      <input
-                        type="radio"
-                        id="rating-2"
-                        name="rating"
-                        formControlName="averageRating"
-                        [value]="2"
-                        (ionChange)="handleRadioChange($event)"
-                      /><label for="rating-2">2</label>
-                      <input
-                        type="radio"
-                        id="rating-1"
-                        name="rating"
-                        formControlName="averageRating"
-                        [value]="1"
-                        (ionChange)="handleRadioChange($event)"
-                      /><label for="rating-1">1</label>
-                      <input
-                        type="radio"
-                        id="rating-0"
-                        name="rating"
-                        formControlName="averageRating"
-                        [value]="0"
-                        class="star-cb-clear"
-                      /><label for="rating-0">0</label>
-                    </span>
-                  </fieldset>
-                </div>
+        <ion-modal [isOpen]="showCreateCommit">
+          <ng-template>
+            <ion-header>
+              <div class="commit-header">
+                <span class="commit-title">Valoración de {{ data.name }}</span>
               </div>
-              <ion-label
-                *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')"
-              >
-                Obligatorio poner puntuación.
-              </ion-label>
-            </div>
-            <div class="commentMessage">
-              <ion-item>
-                <ion-label>Mensaje:</ion-label>
-                <ion-textarea formControlName="commentMessage"></ion-textarea>
-              </ion-item>
-              <ion-label
-                *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')"
-              >
-                Mensaje obligatorio.
-              </ion-label>
-            </div>
-            <ion-button
-              class="valuation-button"
-              size="block"
-              type="submit"
-              [disabled]="!form.valid"
-            >
-              Enviar
-            </ion-button>
-            <ion-button
-              class="valuation-button"
-              size="block"
-              (click)="openCloseCreateValuation()"
-            >
-              Cancelar
-            </ion-button>
-          </ion-card-content>
-        </form>
+            </ion-header>
+            <ion-content>
+              <div class="flex-center">
+                <form [formGroup]="form" (ngSubmit)="acceptCreateValuation()">
+                  <ion-card-content class="container mx-auto">
+                    <div class="commentRating">
+                      <ion-label class="averageRating-text">
+                        Puntuación:
+                      </ion-label>
+                      <div class="valoration">
+                        <fieldset
+                          class="valoration-fieldset"
+                          formControlName="averageRating"
+                        >
+                          <span class="star-cb-group">
+                            <input
+                              type="radio"
+                              id="rating-5"
+                              name="rating"
+                              formControlName="averageRating"
+                              [value]="5"
+                              (ionChange)="handleRadioChange($event)"
+                            /><label for="rating-5">5</label>
+                            <input
+                              type="radio"
+                              id="rating-4"
+                              name="rating"
+                              formControlName="averageRating"
+                              [value]="4"
+                              (ionChange)="handleRadioChange($event)"
+                            /><label for="rating-4">4</label>
+                            <input
+                              type="radio"
+                              id="rating-3"
+                              name="rating"
+                              formControlName="averageRating"
+                              [value]="3"
+                              (ionChange)="handleRadioChange($event)"
+                            /><label for="rating-3">3</label>
+                            <input
+                              type="radio"
+                              id="rating-2"
+                              name="rating"
+                              formControlName="averageRating"
+                              [value]="2"
+                              (ionChange)="handleRadioChange($event)"
+                            /><label for="rating-2">2</label>
+                            <input
+                              type="radio"
+                              id="rating-1"
+                              name="rating"
+                              formControlName="averageRating"
+                              [value]="1"
+                              (ionChange)="handleRadioChange($event)"
+                            /><label for="rating-1">1</label>
+                            <input
+                              type="radio"
+                              id="rating-0"
+                              name="rating"
+                              formControlName="averageRating"
+                              [value]="0"
+                              class="star-cb-clear"
+                            /><label for="rating-0">0</label>
+                          </span>
+                        </fieldset>
+                      </div>
+                      <ion-label
+                        *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')"
+                      >
+                        Obligatorio poner puntuación.
+                      </ion-label>
+                    </div>
+                    <div class="commentMessage">
+                      <div>
+                        <ion-label class="comment-text">
+                          Escribe tu opinión:
+                        </ion-label>
+                        <ion-textarea
+                          class="comment-textarea"
+                          formControlName="commentMessage"
+                        ></ion-textarea>
+                      </div>
+                      <ion-label
+                        *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')"
+                      >
+                        Mensaje obligatorio.
+                      </ion-label>
+                    </div>
+                    <ion-button
+                      class="submit"
+                      size="block"
+                      type="submit"
+                      [disabled]="!form.valid"
+                    >
+                      Enviar
+                    </ion-button>
+                    <ion-button
+                      class="cancel"
+                      size="block"
+                      (click)="openCloseCreateValuation()"
+                    >
+                      Cancelar
+                    </ion-button>
+                  </ion-card-content>
+                </form>
+              </div>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
       </div>
     </ion-card-content>
 
-    <ion-card-content *ngIf="hasValuationsPlacePermissions">
+    <div *ngIf="hasValuationsPlacePermissions">
       <app-valuations [placeId]="placeId"></app-valuations>
-    </ion-card-content>
+    </div>
   </ion-card>
 </ion-content>
 

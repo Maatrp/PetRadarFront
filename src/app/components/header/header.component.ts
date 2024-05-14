@@ -1,20 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
+import { MarkerData } from 'src/app/interface/marker-data';
+import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   userCanCreate: boolean = false;
   updateStatusPlace: boolean = false;
+  badgeButton: boolean = false;
+  totalData: MarkerData[] = [];
 
   constructor(
     private _router: Router,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _storageService: StorageService,
+    private _petRadarApiService: PetRadarApiService,
   ) { }
+
+  async ngOnInit() {
+    this.loadRequestPlaceListLength();
+  }
 
   async checkPermissions() {
     await this.checkCreatePlacePermission();
@@ -48,7 +59,23 @@ export class HeaderComponent {
   isShowingUpdateStatusPlaceButton(): boolean {
     return this._router.url !== '/request-place';
   }
+  async loadRequestPlaceListLength() {
+    const token = await this._storageService.getToken();
+    const userId = (await this._storageService.getUserData()).id;
 
+    this._petRadarApiService.getPendingPlaces(token, userId).subscribe({
+      next: (value) => {
+        this.totalData = value;
+        this.badgeButton = this.totalData.length > 0;
+      },
+      error: () => {
+        this.badgeButton = false;
+      },
+    });
+
+    return this.badgeButton;
+
+  }
   private async checkCreatePlacePermission() {
     this.userCanCreate = await this._authService.checkPermission(PermissionEnum.CREATE_PLACE);
   }

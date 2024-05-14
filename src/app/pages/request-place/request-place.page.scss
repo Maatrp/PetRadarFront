@@ -2,6 +2,21 @@
   padding: 1.75rem 0rem;
 }
 
+.buttons {
+ display: flex;
+ justify-content: center;
+}
+
+.accept {
+  color: seagreen;
+  font-weight: bold;
+}
+
+.decline {
+  color: rgb(205, 15, 15);
+  font-weight: bold;
+}
+
 /* Estilos para pantallas medianas */
 @media (min-width: 768px) and (max-width: 1199px) {
   .place-card-wrapper {

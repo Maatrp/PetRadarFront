@@ -1,3 +1,17 @@
+.top-button {
+  position: relative; 
+
+  .badge {
+    position: absolute; 
+    top: 1px; 
+    right: 0px;
+    transform: translate(50%, -50%); 
+    z-index: 1; 
+
+  }
+}
+
+
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
   .desktop-view {

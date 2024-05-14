@@ -1,0 +1,63 @@
+.content-container {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+hr.divider {
+    border: none;
+    border-top: 2px solid #ccc;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .valuations-list {
+        padding-top: 0.8rem;
+    }
+
+    .valuations-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-left: 0.8rem;
+    }
+
+    .content-container {
+        margin-left: 1.1rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .userName {
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+    .valuations-list {
+        padding-top: 1.2rem;
+    }
+
+    .valuations-title {
+        font-size: 1.4rem;
+        margin-left: 1.2rem;
+    }
+
+    .content-container {
+        margin-left: 1.6rem;
+        margin-right: 0.9rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .userName {
+        font-size: 1.1rem;
+    }
+
+    .rating,
+    .comment {
+        font-size: 0.9rem;
+    }
+
+}
