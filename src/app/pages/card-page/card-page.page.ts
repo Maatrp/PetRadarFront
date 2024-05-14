@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { CommunicationService } from 'src/app/services/communication/communicati
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { CardPageForm } from './card-page.form';
 import { ValuationsData } from 'src/app/interface/valuations-data';
-import { ToastController } from '@ionic/angular';
+import { IonModal, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-card-page',
@@ -18,6 +18,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./card-page.page.scss'],
 })
 export class CardPagePage implements OnInit, OnChanges {
+  @ViewChild(IonModal) modal!: IonModal;
   data!: PlaceData;
   form!: FormGroup;
   placeId: string = '';
@@ -123,8 +124,8 @@ export class CardPagePage implements OnInit, OnChanges {
         }
         this.showSkeleton = false;
       },
-      error:  () => {
-         this.presentToast('Error al obtener los datos');
+      error: () => {
+        this.presentToast('Error al obtener los datos');
         this.showSkeleton = false;
         this.showNoData = true;
       },
@@ -142,8 +143,8 @@ export class CardPagePage implements OnInit, OnChanges {
           this.data.favorite = true;
           this._communicationService.emitUpdatedFavorites();
         },
-        error:  () => {
-           this.presentToast('Error al añadir a favoritos');
+        error: () => {
+          this.presentToast('Error al añadir a favoritos');
         },
       });
     } else {
@@ -154,8 +155,8 @@ export class CardPagePage implements OnInit, OnChanges {
             this.data.favorite = false;
             this._communicationService.emitUpdatedFavorites();
           },
-          error:  () => {
-             this.presentToast('Error al eliminar el favoritos');
+          error: () => {
+            this.presentToast('Error al eliminar el favoritos');
           },
         });
     }
@@ -167,17 +168,18 @@ export class CardPagePage implements OnInit, OnChanges {
     return this._sanitizer.bypassSecurityTrustUrl(telLink);
   }
 
+  // Aceptar la publicación
   async accept() {
     const token = await this._storageService.getToken();
 
     return this._petRadarApiService.putUpdateStatusPlace(token, this.placeId, 'AC')
       .subscribe({
-        error:   (err) => {
+        error: (err) => {
           if (err.status === 200) {
             this.presentToast('Publicación aceptada');
             this._router.navigate(['/request-place']);
           } else {
-             this.presentToast('Error al aceptar la publicación');
+            this.presentToast('Error al aceptar la publicación');
             this._router.navigate(['/request-place']);
           }
         },
@@ -202,6 +204,7 @@ export class CardPagePage implements OnInit, OnChanges {
       });
   }
 
+  // Abrir y cerrar el formulario de creación de valoración
   async openCloseCreateValuation() {
     this.showCreateCommit = !this.showCreateCommit;
 
@@ -210,7 +213,7 @@ export class CardPagePage implements OnInit, OnChanges {
     }
   }
 
-
+  //Botón de puntuación de las valoraciones
   handleRadioChange(event: Event) {
     if (event instanceof CustomEvent) {
       const selectedValue = event.detail.value;
@@ -221,6 +224,7 @@ export class CardPagePage implements OnInit, OnChanges {
     }
   }
 
+  // Crear valoración
   async acceptCreateValuation() {
     try {
       if (this.form.valid) {
@@ -232,6 +236,7 @@ export class CardPagePage implements OnInit, OnChanges {
     }
   }
 
+  // Muestra el botón si el usuario no ha valorado
   private async showButtonCreateValoration() {
     try {
       const token = await this._storageService.getToken();
@@ -248,6 +253,7 @@ export class CardPagePage implements OnInit, OnChanges {
   }
 
 
+  // Metodo para crear valoración
   private async createValuation(valuationsData: ValuationsData) {
     const token = await this._storageService.getToken();
     valuationsData.placeId = this.placeId;

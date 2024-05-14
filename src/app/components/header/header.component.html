@@ -114,6 +114,12 @@
     >
       <ion-icon class="icon" slot="start" name="folder-outline"></ion-icon>
       <span class="button-text">Peticiones</span>
+      <ion-badge
+        class="badge"
+        *ngIf="badgeButton"
+        color="danger"
+        >{{ totalData.length }}</ion-badge
+      >
     </button>
   </ion-fab>
 </div>

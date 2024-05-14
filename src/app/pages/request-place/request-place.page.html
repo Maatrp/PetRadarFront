@@ -24,12 +24,14 @@
     </ng-container>
   </div>
 
-  <ion-button *ngIf="isNotEmptySelectedList()" (click)="accept()"
-    >Aceptar</ion-button
-  >
-  <ion-button *ngIf="isNotEmptySelectedList()" (click)="decline()"
-    >Declinar</ion-button
-  >
+  <div class="buttons"> 
+    <ion-button class="accept" *ngIf="isNotEmptySelectedList()" (click)="accept()"
+      >Aceptar</ion-button
+    >
+    <ion-button class="decline" *ngIf="isNotEmptySelectedList()" (click)="decline()"
+      >Declinar</ion-button
+    >
+  </div>
 
   <div *ngIf="!showNoMatches && totalData.length === 0" class="image">
     <ion-img
@@ -39,12 +41,23 @@
   </div>
 
   <div class="place-card-wrapper container mx-auto" *ngIf="showNoMatches">
-    <app-place-card-skeletor class="place-card container mx-auto"></app-place-card-skeletor>
-    <app-place-card-skeletor class="place-card container mx-auto"></app-place-card-skeletor>
-    <app-place-card-skeletor class="place-card container mx-auto"></app-place-card-skeletor>
-    <br />
-    <app-place-card-skeletor class="place-card container mx-auto"></app-place-card-skeletor>
-    <app-place-card-skeletor class="place-card container mx-auto"></app-place-card-skeletor>
-    <app-place-card-skeletor class="place-card container mx-auto"></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
+    <app-place-card-skeletor
+      class="place-card container mx-auto"
+    ></app-place-card-skeletor>
   </div>
 </ion-content>
