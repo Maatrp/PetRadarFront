@@ -1,13 +1,18 @@
 <div class="mobile-view">
-  <ion-fab vertical="top" class="button-container" horizontal="center" slot="fixed">
-    <button class="top-button" routerLink="/index">
-      <ion-icon slot="icon-only" name="home-outline"></ion-icon>
-    </button>
+  <ion-fab
+    vertical="top"
+    class="button-container"
+    horizontal="center"
+    slot="fixed"
+  >
     <button
       class="top-button"
-      routerLink="/map"
-      *ngIf="isShowingMapButton()"
+      routerLink="/index"
+      *ngIf="isShowingIndexButton()"
     >
+      <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+    </button>
+    <button class="top-button" routerLink="/map" *ngIf="isShowingMapButton()">
       <ion-icon slot="icon-only" name="map-outline"></ion-icon>
     </button>
 
@@ -50,7 +55,12 @@
 </div>
 
 <div class="desktop-view">
-  <ion-fab class="button-container" vertical="top" horizontal="center" slot="fixed">
+  <ion-fab
+    class="button-container"
+    vertical="top"
+    horizontal="center"
+    slot="fixed"
+  >
     <button
       class="top-button"
       routerLink="/index"

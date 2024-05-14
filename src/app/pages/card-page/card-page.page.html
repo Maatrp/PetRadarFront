@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content *ngIf="data && !showSkeleton && !showNoData">
-  <ion-card class="alert alert-light" *ngIf="data">
+  <ion-card class="container mx-auto alert alert-light" *ngIf="data">
     <div class="buttons" *ngIf="showUpdateStatusButton">
-      <ion-button (click)="accept()">Aceptar</ion-button>
-      <ion-button (click)="decline()">Declinar</ion-button>
+      <ion-button class="accept" (click)="accept()">Aceptar</ion-button>
+      <ion-button class="decline" (click)="decline()">Declinar</ion-button>
     </div>
     <div class="card-image">
       <ion-img
@@ -24,10 +24,10 @@
     </div>
     <ion-card-header>
       <div class="row">
-        <div class="col-10">
+        <div class="col-11">
           <div class="title">{{ data.name }}</div>
         </div>
-        <div class="col-2 heart-icon" *ngIf="isLoggedIn">
+        <div class="col-1 heart-icon" *ngIf="isLoggedIn">
           <ion-icon
             name="heart-outline"
             color="danger"
@@ -49,12 +49,12 @@
       </div>
     </ion-card-header>
 
-    <ion-card-content>
-      <div class="mb-3">
+    <ion-card-content class="ion-card-content">
+      <div class="address mb-3">
         <ion-icon name="pin-outline"></ion-icon>
         <span> {{ data.address }}, {{ data.zip }}, {{ data.town }}</span>
       </div>
-      <div class="mb-3" *ngIf="data.website">
+      <div class="website mb-3" *ngIf="data.website">
         <ion-icon name="globe-outline"></ion-icon>
         <span
           ><a class="link" [href]="data.website" target="_blank">
@@ -62,24 +62,39 @@
           ></span
         >
       </div>
-      <div class="mb-3" *ngIf="data.phone">
+      <div class="phone mb-3" *ngIf="data.phone">
         <ion-icon name="call-outline"></ion-icon>
         <a class="link" [href]="sanitizeTelLink(data.phone)">
-          <span>{{ data.phone }}</span>
+          <span> {{ data.phone }}</span>
         </a>
       </div>
-      <div class="mb-3" *ngIf="data.description">
+      <div class="description mb-3" *ngIf="data.description">
         <ion-icon name="reorder-four-outline"></ion-icon>
         <span> {{ data.description }}</span>
       </div>
-      <div class="tag-container">
-        <div *ngFor="let tag of data.tags">
-          <div class="tag">
-            <ion-chip>{{ tag | translateTag }}</ion-chip>
+      <div class="tag-container" *ngIf="data.tags">
+        <span class="tag-title">Etiquetas</span>
+        <div class="tags-wrapper">
+          <div *ngFor="let tag of data.tags">
+            <div class="tag">
+              <ion-chip class="tag-size">{{ tag | translateTag }}</ion-chip>
+            </div>
           </div>
         </div>
       </div>
-      <div>
+      <div class="restriction-container" *ngIf="data.restrictions">
+        <span class="restriction-title">Restricciones</span>
+        <div class="restrictions-wrapper">
+          <div *ngFor="let restriction of data.restrictions">
+            <div class="restriction">
+              <ion-chip class="restriction-size"
+                >{{ restriction | translateRestrictions }}</ion-chip
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="commit-button-container">
         <ion-button
           *ngIf="!showButtonCreateCommit"
           class="commit-button"
@@ -100,19 +115,66 @@
             <div class="averageRating">
               <div class="valoration-fieldset">
                 <div class="valoration-fieldset">
-                  <fieldset class="valoration-fieldset" formControlName="averageRating">
+                  <fieldset
+                    class="valoration-fieldset"
+                    formControlName="averageRating"
+                  >
                     <span class="star-cb-group">
-                      <input type="radio" id="rating-5" name="rating" formControlName="averageRating" [value]="5" (ionChange)="handleRadioChange($event)"/><label for="rating-5">5</label>
-                      <input type="radio" id="rating-4" name="rating" formControlName="averageRating" [value]="4" (ionChange)="handleRadioChange($event)"/><label for="rating-4">4</label>
-                      <input type="radio" id="rating-3" name="rating" formControlName="averageRating" [value]="3" (ionChange)="handleRadioChange($event)"/><label for="rating-3">3</label>
-                      <input type="radio" id="rating-2" name="rating" formControlName="averageRating" [value]="2" (ionChange)="handleRadioChange($event)"/><label for="rating-2">2</label>
-                      <input type="radio" id="rating-1" name="rating" formControlName="averageRating" [value]="1" (ionChange)="handleRadioChange($event)"/><label for="rating-1">1</label>
-                      <input type="radio" id="rating-0" name="rating" formControlName="averageRating" [value]="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                      <input
+                        type="radio"
+                        id="rating-5"
+                        name="rating"
+                        formControlName="averageRating"
+                        [value]="5"
+                        (ionChange)="handleRadioChange($event)"
+                      /><label for="rating-5">5</label>
+                      <input
+                        type="radio"
+                        id="rating-4"
+                        name="rating"
+                        formControlName="averageRating"
+                        [value]="4"
+                        (ionChange)="handleRadioChange($event)"
+                      /><label for="rating-4">4</label>
+                      <input
+                        type="radio"
+                        id="rating-3"
+                        name="rating"
+                        formControlName="averageRating"
+                        [value]="3"
+                        (ionChange)="handleRadioChange($event)"
+                      /><label for="rating-3">3</label>
+                      <input
+                        type="radio"
+                        id="rating-2"
+                        name="rating"
+                        formControlName="averageRating"
+                        [value]="2"
+                        (ionChange)="handleRadioChange($event)"
+                      /><label for="rating-2">2</label>
+                      <input
+                        type="radio"
+                        id="rating-1"
+                        name="rating"
+                        formControlName="averageRating"
+                        [value]="1"
+                        (ionChange)="handleRadioChange($event)"
+                      /><label for="rating-1">1</label>
+                      <input
+                        type="radio"
+                        id="rating-0"
+                        name="rating"
+                        formControlName="averageRating"
+                        [value]="0"
+                        class="star-cb-clear"
+                      /><label for="rating-0">0</label>
                     </span>
                   </fieldset>
                 </div>
               </div>
-              <ion-label *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')">
+              <ion-label
+                *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')"
+              >
                 Obligatorio poner puntuación.
               </ion-label>
             </div>
@@ -121,14 +183,25 @@
                 <ion-label>Mensaje:</ion-label>
                 <ion-textarea formControlName="commentMessage"></ion-textarea>
               </ion-item>
-              <ion-label *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')">
+              <ion-label
+                *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')"
+              >
                 Mensaje obligatorio.
               </ion-label>
             </div>
-            <ion-button class="valuation-button" size="block" type="submit" [disabled]="!form.valid">
+            <ion-button
+              class="valuation-button"
+              size="block"
+              type="submit"
+              [disabled]="!form.valid"
+            >
               Enviar
             </ion-button>
-            <ion-button class="valuation-button" size="block" (click)="openCloseCreateValuation()">
+            <ion-button
+              class="valuation-button"
+              size="block"
+              (click)="openCloseCreateValuation()"
+            >
               Cancelar
             </ion-button>
           </ion-card-content>
@@ -143,9 +216,9 @@
 </ion-content>
 
 <ion-content *ngIf="showNoData">
-  <ion-card class="alert alert-light">
+  <ion-card class="container mx-auto alert alert-light">
     <h1 class="text-center">No hay coincidencias</h1>
-    <div class="dog-image">
+    <div class="dog-image container mx-auto">
       <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
     </div>
   </ion-card>
