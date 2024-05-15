@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { MarkerData } from 'src/app/interface/marker-data';
@@ -15,16 +15,22 @@ export class HeaderComponent implements OnInit {
   updateStatusPlace: boolean = false;
   badgeButton: boolean = false;
   totalData: MarkerData[] = [];
+  isLoggedIn: boolean = false;
+  isDropdownVisible: boolean = false;
+
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
 
   constructor(
     private _router: Router,
     private _authService: AuthService,
     private _storageService: StorageService,
     private _petRadarApiService: PetRadarApiService,
+    private _elementRef: ElementRef
   ) { }
 
   async ngOnInit() {
     this.loadRequestPlaceListLength();
+    this.isLogged();
   }
 
   async checkPermissions() {
@@ -52,13 +58,42 @@ export class HeaderComponent implements OnInit {
     return this._router.url === '/map' || this._router.url === '/cards-list';
   }
 
+  // Método para mostrar el botón de crear una publicación
   isShowingCreatePlaceButton(): boolean {
     return this._router.url !== '/create-place';
   }
 
+  // Método para mostrar el botón de actualizar el estado de una publicación
   isShowingUpdateStatusPlaceButton(): boolean {
     return this._router.url !== '/request-place';
   }
+
+  // Método para comprobar si esta logueado el usuario
+  async isLogged() {
+    const isUserLogged = await this._storageService.getIsLoggedIn();
+
+    if (isUserLogged) {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
+  }
+
+  // Método para el desplegable de my-account
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  // Método para cerrar el desplegable de my-account
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this._elementRef.nativeElement.contains(event.target)) {
+      // Cerrar el menú si el clic no ocurrió dentro del botón o del menú desplegable
+      this.isDropdownVisible = false;
+    }
+  }
+
+  // Método para comprobar cuantas solicitudes pendientes hay
   async loadRequestPlaceListLength() {
     const token = await this._storageService.getToken();
     const userId = (await this._storageService.getUserData()).id;
@@ -76,10 +111,13 @@ export class HeaderComponent implements OnInit {
     return this.badgeButton;
 
   }
+
+  // Método para comprobar si el usuario puede crear un lugar
   private async checkCreatePlacePermission() {
     this.userCanCreate = await this._authService.checkPermission(PermissionEnum.CREATE_PLACE);
   }
 
+  // Método para comprobar si el usuario puede actualizar el estado de una publicación
   private async checkUpdateStatusPlacePermission() {
     this.updateStatusPlace = await this._authService.checkPermission(PermissionEnum.UPDATE_STATUS_PLACE);
   }

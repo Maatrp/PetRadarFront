@@ -17,12 +17,7 @@
   </div>
 
   <div *ngIf="!showNoMatches && (totalData | filter:filterData).length === 0">
-    <ion-card class="alert alert-light">
-      <h1 class="text-center">No hay coincidencias</h1>
-      <div class="dog-image">
-        <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
-      </div>
-    </ion-card>
+    <ion-img src="../../../assets/nomatches.jpg" alt="Dogs image"></ion-img>
   </div>
 
   <div class="place-card-wrapper container mx-auto" *ngIf="showNoMatches">
@@ -46,10 +41,3 @@
     ></app-place-card-skeletor>
   </div>
 </ion-content>
-
-<ion-footer>
-  <div class="box">
-    <ion-icon name="paw"></ion-icon><ion-icon name="paw"></ion-icon
-    ><ion-icon name="paw"></ion-icon>
-  </div>
-</ion-footer>

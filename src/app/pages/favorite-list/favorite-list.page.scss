@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.button {
+button.button {
   align-items: center;
   justify-content: center;
   margin-right: 2rem;
@@ -21,6 +21,19 @@
   min-height: 2.1rem;
   background-color: #ae7e52;
   color: white;
+}
+
+// Redirecciona a login
+.loggin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.loggin-button-text {
+  font-weight: bold;
+  color: orange;
 }
 
 /* Estilos para pantallas medianas */

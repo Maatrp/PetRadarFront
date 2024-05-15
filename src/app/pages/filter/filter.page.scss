@@ -33,10 +33,33 @@
 
 ion-checkbox {
     color: #737373;
+    border-color: #737373;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
 }
 
 // Buttons
 ion-button.init-session {
     --background: #ae7e52;
     color: white;
+}
+
+
+
+/* Estilos para pantallas grandes */
+@media (min-width: 768px) {
+    .kind-places {
+        .ion-item-columns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        ion-item {
+            width: 48%;
+            margin-bottom: 10px;
+        }
+    }
+
+
 }
