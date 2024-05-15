@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="flex-center">
+  <div class="flex-center container mx-auto">
     <ion-card>
       <ion-card-header>
         <div class="title">Filtros de búsqueda</div>
@@ -21,11 +21,13 @@
         </div>
         <ion-list class="kind-places" (ionChange)="onSelectionChange()">
           <ion-label position="floating">Tipo de lugar:</ion-label>
-          <ion-item *ngFor="let option of options;">
-            <ion-checkbox [(ngModel)]="option.selected"
-              >{{ option.name | translateType }}</ion-checkbox
-            >
-          </ion-item>
+          <div class="ion-item-columns">
+            <ion-item *ngFor="let option of options;" lines="none">
+              <ion-checkbox [(ngModel)]="option.selected">
+                {{ option.name | translateType }}
+              </ion-checkbox>
+            </ion-item>
+          </div>
         </ion-list>
       </ion-card-content>
       <ion-button class="init-session" expand="full" (click)="filterSearch()"

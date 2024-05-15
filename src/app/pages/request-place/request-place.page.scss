@@ -17,6 +17,19 @@
   font-weight: bold;
 }
 
+// Redirecciona a login
+.index-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.index-button-text {
+  font-weight: bold;
+  color: orange;
+}
+
 /* Estilos para pantallas medianas */
 @media (min-width: 768px) and (max-width: 1199px) {
   .place-card-wrapper {

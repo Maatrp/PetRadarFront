@@ -1,10 +1,15 @@
-<ion-card *ngIf="!hasPermissions" class="alert alert-light">
-  <h1 class="text-center">Para acceder a esta página debes iniciar sesión.</h1>
-  <button routerLink="/login">Clica aquí para logearte</button>
-  <div class="dog-image">
-    <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
-  </div>
-</ion-card>
+<ion-content *ngIf="!hasPermissions">
+    <div class="loggin-button">
+      <ion-button class="loggin-button-text" routerLink="/login">
+        Clica aquí para logearte
+      </ion-button>
+    </div>
+    <ion-img
+      class="image-noPermissions"
+      src="../../../assets/nopermission.jpg"
+      alt="Crazy dog image"
+    ></ion-img>
+</ion-content>
 
 <ion-header *ngIf="hasPermissions">
   <div class="header">
@@ -188,7 +193,8 @@
             <div class="images col-12 col-md-5">
               <ion-item class="mt-4">
                 <ion-input
-                  label="Imagenes"z
+                  label="Imagenes"
+                  z
                   type="file"
                   multiple
                   (onChange)="onFileSelected($event)"

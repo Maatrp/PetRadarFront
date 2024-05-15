@@ -1,14 +1,44 @@
 .top-button {
-  position: relative; 
+  position: relative;
 
   .badge {
-    position: absolute; 
-    top: 1px; 
+    position: absolute;
+    top: 1px;
     right: 0px;
-    transform: translate(50%, -50%); 
-    z-index: 1; 
+    transform: translate(50%, -50%);
+    z-index: 1;
 
   }
+}
+
+// Dropdown my-account
+.my-account {
+  position: relative; 
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.my-account-dropdown,
+.favorite-list-dropdown {
+  padding: 5px 15px;
+  border: none;
+  background: none;
+  text-align: left;
+  width: 100%;
+}
+
+.my-account-dropdown:hover,
+.favorite-list-dropdown:hover {
+  background-color: #f0f0f0;
 }
 
 
@@ -18,7 +48,7 @@
     display: none;
   }
 
-  ion-icon{
+  ion-icon {
     font-size: 1.3rem;
   }
 

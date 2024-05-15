@@ -1,10 +1,15 @@
-<ion-card *ngIf="!hasPermissions" class="alert alert-light">
-  <h1 class="text-center">No tienes permisos para acceder a esta página.</h1>
-  <button routerLink="/index">Clica aquí para ir a inicio</button>
-  <div class="dog-image">
-    <ion-img src="../../../assets/sadDog.jpg" alt="Sad dog image"></ion-img>
+<ion-content *ngIf="!hasPermissions">
+  <div class="loggin-button">
+    <ion-button class="loggin-button-text" routerLink="/login">
+      Clica aquí para logearte
+    </ion-button>
   </div>
-</ion-card>
+  <ion-img
+    class="image-noPermissions"
+    src="../../../assets/nopermission.jpg"
+    alt="Crazy dog image"
+  ></ion-img>
+</ion-content>
 
 <ion-header *ngIf="hasPermissions">
   <div class="header">
@@ -29,14 +34,10 @@
   </div>
 
   <div *ngIf="!showNoMatches && totalData.length === 0">
-    <ion-card class="alert alert-light">
-      <div class="cat-image">
-        <ion-img
-          src="../../../assets/favoritelistempty.png"
-          alt="Cat image saying favorite list empty"
-        ></ion-img>
-      </div>
-    </ion-card>
+    <ion-img
+      src="../../../assets/favoritelistempty.jpg"
+      alt="Dogs image saying favorite list empty"
+    ></ion-img>
   </div>
 
   <div class="place-card-wrapper container mx-auto" *ngIf="showNoMatches">

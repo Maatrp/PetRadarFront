@@ -22,6 +22,7 @@ export class FilterPage {
     { name: 'DOGTRAINER', selected: false },
     { name: 'VETERINARY', selected: false },
     { name: 'HAIRDRESSER', selected: false },
+    { name: 'BEACH', selected: false },
   ];
 
   constructor(

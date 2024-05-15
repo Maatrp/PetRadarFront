@@ -118,6 +118,19 @@ ion-button.cancel {
     font-size: 1rem;
 }
 
+// Redirecciona a login
+.loggin-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.loggin-button-text {
+    font-weight: bold;
+    color: orange;
+}
+
 /* Estilos para pantallas grandes */
 @media (min-width: 768px) {
 

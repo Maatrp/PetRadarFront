@@ -12,6 +12,7 @@
     >
       <ion-icon slot="icon-only" name="home-outline"></ion-icon>
     </button>
+
     <button class="top-button" routerLink="/map" *ngIf="isShowingMapButton()">
       <ion-icon slot="icon-only" name="map-outline"></ion-icon>
     </button>
@@ -32,10 +33,6 @@
       <ion-icon slot="icon-only" name="options-outline"></ion-icon>
     </button>
 
-    <button class="top-button" routerLink="/my-account">
-      <ion-icon slot="icon-only" name="person-outline"></ion-icon>
-    </button>
-
     <button
       class="top-button"
       routerLink="/create-place"
@@ -51,6 +48,27 @@
     >
       <ion-icon slot="icon-only" name="folder-outline"></ion-icon>
     </button>
+
+    <button *ngIf="!isLoggedIn" class="top-button" routerLink="/my-account">
+      <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+    </button>
+
+    <button
+      *ngIf="isLoggedIn"
+      class="my-account top-button"
+      (click)="toggleDropdown()"
+    >
+      <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+    </button>
+
+    <div *ngIf="isDropdownVisible" #dropdownMenu class="dropdown-menu">
+      <button class="my-account-dropdown" routerLink="/my-account">
+        Mis datos
+      </button>
+      <button class="favorite-list-dropdown" routerLink="/favorite-list">
+        Favoritos
+      </button>
+    </div>
   </ion-fab>
 </div>
 
@@ -93,11 +111,6 @@
       <span class="button-text">Filtros</span>
     </button>
 
-    <button class="top-button" routerLink="/my-account">
-      <ion-icon class="icon" slot="start" name="person-outline"></ion-icon>
-      <span class="button-text">Mi cuenta</span>
-    </button>
-
     <button
       class="top-button"
       routerLink="/create-place"
@@ -114,12 +127,31 @@
     >
       <ion-icon class="icon" slot="start" name="folder-outline"></ion-icon>
       <span class="button-text">Peticiones</span>
-      <ion-badge
-        class="badge"
-        *ngIf="badgeButton"
-        color="danger"
-        >{{ totalData.length }}</ion-badge
-      >
+      <ion-badge class="badge" *ngIf="badgeButton" color="danger">{{
+        totalData.length
+      }}</ion-badge>
     </button>
+
+    <button *ngIf="!isLoggedIn" class="top-button" routerLink="/my-account">
+      <ion-icon class="icon" slot="start" name="person-outline"></ion-icon>
+      <span class="button-text">Mi cuenta</span>
+    </button>
+
+    <button
+      *ngIf="isLoggedIn"
+      class="my-account top-button"
+      (click)="toggleDropdown()"
+    >
+      <ion-icon class="icon" slot="start" name="person-outline"></ion-icon>
+      <span class="button-text">Mi cuenta</span>
+    </button>
+    <div *ngIf="isDropdownVisible" #dropdownMenu class="dropdown-menu">
+      <button class="my-account-dropdown" routerLink="/my-account">
+        Mis datos
+      </button>
+      <button class="favorite-list-dropdown" routerLink="/favorite-list">
+        Favoritos
+      </button>
+    </div>
   </ion-fab>
 </div>

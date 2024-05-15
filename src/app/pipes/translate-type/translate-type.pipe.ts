@@ -25,6 +25,8 @@ export class TranslateTypePipe implements PipeTransform {
         return 'Veterinaria';
       case 'HAIRDRESSER':
         return 'Peluquería';
+      case 'BEACH':
+        return 'Playa';
       default:
         return type;
     }
