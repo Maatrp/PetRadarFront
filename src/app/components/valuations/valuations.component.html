@@ -1,7 +1,5 @@
-<ion-card class="valuations-list">
-  <ion-label class="valuations-title" *ngIf="valuationsList.length > 0">
-    Comentarios:
-  </ion-label>
+<ion-card class="valuations-list" *ngIf="valuationsList.length > 0">
+  <ion-label class="valuations-title"> Comentarios: </ion-label>
   <div class="content-container" *ngFor="let valuation of valuationsList">
     <hr class="divider" />
     <div class="userName">{{ valuation.userName }}</div>
