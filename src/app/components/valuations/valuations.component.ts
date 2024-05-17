@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ValuationsData } from 'src/app/interface/valuations-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
@@ -11,7 +11,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class ValuationsComponent implements OnInit {
   @Input() placeId!: string;
-  valuation!: ValuationsData;
+  @Output() valuation!: ValuationsData;
   valuationsList: ValuationsData[] = [];
 
 
@@ -53,6 +53,11 @@ export class ValuationsComponent implements OnInit {
         this.presentToast('Error al cargar los comentarios');
       }
     });
+  }
+
+  // Añadir la valoración a la lista
+  addValuation(valuation: ValuationsData) {
+    this.valuationsList.push(valuation);
   }
 
   // Muestra un toast

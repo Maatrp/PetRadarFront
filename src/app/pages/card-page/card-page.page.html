@@ -114,7 +114,7 @@
             </ion-header>
             <ion-content>
               <div class="flex-center">
-                <form [formGroup]="form" (ngSubmit)="acceptCreateValuation()">
+                <form [formGroup]="form">
                   <ion-card-content class="container mx-auto">
                     <div class="commentRating">
                       <ion-label class="averageRating-text">
@@ -178,7 +178,7 @@
                         </fieldset>
                       </div>
                       <ion-label
-                        *ngIf="form.get('averageRating')?.touched && form.get('averageRating')?.hasError('required')"
+                        *ngIf="form?.get('averageRating')?.touched && form?.get('averageRating')?.hasError('required')"
                       >
                         Obligatorio poner puntuación.
                       </ion-label>
@@ -194,7 +194,7 @@
                         ></ion-textarea>
                       </div>
                       <ion-label
-                        *ngIf="form.get('commentMessage')?.touched && form.get('commentMessage')?.hasError('required')"
+                        *ngIf="form?.get('commentMessage')?.touched && form?.get('commentMessage')?.hasError('required')"
                       >
                         Mensaje obligatorio.
                       </ion-label>
@@ -202,8 +202,8 @@
                     <ion-button
                       class="submit"
                       size="block"
-                      type="submit"
                       [disabled]="!form.valid"
+                      (click)="acceptCreateValuation()"
                     >
                       Enviar
                     </ion-button>

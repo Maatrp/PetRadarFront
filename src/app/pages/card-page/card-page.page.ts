@@ -11,6 +11,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 import { CardPageForm } from './card-page.form';
 import { ValuationsData } from 'src/app/interface/valuations-data';
 import { IonModal, ToastController } from '@ionic/angular';
+import { ValuationsComponent } from 'src/app/components/valuations/valuations.component';
 
 @Component({
   selector: 'app-card-page',
@@ -19,6 +20,7 @@ import { IonModal, ToastController } from '@ionic/angular';
 })
 export class CardPagePage implements OnInit, OnChanges {
   @ViewChild(IonModal) modal!: IonModal;
+  @ViewChild(ValuationsComponent) valuations!: ValuationsComponent;
   data!: PlaceData;
   form!: FormGroup;
   placeId: string = '';
@@ -229,11 +231,12 @@ export class CardPagePage implements OnInit, OnChanges {
     try {
       if (this.form.valid) {
         await this.createValuation(this.form.value);
-        location.reload();
+        //Añadimos la valoración a la lista que pintamos
+        this.valuations.addValuation(this.form.value);
       }
     } catch (error) {
       this.presentToast('Incidencia en la creación de usuario');
-    }
+    } 
   }
 
   // Muestra el botón si el usuario no ha valorado
@@ -273,7 +276,6 @@ export class CardPagePage implements OnInit, OnChanges {
         this.showCreateCommit = false;
       },
     })
-
   }
 
   private async presentToast(message: string) {
