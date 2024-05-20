@@ -1,14 +1,14 @@
 <ion-content *ngIf="!hasPermissions">
-    <div class="loggin-button">
-      <ion-button class="loggin-button-text" routerLink="/login">
-        Clica aquí para logearte
-      </ion-button>
-    </div>
-    <ion-img
-      class="image-noPermissions"
-      src="../../../assets/nopermission.jpg"
-      alt="Crazy dog image"
-    ></ion-img>
+  <div class="loggin-button">
+    <ion-button class="loggin-button-text" routerLink="/login">
+      Clica aquí para logearte
+    </ion-button>
+  </div>
+  <ion-img
+    class="image-noPermissions"
+    src="../../../assets/nopermission.jpg"
+    alt="Crazy dog image"
+  ></ion-img>
 </ion-content>
 
 <ion-header *ngIf="hasPermissions">
@@ -194,10 +194,8 @@
               <ion-item class="mt-4">
                 <ion-input
                   label="Imagenes"
-                  z
                   type="file"
-                  multiple
-                  (onChange)="onFileSelected($event)"
+                  (change)="onFileSelected($event)"
                   accept="image/*"
                 ></ion-input>
               </ion-item>

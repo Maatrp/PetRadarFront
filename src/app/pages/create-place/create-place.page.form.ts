@@ -16,8 +16,7 @@ export class CreatePlacePageForm {
             zip: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
             town: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
             website: ['', [this.websiteValidator]],
-            phone: ['', [this.phoneNumberValidator]],
-            images: ['']
+            phone: ['', [this.phoneNumberValidator]]
         });
     }
 

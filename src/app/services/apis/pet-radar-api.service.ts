@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from, switchMap } from 'rxjs';
 import { MarkerData } from 'src/app/interface/marker-data';
 import { PlaceData } from 'src/app/interface/place-data';
 import { UserData } from 'src/app/interface/user-data';
@@ -10,6 +10,7 @@ import { TypeData } from 'src/app/interface/type-data';
 import { TagsData } from 'src/app/interface/tags-data';
 import { RestrictionsData } from 'src/app/interface/restrictions-data';
 import { ValuationsData } from 'src/app/interface/valuations-data';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -35,39 +36,49 @@ export class PetRadarApiService {
   private createValuationsUrl: string = environment.createValuationsUrl;
   private alreadyValuatedUrl: string = environment.alreadyValuatedUrl;
 
-  constructor(private _http: HttpClient) { }
+  constructor(
+    private _http: HttpClient, 
+    private _storageService: StorageService
+  ) { }
 
 
-  // Obtiene todos los marcadores
+  // Obtiene todos los marcadores  
   postMarkers(token: string, userId?: string): Observable<MarkerData[]> {
+    return from(this._storageService.getMapCenter()).pipe(
+      switchMap(geolocation => {
+        const latitude = geolocation[0];
+        const longitude = geolocation[1];
 
-    const req = {
-      latitude: environment.defaultLatitude,
-      longitude: environment.defaultLongitude,
-      radius: 4,
-    };
+        const req = {
+          latitude,
+          longitude,
+          radius: 4,
+          kmRadius: 20.0
+        };
 
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
 
-    if (token != null) {
-      token = 'Bearer ' + token;
-      headers = headers.set('Authorization', token);
-    }
+        if (token != null) {
+          token = 'Bearer ' + token;
+          headers = headers.set('Authorization', token);
+        }
 
-    let url = '';
+        let url = '';
 
-    if (userId) {
-      url = this.placeListUrl + '?userId=' + userId;
-    } else {
-      url = this.placeListUrl + '?';
-    }
+        if (userId) {
+          url = this.placeListUrl + '?userId=' + userId;
+        } else {
+          url = this.placeListUrl + '?';
+        }
 
-    return this._http.post<MarkerData[]>(
-      url,
-      req,
-      { headers: headers }
+        return this._http.post<MarkerData[]>(
+          url,
+          req,
+          { headers: headers }
+        );
+      })
     );
   }
 
@@ -161,16 +172,21 @@ export class PetRadarApiService {
   }
 
   // Crear espacio
-  postCreatePlace(token: string, idUser: string, placeData: PlaceData): Observable<string> {
+  postCreatePlace(token: string, idUser: string, placeData: PlaceData, file: File | null): Observable<string> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token,
     });
 
+    const formData = new FormData();
+    formData.append('placeData', JSON.stringify(placeData)); 
+    if (file) {
+      formData.append('file', file);
+    }
+
     return this._http.post<string>(
-      this.createPlaceUrl + '/' + idUser,
-      placeData,
-      { headers: headers, responseType: 'text' as 'json' }
+      `${this.createPlaceUrl}/${idUser}`,
+      formData,
+      { headers: headers }
     );
   }
 
@@ -307,5 +323,5 @@ export class PetRadarApiService {
       { headers: headers }
     );
   }
-  
+
 }

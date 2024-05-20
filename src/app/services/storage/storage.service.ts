@@ -2,6 +2,7 @@ import { UserData } from 'src/app/interface/user-data';
 import { FilterData } from './../../interface/filter-data';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -69,8 +70,8 @@ export class StorageService {
       await this._storage?.get('mapCenterLng')
     ];
     if (geolocation[0] === null && geolocation[1] === null) {
-      geolocation[0] = 37.36247679369061;
-      geolocation[1] = -6.034726252104273;
+      geolocation[0] = environment.defaultLatitude
+      geolocation[1] = environment.defaultLongitude;
     }
     return geolocation;
   }
