@@ -255,7 +255,6 @@ export class CardPagePage implements OnInit, OnChanges {
     }
   }
 
-
   // Metodo para crear valoración
   private async createValuation(valuationsData: ValuationsData) {
     const token = await this._storageService.getToken();
@@ -278,6 +277,13 @@ export class CardPagePage implements OnInit, OnChanges {
     })
   }
 
+  public getImage() : string | undefined{
+    if (this.data && this.data.placeImages && this.data.placeImages.length > 0) {
+      return this.data.placeImages[0].src || ''; 
+    } else {
+      return undefined; 
+    }  
+  }
   private async presentToast(message: string) {
     const toast = await this._toastController.create({
       message: message,

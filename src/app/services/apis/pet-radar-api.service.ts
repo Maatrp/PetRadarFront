@@ -186,7 +186,7 @@ export class PetRadarApiService {
     return this._http.post<string>(
       `${this.createPlaceUrl}/${idUser}`,
       formData,
-      { headers: headers }
+      { headers: headers, responseType: 'text' as 'json'}
     );
   }
 

@@ -12,12 +12,12 @@
     </div>
     <div class="card-image">
       <ion-img
-        *ngIf="data.placeImages"
-        [src]="data.placeImages[0].src"
+        *ngIf="getImage()"
+        [src]="getImage()"
         [alt]="'Image from ' + data.name"
       ></ion-img>
       <ion-img
-        *ngIf="!data.placeImages"
+        *ngIf="!getImage()"
         src="../../../assets/imagenotfound.jpg"
         [attr.alt]="'Image from ' + data.name"
       ></ion-img>

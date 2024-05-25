@@ -6,13 +6,12 @@
   >
     <div class="product-card">
       <ion-thumbnail>
+        <ion-img *ngIf="getImage()"
+          [src]="getImage()"
+          [alt]="'Image from ' + data.name">
+        </ion-img>
         <ion-img
-          *ngIf="data.placeImages"
-          [src]="data.placeImages[0].src"
-          [alt]="'Image from ' + data.name"
-        ></ion-img>
-        <ion-img
-          *ngIf="!data.placeImages"
+         *ngIf="!getImage()"
           src="../../../assets/imagenotfound.jpg"
           [attr.alt]="'Image from ' + data.name"
         ></ion-img>
