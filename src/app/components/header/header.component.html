@@ -47,6 +47,9 @@
       *ngIf="isShowingUpdateStatusPlaceButton() && updateStatusPlace"
     >
       <ion-icon slot="icon-only" name="folder-outline"></ion-icon>
+      <ion-badge class="badge" *ngIf="badgeButton" color="danger">{{
+        totalData.length
+      }}</ion-badge>
     </button>
 
     <button *ngIf="!isLoggedIn" class="top-button" routerLink="/my-account">

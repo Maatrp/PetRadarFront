@@ -96,17 +96,20 @@ export class HeaderComponent implements OnInit {
   // Método para comprobar cuantas solicitudes pendientes hay
   async loadRequestPlaceListLength() {
     const token = await this._storageService.getToken();
-    const userId = (await this._storageService.getUserData()).id;
-
-    this._petRadarApiService.getPendingPlaces(token, userId).subscribe({
-      next: (value) => {
-        this.totalData = value;
-        this.badgeButton = this.totalData.length > 0;
-      },
-      error: () => {
-        this.badgeButton = false;
-      },
-    });
+    const userData = await this._storageService.getUserData();
+    const userId = userData? userData.id : null;
+    
+    if (userId !== null) {
+      this._petRadarApiService.getPendingPlaces(token, userId).subscribe({
+        next: (value) => {
+          this.totalData = value;
+          this.badgeButton = this.totalData.length > 0;
+        },
+        error: () => {
+          this.badgeButton = false;
+        },
+      });
+    }
 
     return this.badgeButton;
 

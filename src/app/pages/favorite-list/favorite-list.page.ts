@@ -1,12 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { MarkerData } from 'src/app/interface/marker-data';
+import { PlaceData } from 'src/app/interface/place-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   styleUrls: ['./favorite-list.page.scss'],
 })
 export class FavoriteListPage {
+  data!: PlaceData;
   hasPermissions: boolean = false;
   totalData: MarkerData[] = [];
   showNoMatches: boolean = true;
@@ -41,15 +43,35 @@ export class FavoriteListPage {
   }
 
   async generatePDF() {
-    const content = this.content.nativeElement;
+    const doc = new jsPDF();
+    const tableData: any[] = [];
 
-    if (!content) {
-      this.presentToast('Contenido no encontrado.');
-      return;
+    for (const element of this.totalData) {
+      const placeData = await this.getPlaceData(element.id);
+
+      if (placeData) {
+        tableData.push([
+          placeData.name,
+          placeData.type,
+          placeData.address,
+          placeData.zip,
+          placeData.town,
+          placeData.averageRating
+        ]);
+      }
     }
 
-    await this.captureContentAsPDF(content);
+    autoTable(doc, {
+      head: [['Nombre', 'Tipo', 'Dirección', 'Código postal', 'Ciudad', 'Valoración media']],
+      body: tableData,
+      startY: 10,
+      theme: 'striped',
+      headStyles: { fillColor: [22, 160, 133] },
+    });
+
+    doc.save('favorite-list.pdf');
   }
+
 
   private async fillData() {
     const token = await this._storageService.getToken();
@@ -67,39 +89,15 @@ export class FavoriteListPage {
       });
   }
 
-  private async captureContentAsPDF(content: HTMLElement) {
-    const imgPromises: any[] = [];
+  private async getPlaceData(placeId: string): Promise<PlaceData | null> {
+    const token = await this._storageService.getToken();
+    const userId = (await this._storageService.getUserData()).id;
 
-    // Pre-cargar imágenes
-    const imgElements = content.querySelectorAll('img');
-    imgElements.forEach(img => {
-      const promise = new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = () => reject(new Error('Error al cargar la imagen.'));
+    return new Promise((resolve, reject) => {
+      this._petRadarApiService.getPlaceById(token, placeId, userId).subscribe({
+        next: (place: PlaceData) => resolve(place),
+        error: () => resolve(null)
       });
-      imgPromises.push(promise);
-    });
-
-    // Esperar a que todas las imágenes se carguen
-    try {
-      await Promise.all(imgPromises);
-    } catch (error) {
-      this.presentToast('Error al cargar imágenes:');
-      return;
-    }
-
-    // Una vez que todas las imágenes están cargadas, capturar el contenido como PDF
-    html2canvas(content).then(canvas => {
-      const imgWidth = 210;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      const contentDataURL = canvas.toDataURL('image/jpeg');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      pdf.addImage(contentDataURL, 'JPEG', 0, 0, imgWidth, imgHeight);
-      pdf.save('documento.pdf');
-    }).catch(error => {
-      this.presentToast('Error al generar PDF');
     });
   }
 

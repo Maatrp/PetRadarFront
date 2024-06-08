@@ -202,6 +202,13 @@ export class PlaceCardComponent implements OnInit, OnChanges {
       this.isRequestPlaceUrl = false;
     }
   }
+  public getImage() : string | undefined{
+    if (this.data && this.data.placeImages && this.data.placeImages.length > 0) {
+      return this.data.placeImages[0].src || ''; 
+    } else {
+      return undefined; 
+    }  
+  }
 
   // Muestra un toast
   private async presentToast(message: string) {

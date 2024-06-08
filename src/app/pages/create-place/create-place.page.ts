@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { ToastController } from '@ionic/angular';
+import { PlaceImage } from 'src/app/interface/place-image';
 
 @Component({
   selector: 'app-create-place',
@@ -22,9 +23,9 @@ export class CreatePlacePage {
   typePlaceList: string[] = [];
   tagsPlaceList: string[] = [];
   restrictionsPlaceList: string[] = [];
-  selectedFiles: File[] = [];
+  selectedFile: File | null = null;
+  placeImage: PlaceImage | null = null;
   hasPermissions: boolean = false;
-
   selectedTags: string[] = [];
   selectedRestrictions: string[] = [];
 
@@ -48,18 +49,6 @@ export class CreatePlacePage {
     }
   }
 
-  onFileSelected(event: any): void {
-    const files: FileList | null = event.target.files;
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files.item(i);
-        if (file) {
-          this.selectedFiles.push(file);
-        }
-      }
-    }
-  }
-
   async accept() {
     try {
       if (this.form.valid) {
@@ -67,6 +56,7 @@ export class CreatePlacePage {
         this._router.navigate(['/map']);
       }
     } catch (error) {
+      console.log(error);
       this.presentToast('Incidencia en la creación de lugar');
     }
   }
@@ -120,20 +110,27 @@ export class CreatePlacePage {
     }
   }
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
   // Crea el lugar
   private async createPlace(placeData: PlaceData) {
+
     const token = await this._storageService.getToken();
     const userId = (await this._storageService.getUserData()).id;
     placeData.tags = this.selectedTags;
     placeData.restrictions = this.selectedRestrictions;
+    placeData.placeImages = [];
 
-    this._petRadarApiService.postCreatePlace(token, userId, placeData)
+    this._petRadarApiService.postCreatePlace(token, userId, placeData, this.selectedFile)
       .subscribe(
         () => {
           this.presentToast('Creado con éxito');
           this._router.navigate(['/map']);
         },
-        () => {
+        (error) => {
+          console.log(error);
           this.presentToast('Error al crear el lugar');
         }
       );

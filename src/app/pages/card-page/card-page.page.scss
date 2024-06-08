@@ -54,7 +54,7 @@
 
 hr.divider {
     border: none;
-    border-top: 2px solid #ccc;    
+    border-top: 2px solid #ccc;
     margin: 0;
 }
 
@@ -279,18 +279,10 @@ ion-card-content {
 
     // Image
     .card-image {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
+        display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
-    }
-
-    ion-img {
-        justify-self: center;
-        align-self: start;
-        max-width: 60%;
-        max-height: 60%;
     }
 
     // Title
@@ -332,7 +324,7 @@ ion-card-content {
     .tag-size,
     .restriction-size,
     .tag-title,
-    .restriction-title{
+    .restriction-title {
         font-size: 1.4em;
     }
 
