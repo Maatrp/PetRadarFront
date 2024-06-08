@@ -27,7 +27,7 @@
         <div class="col-11">
           <div class="title">{{ data.name }}</div>
         </div>
-        <div class="col-1 heart-icon" *ngIf="isLoggedIn">
+        <div class="col-1 heart-icon" *ngIf="isLoggedIn && !showUpdateStatusButton">
           <ion-icon
             name="heart-outline"
             color="danger"
@@ -96,7 +96,7 @@
       </div>
       <hr class="divider" />
 
-      <div class="commit-button-container mt-3 mb-0">
+      <div *ngIf="isLoggedIn && !showUpdateStatusButton" class="commit-button-container mt-3 mb-0">
         <ion-button
           *ngIf="!showButtonCreateCommit"
           class="commit-button"

@@ -56,6 +56,7 @@ export class CreatePlacePage {
         this._router.navigate(['/map']);
       }
     } catch (error) {
+      console.log(error);
       this.presentToast('Incidencia en la creación de lugar');
     }
   }

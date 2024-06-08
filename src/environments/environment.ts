@@ -21,6 +21,10 @@ export const environment = {
   // pendingPlacesUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/pending-places',
   // updateStatusPlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/update-status',
   // updateAllStatusPlaceUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/places/update-all-status',
+  // valuationsListUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/valuations',
+  // createValuationsUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/valuations/create',
+  // alreadyValuatedUrl: 'http://petradar-api-1256.eu-west-3.elasticbeanstalk.com/valuations',
+
 
   //'http://127.0.0.1:5000/',
 

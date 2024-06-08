@@ -38,7 +38,7 @@
           (click)="handleClickSelectedPlace($event)"
         ></ion-icon>
       </div>
-      <div *ngIf="isLoggedIn" class="heart-icon">
+      <div *ngIf="isLoggedIn && !isRequestPlaceUrl" class="heart-icon">
         <ion-icon
           name="heart-outline"
           color="danger"
@@ -102,7 +102,7 @@
             (click)="handleClickSelectedPlace($event)"
           ></ion-icon>
         </div>
-        <div *ngIf="isLoggedIn" class="heart-icon">
+        <div *ngIf="isLoggedIn && !isRequestPlaceUrl" class="heart-icon">
           <ion-icon
             name="heart-outline"
             color="danger"

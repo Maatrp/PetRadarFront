@@ -233,6 +233,7 @@ export class CardPagePage implements OnInit, OnChanges {
         await this.createValuation(this.form.value);
         //Añadimos la valoración a la lista que pintamos
         this.valuations.addValuation(this.form.value);
+        location.reload();
       }
     } catch (error) {
       this.presentToast('Incidencia en la creación de usuario');
@@ -250,7 +251,6 @@ export class CardPagePage implements OnInit, OnChanges {
       return !!isAlreadyValuated; // Convertir a booleano
 
     } catch (error) {
-      this.presentToast('No se ha podido valorar el espacio');
       return false;
     }
   }
