@@ -284,6 +284,7 @@ export class CardPagePage implements OnInit, OnChanges {
       return undefined; 
     }  
   }
+  
   private async presentToast(message: string) {
     const toast = await this._toastController.create({
       message: message,
