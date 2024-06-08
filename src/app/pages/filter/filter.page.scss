@@ -31,6 +31,11 @@
     font-size: large;
 }
 
+.select-button {
+    display: flex;
+    align-items: end;
+}
+
 ion-checkbox {
     color: #737373;
     border-color: #737373;
@@ -39,7 +44,7 @@ ion-checkbox {
 }
 
 // Buttons
-ion-button.init-session {
+ion-button.search-button {
     --background: #ae7e52;
     color: white;
 }

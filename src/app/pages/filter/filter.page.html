@@ -21,6 +21,10 @@
         </div>
         <ion-list class="kind-places" (ionChange)="onSelectionChange()">
           <ion-label position="floating">Tipo de lugar:</ion-label>
+          <div class="select-button">
+            <ion-button class="selectAll-button" (click)="selectAll()">Seleccionar todos</ion-button>
+            <ion-button class="unselectAll-button" (click)="deselectAll()">Deseleccionar todos</ion-button>
+          </div>
           <div class="ion-item-columns">
             <ion-item *ngFor="let option of options;" lines="none">
               <ion-checkbox [(ngModel)]="option.selected">
@@ -30,7 +34,7 @@
           </div>
         </ion-list>
       </ion-card-content>
-      <ion-button class="init-session" expand="full" (click)="filterSearch()"
+      <ion-button class="search-button" expand="full" (click)="filterSearch()"
         >Buscar</ion-button
       >
     </ion-card>
