@@ -19,8 +19,7 @@ export class AuthService {
 
     async logout(): Promise<void> {
         // Limpiar el token y cualquier otra información de autenticación almacenada
-        await this._storageService.setToken('');
-        await this._storageService.setIsLoggedIn(false);
+        await this._storageService.removeToken();
         await this._storageService.destroyUserData();
 
         // Redirigir al usuario a la página de inicio de sesión

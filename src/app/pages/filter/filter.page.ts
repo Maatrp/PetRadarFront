@@ -46,7 +46,7 @@ export class FilterPage {
 
     this.viewMode = await this._storageService.getViewMode();
 
-    this._router.navigate([this.viewMode], { replaceUrl: true });
+    await this._router.navigate([this.viewMode], { replaceUrl: true });
   }
 
   // Método para marcar las opciones
