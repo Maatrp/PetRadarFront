@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, HostListener, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { PermissionEnum } from 'src/app/enum/permission-enum';
 import { MarkerData } from 'src/app/interface/marker-data';
 import { PetRadarApiService } from 'src/app/services/apis/pet-radar-api.service';
@@ -29,13 +30,25 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.loadRequestPlaceListLength();
-    this.isLogged();
+    // Escucha el evento NavigationEnd
+    this._router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(async () => {
+      // Realiza las acciones necesarias después de cada navegación
+      await this.isLogged();
+      if (this.isLoggedIn) {
+        await this.loadRequestPlaceListLength();
+      }
+    });
   }
 
   async checkPermissions() {
-    await this.checkCreatePlacePermission();
-    await this.checkUpdateStatusPlacePermission();
+    await this.isLogged();
+
+    if(this.isLoggedIn){
+      await this.checkCreatePlacePermission();
+      await this.checkUpdateStatusPlacePermission();
+    }
   }
 
   // Método para mostrar el botón del index

@@ -23,10 +23,9 @@ export class ValuationsComponent implements OnInit {
 
   async ngOnInit() {
     // Inicializamos las valoraciones
-    if (this.placeId) {
+    if (this.placeId && await this._storageService.getIsLoggedIn()) {
       await this.fillData(this.placeId);
     }
-
   }
 
   async fillData(placeId: string) {
@@ -48,7 +47,6 @@ export class ValuationsComponent implements OnInit {
             this.valuationsList.push(this.valuation);
           }
         }
-
       }, error: () => {
         this.presentToast('Error al cargar los comentarios');
       }

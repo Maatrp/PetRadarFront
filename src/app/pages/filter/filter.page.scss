@@ -31,6 +31,29 @@
     font-size: large;
 }
 
+.select-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.2rem;
+}
+
+.selectAll-button, 
+.unselectAll-button{
+    margin-left: 0.5rem;
+    padding: 0.75rem;
+    font-size: medium;
+    background-color: white;
+    border: #737373 solid 1.5px;
+    color: #737373;
+    border-radius: 5px;
+}
+
+.selectAll-button:hover,
+.unselectAll-button:hover {
+    background-color: whitesmoke;
+    color: #737373; 
+}
+
 ion-checkbox {
     color: #737373;
     border-color: #737373;
@@ -39,7 +62,7 @@ ion-checkbox {
 }
 
 // Buttons
-ion-button.init-session {
+ion-button.search-button {
     --background: #ae7e52;
     color: white;
 }

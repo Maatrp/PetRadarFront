@@ -12,7 +12,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
   templateUrl: './my-account.page.html',
   styleUrls: ['./my-account.page.scss'],
 })
-export class MyAccountPage implements OnInit {
+export class MyAccountPage {
   isLoggedIn: boolean = false;
   username: string = '';
   email: string = '';
@@ -32,11 +32,11 @@ export class MyAccountPage implements OnInit {
     private _toastController: ToastController,
   ) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.isLoggedIn = await this._storageService.getIsLoggedIn();
 
     if(!this.isLoggedIn){
-      this._router.navigate(['/login']);
+      await this._router.navigate(['/login']);
 
     }else{
       this.hasPermissions = await this._authService.checkPermission(

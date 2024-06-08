@@ -53,7 +53,7 @@ export class CreatePlacePage {
     try {
       if (this.form.valid) {
         await this.createPlace(this.form.value);
-        this._router.navigate(['/map']);
+        //await this._router.navigate(['/map']);
       }
     } catch (error) {
       console.log(error);

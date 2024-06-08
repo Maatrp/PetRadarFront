@@ -40,7 +40,6 @@ export class LoginPage implements OnInit {
     return this._petRadarApiService.postAuthUser(userName, password).subscribe({
       next: async (value: AuthResponse) => {
         if (value.jwt != null) {
-          await this._storageService.setIsLoggedIn(true);
           await this._storageService.setToken(value.jwt);
           await this._storageService.setUserData(value.user);
           await this._router.navigate(['/map']);
